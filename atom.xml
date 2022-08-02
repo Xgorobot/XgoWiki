@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Xgo Wiki</title>
+  
+  
+  <link href="https://xgorobot.github.io/XgoWiki/atom.xml" rel="self"/>
+  
+  <link href="https://xgorobot.github.io/XgoWiki/"/>
+  <updated>2022-08-02T05:41:14.426Z</updated>
+  <id>https://xgorobot.github.io/XgoWiki/</id>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>正运动学分析</title>
+    <link href="https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E6%AD%A3%E8%BF%90%E5%8A%A8%E5%AD%A6%E5%88%86%E6%9E%90/"/>
+    <id>https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E6%AD%A3%E8%BF%90%E5%8A%A8%E5%AD%A6%E5%88%86%E6%9E%90/</id>
+    <published>2022-03-23T15:04:57.000Z</published>
+    <updated>2022-08-02T05:41:14.426Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="正运动学分析">正运动学分析</h1><p>  本章涉及到四足机器人的建模分析方面的内容。通过对四足机器人单腿建立数学模型，解决单腿运动学正解与反解的问题 ## 2.1 运动学参数   为了便于整机设计与建模分析，在仿真软件Webots中，按照传统的四足机器人的外形结构建立了仿真模型，名为XGOmini。如图2-1所示。 <img src="./图2-1.png" alt="图2-1 四足机器人仿真模型" style="zoom:50%;" /></p><p>图2-1所示的机器人仿真模型中，四足机器人每条腿具有三个自由度，由上自下依次是根关节、髋关节和膝关节。根关节与髋关节之间的连杆定义为基节，髋关节与膝关节之间的连杆定义为大腿，膝关节与足端之间的连杆定义为小腿。四条腿的结构外形和尺寸参数完全一致，表2-1给出了机器人参数。 <img src="./表2-1.png" alt="表2-1 XGOMINI尺寸参数表" style="zoom:50%;" /></p><h2 id="单腿正运动学建模">2.2 单腿正运动学建模</h2><p>  运动学分析是四足机器人自由步态规划的基础，分为运动学正解和运动学逆解。机器人学中运动学正解是指，给定机械臂关节角度、连杆长度等参数，求解末端的位置和姿态；运动学逆解是指，给定机械臂末端的位置和姿态，求解机械臂对应的各关节运动参数。   四足机器人常用的的运动学建模方法有D-H方法、李代数方法等。D-H方法是Denavit 和Hartenberg提出的一种用于机器人运动学求解的通用方法。D-H方法的思路为，在机器臂的所有连杆上都建立一个坐标系，运用变换矩阵来描述相邻两连杆之间的空间变换关系，能够应用于任意自由度数串联机构的正向运动学场景。但是当自由度数过多时，运用D-H方法求解运动学逆解，会出现解不唯一和无法获得逆运动学解析解的问题。不过由于XGOmini单腿只有三个自由度，所以可以使用D-H方法进行运动学建模。   由于四足机器人的四条腿结构完全对称，所以只对单腿进行运动学建模即可。本文以左前腿为例，如图2-2所示，首先分别建立整机坐标系与单腿连杆坐标系，然后对单腿进行正运动学求解。 <img src="./图2-2.png" alt="图2-2 整机坐标系与左前腿连杆坐标系" style="zoom:50%;" /></p><p>  根据表2-1可以得到左前腿连杆坐标系的参数，如表2-2所示。 <img src="./表2-2.png" alt="表2-2 左前腿连杆坐标系参数表" style="zoom:50%;" /></p><p>其中，连杆长度<span class="math inline">\(a_{i-1}\)</span>表示的是两关节轴线之间的距离，即从<span class="math inline">\(z_{i-1}\)</span>和<span class="math inline">\(z_{i}\)</span>之间的公垂线长度； 连杆扭角<span class="math inline">\(\alpha_{i-1}\)</span>表示的是两关节轴线间的夹角，即从<span class="math inline">\(z_{i-1}\)</span>到<span class="math inline">\(z_{i}\)</span>绕<span class="math inline">\(x_{i-1}\)</span>旋转的角度； 连杆距离<span class="math inline">\(d_{i}\)</span>表示的是<span class="math inline">\(x_{i-1}\)</span>到<span class="math inline">\(x_{i}\)</span>沿<span class="math inline">\(z_{i}\)</span>的距离； 连杆转角 表示的是从 到 沿 旋转的角度。 相邻两个连杆坐标系<span class="math inline">\(\{i\}\)</span>和<span class="math inline">\(\{i-1\}\)</span>之间的空间关系用变换矩阵<span class="math inline">\(_{i}^{i-1}T\)</span>进行描述。是由以下四个子变换得到的： 绕<span class="math inline">\(x_{i-1}\)</span>轴旋转<span class="math inline">\(\alpha_{i-1}\)</span>； 沿<span class="math inline">\(x_{i-1}\)</span>轴平移<span class="math inline">\(a_{i-1}\)</span>； 绕<span class="math inline">\(z_{i}\)</span>轴旋转<span class="math inline">\(\theta_{i}\)</span>； 沿<span class="math inline">\(z_{i}\)</span>轴平移<span class="math inline">\(d_{i}\)</span>； c可以得到相邻连杆坐标系之间的变换矩阵<span class="math inline">\(_{i}^{i-1}T\)</span>的表达式： <span class="math display">\[\begin{aligned}_{i}^{i-1}T &amp;=\operatorname{Rot}\left(x, \alpha_{i-1}\right) \cdot \operatorname{Trans}\left(x, a_{i-1}\right) \cdot \operatorname{Rot}\left(x, \alpha_{i-1}\right) \cdot \operatorname{Trans}\left(z, d_{i}\right) \\&amp;=\left[\begin{array}{cccc}c \theta_{i} &amp; -s \theta_{i} &amp; 0 &amp; a_{i-1} \\s \theta_{i} c \alpha_{i-1} &amp; c \theta_{i} c \alpha_{i-1} &amp; -s \alpha_{i-1} &amp; -d_{i} s \alpha_{i-1} \\s \theta_{i} s \alpha_{i-1} &amp; c \theta_{i} s \alpha_{i-1} &amp; c \alpha_{i-1} &amp; d_{i} c \alpha_{i-1} \\0 &amp; 0 &amp; 0 &amp; 1\end{array}\right]\end{aligned}\tag{2-1}\]</span>   将表2-2中的参数，代入式(2-1)中，可得两个相邻坐标系之间的变换矩阵，如下： <span class="math display">\[\begin{align}_{1}^{0} T&amp;=\left[\begin{array}{cccc}c \theta_{1} &amp; -s \theta_{1} &amp; 0 &amp; 0 \\s \theta_{1} &amp; c \theta_{1} &amp; 0 &amp; 0 \\0 &amp; 0 &amp; 1 &amp; 0 \\0 &amp; 0 &amp; 0 &amp; 1\end{array}\right] \tag{2-2}\\_{2}^{1} T&amp;=\left[\begin{array}{cccc}c \theta_{2} &amp; -s \theta_{2} &amp; 0 &amp; 0 \\0 &amp; 0 &amp; -1 &amp; -L_{1} \\s \theta_{2} &amp; c \theta_{2} &amp; 0 &amp; 0 \\0 &amp; 0 &amp; 0 &amp; 1\end{array}\right] \tag{2-3}\\_{3}^{2} T&amp;=\left[\begin{array}{cccc}c \theta_{3} &amp; -s \theta_{i} &amp; 0 &amp; L_{2} \\s \theta_{3} &amp; c \theta_{i} &amp; 0 &amp; 0 \\0 &amp; 0 &amp; 1 &amp; 0 \\0 &amp; 0 &amp; 0 &amp; 1\end{array}\right] \tag{2-4}\\_{4}^{3} T&amp;=\left[\begin{array}{cccc}1 &amp; 0 &amp; 0 &amp; L_{3} \\0 &amp; 1 &amp; 0 &amp; 0 \\0 &amp; 0 &amp; 1 &amp; 0 \\0 &amp; 0 &amp; 0 &amp; 1\end{array}\right] \tag{2-5}\\_{0}^{B} T&amp;=\left[\begin{array}{cccc}0 &amp; 0 &amp; 1 &amp; L / 2 \\0 &amp; -1 &amp; 0 &amp; W / 2 \\1 &amp; 0 &amp; 0 &amp; 0 \\0 &amp; 0 &amp; 0 &amp; 1\end{array}\right]\tag{2-6}\end{align}\]</span></p><p>  由式(2-2)到式(2-6)，可以得到足端坐标系<span class="math inline">\(\{O_4\}\)</span>相对于本体坐标系<span class="math inline">\(\{B\}\)</span>的变换矩阵： <span class="math display">\[\begin{aligned}_{4}^{B} T &amp;={ }_{0}^{B} T \cdot{ }_{1}^{0} T \cdot{ }_{2}^{1} T \cdot{ }_{3}^{2} T \cdot{ }_{4}^{3} T \\&amp;=\left[\begin{array}{cccc}S_{23} &amp; c_{23} &amp; 0 &amp; \mathrm{~L} / 2+L_{2} S_{2}-L_{3} S_{23} \\-S_{1} c_{23} &amp; S_{1} S_{23} &amp; c_{1} &amp; \mathrm{~W} / 2+L_{1} c_{1}+L_{2} S_{1} c_{2}-L_{3} S_{1} c_{23} \\c_{1} c_{23} &amp; -c_{1} S_{23} &amp; S_{1} &amp; L_{1} S_{1}+L_{2} c_{1} c_{2}-L_{3} c_{1} c_{23} \\0 &amp; 0 &amp; 0 &amp; 1\end{array}\right]\end{aligned}\tag{2-7}\]</span>   可以将<span class="math inline">\(_{4}^{B} T\)</span>分解为转动部分和移动部分，如下式所示： <span class="math display">\[\begin{align}{ }_{4}^{B} T&amp;=\left[\begin{array}{cccc} &amp; &amp; &amp; P_{x} \\&amp; R &amp; &amp; P_{y} \\&amp; &amp; &amp; P_{z} \\0 &amp; 0 &amp; 0 &amp; 1\end{array}\right]\tag{2-8}\\R&amp;=\left[\begin{array}{ccc}S_{23} &amp; c_{23} &amp; 0 \\-S_{1} c_{23} &amp; S_{1} S_{23} &amp; c_{1} \\c_{1} c_{23} &amp; -c_{1} S_{23} &amp; S_{1}\end{array}\right]\tag{2-9}\\P&amp;=\left[\begin{array}{c}{ }^{B} P_{x} \\{ }^{B} P_{y} \\{ }^{B} P_{z}\end{array}\right]=\left[\begin{array}{c}\mathrm{L} / 2+L_{2} s_{2}-L_{3} s_{23} \\\mathrm{~W} / 2+L_{1} c_{1}+L_{2} s_{1} c_{2}-L_{3} s_{1} c_{23} \\L_{1} s_{1}+L_{2} c_{1} c_{2}-L_{3} c_{1} c_{23}\end{array}\right]\tag{2-10}\end{align}\]</span>   式(2-8)中R代表足端坐标系相对本体坐标系的姿态，在平面自由步态规划问题中不考虑足端姿态，P代表足端在本体坐标系中的位置。式(2-10)即为四足机器人左前腿的运动学正解，若已知该腿的三个关节角度，带入式中可得足端相对于坐标系中的位置。   已知根关节角度范围为<span class="math inline">\(\left[-50^{\circ}, 90^{\circ}\right]\)</span>，髋关节角度范围为<span class="math inline">\(\left[-90^{\circ}, 80^{\circ}\right]\)</span>，膝关节角度范围为<span class="math inline">\(\left[-60^{\circ}, 45^{\circ}\right]\)</span>。利用matlab中的 robotics toolbox 创建四足机器人的单腿模型，在限制范围内，遍历各个关节角度，得到足端工作空间,如图2-3所示。 <img src="./图2-3.png" alt="图2-3 左前腿的足端工作空间" style="zoom:50%;" /></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;正运动学分析&quot;&gt;正运动学分析&lt;/h1&gt;
+&lt;p&gt;  本章涉及到四足机器人的建模分析方面的内容。通过对四足机器人单腿建立数学模型，解决单腿运动学正解与反解的问题 ## 2.1 运动学参数   为了便于整机设计与建模分析，在仿真软件Webots中，按照传统的四足机器人</summary>
+      
+    
+    
+    
+    <category term="1 XGO-Mini Edu" scheme="https://xgorobot.github.io/XgoWiki/categories/1-XGO-Mini-Edu/"/>
+    
+    <category term="四足机器人背景知识" scheme="https://xgorobot.github.io/XgoWiki/categories/1-XGO-Mini-Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>背景介绍</title>
+    <link href="https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D/"/>
+    <id>https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D/</id>
+    <published>2022-03-23T15:04:57.000Z</published>
+    <updated>2022-08-02T05:41:14.436Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="背景介绍">背景介绍</h1><h2 id="课题背景及研究的目的和意义">1.1 课题背景及研究的目的和意义</h2><p>  近几年，足式机器人的发展受到了世界各国的广泛关注。这是因为，相比于传统的轮式和履带式机器人，足式机器人不需要连续的运动路径。足式机器人的运动轨迹为离散的落足点，能够利用非结构化或崎岖地形中的可支撑地形区域行走，因此对复杂地形的适应能力更强。如图1-1所示，行星崎岖的地表上布满碎石，足式机器人在行星探索上相比于传统轮式机器人具有更大的应用价值和应用前景。 <img src="./图1-1.png" alt="图1-1 好奇号周围的火星崎岖地表" style="zoom:50%;" /></p><p>  足式机器人在空间活动中也至关重要，例如在轨维修，大型空间站的在轨装配。空间站舱内外的空间机器人的工作环境是非结构化的非平坦的表面，所以足式机器人可以利用其离散的运动轨迹很好地在空间站舱内外移动。相比于单个机械臂的尺蠖式的移动，多足机器人的移动更加稳定，并且可以在操作的同时调整自身的位置和姿态。</p><p>  常见的足式机器人有双足机器人、四足机器人和六足机器人。四足机器人拥有比双足机器人更好的稳定性，同时具有比六足机器人更灵活的运动性能。因此四足机器人具有好的发展潜力，成为了足式机器人研究中的热点。</p><p>  四足机器人步态规划与控制技术一直是研究的重点，现有的研究中更多地关注了四足机器人的周期性步态，如trot步态和crawl步态等，这些步态的运动周期和摆动腿的顺序固定，这些步态较少地考虑环境因素，一般应用于平坦或地势起伏比较小的地面，不适用于非结构化的崎岖地形。非结构化的崎岖地形，通过一些条件约束，可以等效为一系列离散的落足点的集合。周期性步态无法保证实际的落足点落入该集合内，即无法满足行走于复杂地形。所以人们提出了一种考虑外界环境因素，非周期性的步态——自由步态。</p><p>  自由步态是迈步顺序不固定，步长和迈步方向也不固定的一种非周期步态，自由步态规划中的机器人能够自主根据地形因素、运动学约束和稳定性判据计算出摆动腿及其落足点的位置，可以行走于复杂的非结构环境。因此，为了提高四足机器人的地形适应性。有必要对自由步态规划进行深入研究分析。</p><h2 id="国内外在该方向的研究现状及分析">1.2 国内外在该方向的研究现状及分析</h2><h3 id="四足机器人研究现状">1.2.1 四足机器人研究现状</h3><p>  最早期的四足机器人主要由机械和液压控制，并且需要人工操作。最为典型的是 1968 年美国通用电气公司设计的四足步行机Crawling Truck，见图1-2。 东京工业大学于1976 年研发了四足机器人KUMO-I，见图1-3。KUMO-I是第一台具有自主行走的四足机器人，虽然KUMO-I的四条腿分别有一个电机驱动，但是它拥有一定越障能力，能够在起伏较小的地面上全向移动。 <img src="./图1-2.png" alt="图1-2 四足步行机Crawling Truck" style="zoom:50%;" /></p><p><img src="./图1-3.png" alt="图1-3 四足机器人KUMO-I" style="zoom:50%;" /></p><p>  随着计算机技术和电机技术的快速发展，四足机器人拥有了更加灵巧的驱动关节和算力更强的控制器，可以通过复杂控制算法自主实现多种运动步态。</p><p>  日本电气通讯大学参考了动物运动中神经中枢的反射行为，制了Tekken系列四足机器人，见图1-4。该系列四足机器人采用了基于神经震荡器的中枢模式发生器（Central Pattern Generator）来控制腿的运动。CPG不需要传感器反馈，只根据输入的传感器信号产生节律性运动信号，从而生成对地形自适应的行走步态。 <img src="./图1-4.png" alt="图1-4 Tekken系列四足机器人" style="zoom:50%;" /></p><p>  近年来随着传感器技术和计算机技术的进一步发展，四足机器人搭载了深度摄像头、激光雷达等传感器，拥有了感知周围环境的能力，可以充分利用环境信息进行自主规划，提升地形适应能力。</p><p>自 2005 年以来，美国波士顿动力公司推出了 Big Dog、Cheetah、WildCat 、Spot多款四足机器人，见图1-5。</p><p>  其中Big Dog是世界上第一款真正实现了野外行走的机器人，其通过激光雷达和视觉感知周围环境，将环境转化为可被规划的地图，在此基础上进行路径规划，实现了在复杂坡地上的自主运动。Cheetah猎豹仿生四足机器人在跑步机上可以达到45km/h的速度。仿猫四足机器人WildCat可以高速奔跑情况下灵活转弯。Spotmini四足仿生机器人体型小巧，质量仅约30kg，还可以搭载机械臂，完成自主作业。 <img src="./图1-5.png" alt="图1-5 波士顿动力公司研发的多款四足机器人" style="zoom:50%;" /></p><p>  国内的四足机器人研究起步较晚，但是仍有一些比较突出的成果。杭州宇树科技研发的四足机器人A1，具有较高的功率质量密度比，能够在草地、坡面、松软小石块路面进行自适应行走，还可以实现后空翻，见图1-6。浙江大学研制的四足机器人“绝影”载重可达到 20kg，走速度为每小时 6km。见图1-7。“绝影”在外力的干扰下可以用小碎步调整姿态。 <img src="./图1-6.png" alt="图1-6 四足机器人A1正在后空翻" style="zoom:50%;" /></p><p><img src="./图1-7.png" alt="图1-7四足机器人“绝影”" style="zoom:50%;" /></p><p>  目前国内四足机器人团队和公司更多关注于四足机器人的关节驱动、负载能力和运动性能上，对于四足机器人的环境感知，自主步态规划研究较少。</p><h3 id="自由步态研究现状">1.2.2自由步态研究现状</h3><p>  自由步态是一种根据地形信息和自身状态进行实时调整的智能化步态。自由步态分为两大类，分别为基于规则的和基于搜索的。</p><p>  早期的自由步态规划大多是基于规则的，这种规划根据四足机器人当前重心、四条腿的足端位置、地形条件等信息，通过一组规则，规划下一步机器人的移动。</p><p>  例如Hirose将地形分为可行区域和禁行区域，设计了基于周期性静步态的自由步态。Kumar和Waldron提出了一种改进的波形步态，提升了四足机器人的自主适应能力。该步态下，四足机器人可以根据当前的落足点自主调整之后的步态。但是这些基于规则的方法并未能考虑到全局地形信息，所以机器人在多步运动之后无法找到满足规则的下一步运动，，即陷入了“卡死”状态。</p><p>  此后，Pal和Jayarajan K. 为了规避机器人出现“卡死”状态，提出了基于图搜索过程的局部最优自由步态规划，但约束过于简化，难以运用于实际场景。Pack D J和Kang H提出了一种基于搜索算法的全局步态规划，但是由于全局的规划空间过大，图搜索算法计算量太大，不适合于实时规划。</p><p>  随着传感器技术的发展和计算机算力的提升，自由步态规划发生了巨大的变化。Kolter 等 LittleDog 的相关研究人员在他们发表的论文中较详细地介绍了一个完整的四足机器人的控制系统的框架结构，这个结构包括了高层规划器、低层规划器和低层执行控制器总共三层控制结构。高层规划器负责从三维地形栅格地图信息中，提取出能够供机器人落足的点集，采用专家示教方法为每个落足点打分。低层规划器在移动路径附近搜索代价最小或评价值最高的最佳落足点集。低层执行器完成最基础的运动控制。如图1-8，这种自由步态规划让LittleDog拥有强大的地形适应能力，可以通过复杂崎岖的地形。 <img src="./图1-8.png" alt="图1-8 LittleDog利用自由步态通过梅花桩" style="zoom:50%;" /></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;背景介绍&quot;&gt;背景介绍&lt;/h1&gt;
+&lt;h2 id=&quot;课题背景及研究的目的和意义&quot;&gt;1.1 课题背景及研究的目的和意义&lt;/h2&gt;
+&lt;p&gt;  近几年，足式机器人的发展受到了世界各国的广泛关注。这是因为，相比于传统的轮式和履带式机器人，足式机器人不需要连续的运动路径。足</summary>
+      
+    
+    
+    
+    <category term="1 XGO-Mini Edu" scheme="https://xgorobot.github.io/XgoWiki/categories/1-XGO-Mini-Edu/"/>
+    
+    <category term="四足机器人背景知识" scheme="https://xgorobot.github.io/XgoWiki/categories/1-XGO-Mini-Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>足端轨迹规划</title>
+    <link href="https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E8%B6%B3%E7%AB%AF%E8%BD%A8%E8%BF%B9%E8%A7%84%E5%88%92/"/>
+    <id>https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E8%B6%B3%E7%AB%AF%E8%BD%A8%E8%BF%B9%E8%A7%84%E5%88%92/</id>
+    <published>2022-03-23T15:04:57.000Z</published>
+    <updated>2022-08-02T05:41:14.461Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="足端轨迹规划">足端轨迹规划</h1><p>  四足机器人足端轨迹规划是自由步态规划中重要的一部分，足端轨迹影响着四足机器人迈步的准确性、行走的稳定性和足端落地的冲击力，同时影响着四足机器人的越障能力。   在周期步态之中，四足机器人的移动追求快速性，所以足端运动速度较大，足端轨迹规划的优化目标轨迹的平滑性。而在自由步态中，四足机器人的移动追求平稳性和越障性。所以本文中设计了一种矩形摆动轨迹，使得摆动腿在移动过程中与支撑面保持一定高度，尽可能地越过地面上可能存在的障碍。   如图2-5所示，矩形摆动轨迹分为三个阶段：竖直抬起阶段、水平移动阶段和竖直下降阶段。假设在本体坐标系下起始落脚点坐标为<span class="math inline">\(\left(x_{s}, y_{s}, z_{n}\right)\)</span>,目标脚点坐标为<span class="math inline">\(\left(x_{g}, y_{g}, z_{n}\right)\)</span>，摆动腿将竖直抬起一定的高度<span class="math inline">\(z_m\)</span>，然后水平移动到落脚点正上方，最后竖直落下。为了减少足端落地时带来的冲击力，需要在规划中给竖直下降阶段分配更多的运动时间，来降低足端运动速度。设单次摆动所需的时间为<span class="math inline">\(T_m\)</span>，竖直抬起阶段用时为<span class="math inline">\(T_m/4\)</span>,水平移动阶段用时为<span class="math inline">\(T_m/4\)</span>，竖直下降阶段<span class="math inline">\(T_m/2\)</span>。 <img src="./图2-5.png" alt="图2-5 四足机器人越障示意图" style="zoom:50%;" />   则可得到四足机器人的足端运动轨迹在本体坐标系下的方程， <span class="math display">\[\begin{align}F_{x}(\mathrm{t})=\left\{\begin{array}{lr}x_{s} &amp; , t \in\left[0, \frac{T_{m}}{4}\right) \\x_{s}+\frac{4 \cdot\left(x_{g}-x_{s}\right)}{T_{m}} \cdot\left(\mathrm{t}-\frac{T_{m}}{4}\right) &amp; , t \in\left[\frac{T_{m}}{4}, \frac{T_{m}}{2}\right) \\x_{g} &amp; , t \in\left[\frac{T_{m}}{2}, T_{m}\right]\end{array}\right.\tag{2-15}\\F_{y}(\mathrm{t})=\left\{\begin{array}{ll}y_{s} &amp; , t \in\left[0, \frac{T_{m}}{4}\right) \\y_{s}+\frac{4 \cdot\left(y_{g}-y_{s}\right)}{T_{m}} \cdot\left(\mathrm{t}-\frac{T_{m}}{4}\right) &amp; , t \in\left[\frac{T_{m}}{4}, \frac{T_{m}}{2}\right) \\y_{g} &amp; t \in\left[\frac{T_{m}}{2}, T_{m}\right]\end{array}\right.\tag{2-16}\\\quad F_{z}(\mathrm{t})=\left\{\begin{array}{ll}z_{n}+\frac{4 \cdot z_{m}}{T_{m}} \cdot \mathrm{t} \quad&amp;, t \in\left[0, \frac{T_{m}}{4}\right)\\z_{n}+z_{m} &amp; , t \in\left[\frac{T_{m}}{4}, \frac{T_{m}}{2}\right) \\z_{n}+2 \cdot z_{m}-\frac{2 \cdot z_{m}}{T_{m}} \cdot \mathrm{t} &amp; , t \in\left[\frac{T_{m}}{2}, T_{m}\right]\tag{2-17}\end{array}\right.\end{align}\]</span></p><p>  在实际控制过程中，运动学逆解算的输入值是足端坐标，所以需要将末端轨迹离散化，如果离散化后的控制点数量过少，则会导致实际运动轨迹无法很好地跟踪期望轨迹，因为末端在两个控制点之间的实际轨迹是一条曲线。假设只取每个阶段的终止位置进行逆解算控制，如图2-6所示，图中蓝色的方形为所取的控制点，红色实线代表期望轨迹，蓝色虚线代表实际运动轨迹。可以看到实际运动轨迹有着较大的偏差，在水平平移阶段抬腿高度有所下降影响越障性能，并且在竖直下降阶段偏斜着接触地面，这会给四足机器人带来侧向冲击力，影响稳定性。 <img src="./图2-6.png" alt="图2-6 只取三个控制点的实际足端运动轨迹" style="zoom:50%;" /></p><p>  所以需要在轨迹上取适量的控制点，在竖直上升轨迹和水平移动轨迹上各取10个控制点，在竖直下降轨迹上取20个控制点，再次在matlab中进行仿真。如图2-7所示，实际足端运动轨迹很好地跟踪了期望轨迹。在实际控制过程中，将以20Hz的频率依次发送控制点的结算结果，这样即满足了轨迹跟踪精度，也控制了竖直下降阶段足端的速度。 <img src="./图2-7.png" alt="图2-7取合理离散点的实际足端运动轨迹" style="zoom:50%;" /></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;足端轨迹规划&quot;&gt;足端轨迹规划&lt;/h1&gt;
+&lt;p&gt;  四足机器人足端轨迹规划是自由步态规划中重要的一部分，足端轨迹影响着四足机器人迈步的准确性、行走的稳定性和足端落地的冲击力，同时影响着四足机器人的越障能力。   在周期步态之中，四足机器人的移动追求快速性，所以足端</summary>
+      
+    
+    
+    
+    <category term="1 XGO-Mini Edu" scheme="https://xgorobot.github.io/XgoWiki/categories/1-XGO-Mini-Edu/"/>
+    
+    <category term="四足机器人背景知识" scheme="https://xgorobot.github.io/XgoWiki/categories/1-XGO-Mini-Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>逆运动学分析</title>
+    <link href="https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E9%80%86%E8%BF%90%E5%8A%A8%E5%AD%A6%E5%88%86%E6%9E%90/"/>
+    <id>https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E9%80%86%E8%BF%90%E5%8A%A8%E5%AD%A6%E5%88%86%E6%9E%90/</id>
+    <published>2022-03-23T15:04:57.000Z</published>
+    <updated>2022-08-02T05:41:14.464Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="逆运动学分析">逆运动学分析</h1><h2 id="单腿拟运动学建模">2.3 单腿拟运动学建模</h2><p>  在四足机器人运动控制问题中，首先要进行足端运动轨迹规划，然后而不是直接给定各关节角度。这就需要通过运动学逆解，根据给定的足端轨迹，求解出对应的各个关节角度，将其作为舵机的输入，使足端按照规定的轨迹进行移动。   根据式(2-10)，进行整理可以得到。 <span class="math display">\[\begin{align}\theta_{1}&amp;=\arcsin \left(\frac{L \cdot y-L_{1} \cdot z}{y^{2}+z^{2}}\right) \tag{2-11}\\\theta_{3}&amp;=\arcsin \left(\frac{x^{2}+y^{2}+z^{2}-L_{1}^{2}-L_{2}^{2}-L_{3}^{2}}{2 \cdot L_{2} \cdot L_{3}}\right) \tag{2-12}\\\theta_{2}&amp;=\arcsin \left(\frac{L_{3} \cdot \mathrm{c}_{3} \cdot L-\left(L_{3} \cdot \mathrm{s}_{3}+L_{2}\right) \cdot x}{\left(L_{3} \cdot \mathrm{s}_{3}+L_{2}\right)^{2}+\left(L_{3} \cdot \mathrm{c}_{3}\right)^{2}}\right)\tag{2-13}\end{align}\]</span>   其中， <span class="math display">\[L=\sqrt{\left(y^{2}+z^{2}-L_{1}^{2}\right)}\tag{2-14}\]</span>   根据式(2-11)到式(2-14)，给定足端坐标，可求解左前腿对应的各关节角度。将运动学逆解算法移植到webot中，让四足机器人以对角步态前进，足端运动轨迹为正弦曲线。仿真结果如图2-4所示，四足机器人交替抬起对侧两腿向前以正弦轨迹迈步，稳定前进，证明了该逆运动学算法的正确性。 <img src="./图2-4.png" alt="图2-4 在webots中仿真对角步态" style="zoom:50%;" /></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;逆运动学分析&quot;&gt;逆运动学分析&lt;/h1&gt;
+&lt;h2 id=&quot;单腿拟运动学建模&quot;&gt;2.3 单腿拟运动学建模&lt;/h2&gt;
+&lt;p&gt;  在四足机器人运动控制问题中，首先要进行足端运动轨迹规划，然后而不是直接给定各关节角度。这就需要通过运动学逆解，根据给定的足端轨迹，求解出对</summary>
+      
+    
+    
+    
+    <category term="1 XGO-Mini Edu" scheme="https://xgorobot.github.io/XgoWiki/categories/1-XGO-Mini-Edu/"/>
+    
+    <category term="四足机器人背景知识" scheme="https://xgorobot.github.io/XgoWiki/categories/1-XGO-Mini-Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>串口通信协议</title>
+    <link href="https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE/"/>
+    <id>https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE/</id>
+    <published>2022-03-11T09:45:57.000Z</published>
+    <updated>2022-08-02T05:41:14.347Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="文档目的和对象">文档目的和对象</h1><p>本文档适用于任意上位机与XGO系列机器狗驱动板之间命令/数据交互的通信协议。示用于高阶开发者对XGO进行二次开发。</p><h1 id="修订记录">修订记录</h1><p>2022.3.10 创建文档</p><h1 id="硬件连接">硬件连接</h1><p>  用六角扳手到拧下背部两颗螺丝，左右两侧螺丝，尾部两颗螺丝后，拆除机器狗后背板，拔掉开关线。<br />  如下图所示，主板一侧有两个串口通信接口，按主板丝印线序和上位机线序对接(TX接RX、RX接TX)，然后就可以调试了。两个端子对外供电电压分别是5V和3.3V，不可同时使用。<br />  默认情况下3.3V端子被AI模块占用，如果想用其他设备进行串口控制，请将AI模组与主板的连接线拔下。 </br> <img src="./board.png" alt="XGO-Mini电路板" style="zoom:60%;" /></p><h1 id="软件接口">软件接口</h1><p>  采用标准TTL串行通讯。</p><table><thead><tr class="header"><th style="text-align: center;">波特率</th><th style="text-align: center;">115200</th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">数据位</td><td style="text-align: center;">8</td></tr><tr class="even"><td style="text-align: center;">停止位</td><td style="text-align: center;">1</td></tr><tr class="odd"><td style="text-align: center;">奇偶校验位</td><td style="text-align: center;">无</td></tr></tbody></table><h2 id="数据帧格式">数据帧格式</h2><p>  数据帧采用固定格式：帧头+帧长度+数据+校验和+帧尾。</p><table><thead><tr class="header"><th style="text-align: center;">帧头</th><th style="text-align: center;">固定为0x55 0x00</th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">帧长度</td><td style="text-align: center;">整个数据帧的字节数</td></tr><tr class="even"><td style="text-align: center;">数据</td><td style="text-align: center;">依据指令类型有不同含义，见第二部分</td></tr><tr class="odd"><td style="text-align: center;">校验和</td><td style="text-align: center;">长度和数据的所有字节相加，取最低字节，然后取反</td></tr><tr class="even"><td style="text-align: center;">帧尾</td><td style="text-align: center;">固定为0x00 0xAA</td></tr></tbody></table><h2 id="指令">指令</h2><h3 id="写指令无应答0x00">写指令，无应答（0x00）</h3><table><thead><tr class="header"><th style="text-align: center;"><strong>帧头</strong></th><th style="text-align: center;"><strong>帧长度</strong></th><th style="text-align: center;"><strong>指令类型</strong></th><th style="text-align: center;"><strong>首地址</strong></th><th style="text-align: center;"><strong>数据</strong></th><th style="text-align: center;"><strong>校验和</strong></th><th style="text-align: center;"><strong>帧尾</strong></th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">0x55 0x00</td><td style="text-align: center;"></td><td style="text-align: center;">0x00</td><td style="text-align: center;"></td><td style="text-align: center;">data</td><td style="text-align: center;"></td><td style="text-align: center;">0x00 0xAA</td></tr></tbody></table><p>写指令会连续修改从首地址开始的数据，不会产生应答。<br /></br> &gt;例如修改机器狗的前进速度，前进速度地址为0x30，使其以最大速度前进，即速度内容为0xFF，具体指令如下：<br />&gt;0x55 0x00 0x09 0x00 0x30 0xFF 0xC7 0x00 0xAA<br />&gt;其中校验和计算过程如下:<br />&gt;0x09+0x00+0x30+0xFF=0x138，取最低字节0x38，取反得0xC7</p><h3 id="读指令有应答0x02">读指令，有应答（0x02）</h3><table><thead><tr class="header"><th style="text-align: center;"><strong>帧头</strong></th><th style="text-align: center;"><strong>帧长度</strong></th><th style="text-align: center;"><strong>指令类型</strong></th><th style="text-align: center;"><strong>首地址</strong></th><th style="text-align: center;"><strong>读取长度</strong></th><th style="text-align: center;"><strong>校验和</strong></th><th style="text-align: center;"><strong>帧尾</strong></th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">0x55 0x00</td><td style="text-align: center;"></td><td style="text-align: center;">0x02</td><td style="text-align: center;"></td><td style="text-align: center;">uint_8</td><td style="text-align: center;"></td><td style="text-align: center;">0x00 0xAA</td></tr></tbody></table><p>写指令会连续读取从首地址开始的数据，不会产生应答。<br />返回数据包的格式为:</p><table><thead><tr class="header"><th style="text-align: center;"><strong>帧头</strong></th><th style="text-align: center;"><strong>帧长度</strong></th><th style="text-align: center;"><strong>指令类型</strong></th><th style="text-align: center;"><strong>首地址</strong></th><th style="text-align: center;"><strong>数据</strong></th><th style="text-align: center;"><strong>校验和</strong></th><th style="text-align: center;"><strong>帧尾</strong></th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">0x55 0x00</td><td style="text-align: center;"></td><td style="text-align: center;">0x12</td><td style="text-align: center;"></td><td style="text-align: center;">data</td><td style="text-align: center;"></td><td style="text-align: center;">0x00 0xAA</td></tr></tbody></table><p></br> &gt;例如读取12个舵机的角度,0x50为第一个舵机位置的地址,0x0C意思为连续读取12个,具体指令如下：<br />&gt;0x55 0x00 0x09 0x02 0x50 0x0C 0x98 0x00 0xAA<br />&gt;其中校验和计算过程如下:<br />&gt;0x09+0x02+0x50+0x0C=0x67，取反得0x98 </br> &gt;读取返回数据包:<br />&gt;0x55 0x00 0x14 0x12 0x50 0x80 0x80 0x80 0x80 0x80 0x80 0x80 0x80 0x80 0x80 0x80 0x80 0x89 0x00 0xAA ## 机器狗坐标系定义 ### 整机坐标系 在初始站姿情况下，原点位于机身正下方，机器狗前进方向为X轴正向，左为Y轴正向，上为Z轴正向。<br /></br> <img src="./XYZ.png" alt="机器狗整机坐标系示意图" style="zoom:60%;" /></p><h3 id="单腿坐标系">单腿坐标系</h3><p>单腿坐标系用于描述足端的位置，四条腿对应四个独立的单腿坐标系，大腿关节为原点，机器狗前进方向为x轴正向，左为Y轴正向，下为Z轴正向。<br /></br> </br> </br> <img src="./coordinate_system_of_leg.png" alt="机器狗单腿坐标系示意图" style="zoom:80%;" /></p><h2 id="机器狗内存表">机器狗内存表</h2><table><colgroup><col style="width: 7%" /><col style="width: 14%" /><col style="width: 7%" /><col style="width: 7%" /><col style="width: 57%" /><col style="width: 7%" /></colgroup><thead><tr class="header"><th style="text-align: center;"><strong>地址</strong></th><th style="text-align: center;"><strong>功能</strong></th><th style="text-align: center;"><strong>读写</strong></th><th style="text-align: center;"><strong>初始值</strong></th><th style="text-align: center;"><strong>备注</strong></th><th style="text-align: center;"><strong>模式</strong></th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">0x00</td><td style="text-align: center;">工作状态</td><td style="text-align: center;">读</td><td style="text-align: center;">0x00</td><td style="text-align: center;"></td><td style="text-align: center;">状态信息</td></tr><tr class="even"><td style="text-align: center;">0x01</td><td style="text-align: center;">电池电量</td><td style="text-align: center;">读</td><td style="text-align: center;">0xff</td><td style="text-align: center;">范围为0-100，线性对应电量最低值-最高值</td><td style="text-align: center;"></td></tr><tr class="odd"><td style="text-align: center;">0x02</td><td style="text-align: center;">XGO版本</td><td style="text-align: center;">读</td><td style="text-align: center;"></td><td style="text-align: center;">0x00 MINI</td><td style="text-align: center;">0x01 Lite</td></tr><tr class="even"><td style="text-align: center;">0x03</td><td style="text-align: center;">表演模式</td><td style="text-align: center;">写</td><td style="text-align: center;">0x00</td><td style="text-align: center;">0x00正常控制模式</td><td style="text-align: center;">0x01循环做动作</td></tr><tr class="odd"><td style="text-align: center;">0x04</td><td style="text-align: center;">标定模式</td><td style="text-align: center;">写</td><td style="text-align: center;">0x00</td><td style="text-align: center;">0x01进入标定模式 0x00退出标定模式完成标定</td><td style="text-align: center;"></td></tr><tr class="even"><td style="text-align: center;">0x13</td><td style="text-align: center;">蓝牙名称</td><td style="text-align: center;">写</td><td style="text-align: center;">XGOMINI</td><td style="text-align: center;">可命名长度为10个字节，不能为中文，命名后蓝牙名称为XGO_xxxxxx</td><td style="text-align: center;"></td></tr><tr class="odd"><td style="text-align: center;">0x20</td><td style="text-align: center;">卸载舵机</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x00</td><td style="text-align: center;">0x00舵机处于正常工作状态，0x01卸载所有舵机，0x11-0x14依次卸载1-4号腿，0x21-0x24依次恢复1-4号腿</td><td style="text-align: center;">调试模式</td></tr><tr class="even"><td style="text-align: center;">0x21</td><td style="text-align: center;">重置舵机零位</td><td style="text-align: center;">写</td><td style="text-align: center;">0x00</td><td style="text-align: center;">0x00舵机处于正常工作状态0x01所有舵机记录当前位置为零位 该寄存器设定为0x01后，会自动跳变为0x00</td><td style="text-align: center;"></td></tr><tr class="odd"><td style="text-align: center;">0x30</td><td style="text-align: center;">前后移动速度</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;">范围为0x00-0xff，线性对应反向最大值-正向最大值，正方向按机器人坐标系，下同（注③）</td><td style="text-align: center;">整机模式</td></tr><tr class="even"><td style="text-align: center;">0x31</td><td style="text-align: center;">左右移动速度</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="odd"><td style="text-align: center;">0x32</td><td style="text-align: center;">顺逆时针旋转速度</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;">方向遵循右手原则</td><td style="text-align: center;"></td></tr><tr class="even"><td style="text-align: center;">0x33</td><td style="text-align: center;">身体沿x方向平移距离</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;">足端与地面接触点不变而身体扭动，下同</td><td style="text-align: center;"></td></tr><tr class="odd"><td style="text-align: center;">0x34</td><td style="text-align: center;">身体沿y方向平移距离</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="even"><td style="text-align: center;">0x35</td><td style="text-align: center;">身体高度</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="odd"><td style="text-align: center;">0x36</td><td style="text-align: center;">身体绕x轴旋转角度</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;">方向遵循右手原则</td><td style="text-align: center;"></td></tr><tr class="even"><td style="text-align: center;">0x37</td><td style="text-align: center;">身体绕y轴旋转角度</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="odd"><td style="text-align: center;">0x38</td><td style="text-align: center;">身体绕z轴旋转角度</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="even"><td style="text-align: center;">0x39</td><td style="text-align: center;">以一定周期绕x轴旋转身体</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x00</td><td style="text-align: center;">0x00停止，0x01-0xff线性对应最小-最大旋转速度 ，该功能与直接设置位置寄存器不能同时起作用，下同</td><td style="text-align: center;"></td></tr><tr class="odd"><td style="text-align: center;">0x3A</td><td style="text-align: center;">以一定周期绕y轴旋转身体</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x00</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="even"><td style="text-align: center;">0x3B</td><td style="text-align: center;">以一定周期绕z轴旋转身体</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x00</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="odd"><td style="text-align: center;">0x3C</td><td style="text-align: center;">原地踏步</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x00</td><td style="text-align: center;">0x00停止，0x01-0xff线性对应最小-最大踏步高度</td><td style="text-align: center;"></td></tr><tr class="even"><td style="text-align: center;">0x3D</td><td style="text-align: center;">运动模式</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x00</td><td style="text-align: center;">0x00常速运动0x01慢速运动0x02高速运动</td><td style="text-align: center;"></td></tr><tr class="odd"><td style="text-align: center;">0x3E</td><td style="text-align: center;">动作指令</td><td style="text-align: center;">写</td><td style="text-align: center;">0x00</td><td style="text-align: center;">详情见动作指令表 0为默认站姿 1-N为各个动作(见右侧)</td><td style="text-align: center;"></td></tr><tr class="even"><td style="text-align: center;">0x80</td><td style="text-align: center;">以一定周期沿X轴方向平移运动</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x00</td><td style="text-align: center;">0x00停止，0x01-0xff对应最小-最大旋转速度，移动幅度为位置限幅的一半</td><td style="text-align: center;"></td></tr><tr class="odd"><td style="text-align: center;">0x81</td><td style="text-align: center;">以一定周期沿Y轴方向平移运动</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x00</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="even"><td style="text-align: center;">0x82</td><td style="text-align: center;">以一定周期沿Z轴方向平移运动</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x00</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="odd"><td style="text-align: center;">0x40</td><td style="text-align: center;">左前腿x方向足端位置</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;">范围为0x00-0xff，线性对应反向最大值-正向最大值，正方向按机器人坐标系，下同</td><td style="text-align: center;">单腿模式</td></tr><tr class="even"><td style="text-align: center;">0x41</td><td style="text-align: center;">左前腿y方向足端位置</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="odd"><td style="text-align: center;">0x42</td><td style="text-align: center;">左前腿z方向足端位置</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="even"><td style="text-align: center;">0x43</td><td style="text-align: center;">右前腿x方向足端位置</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="odd"><td style="text-align: center;">0x44</td><td style="text-align: center;">右前腿y方向足端位置</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="even"><td style="text-align: center;">0x45</td><td style="text-align: center;">右前腿z方向足端位置</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="odd"><td style="text-align: center;">0x46</td><td style="text-align: center;">右后腿x方向足端位置</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="even"><td style="text-align: center;">0x47</td><td style="text-align: center;">右后腿y方向足端位置</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="odd"><td style="text-align: center;">0x48</td><td style="text-align: center;">右后腿z方向足端位置</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="even"><td style="text-align: center;">0x49</td><td style="text-align: center;">左后腿x方向足端位置</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="odd"><td style="text-align: center;">0x4A</td><td style="text-align: center;">左后腿y方向足端位置</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="even"><td style="text-align: center;">0x4B</td><td style="text-align: center;">左后腿z方向足端位置</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="odd"><td style="text-align: center;">0x50</td><td style="text-align: center;">ID为11舵机位置</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;">范围为0x00-0xff，线性对应反向最大值-正向最大值，下同</td><td style="text-align: center;">舵机模式</td></tr><tr class="even"><td style="text-align: center;">0x51</td><td style="text-align: center;">ID为12舵机位置</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="odd"><td style="text-align: center;">0x52</td><td style="text-align: center;">ID为13舵机位置</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="even"><td style="text-align: center;">0x53</td><td style="text-align: center;">ID为21舵机位置</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="odd"><td style="text-align: center;">0x54</td><td style="text-align: center;">ID为22舵机位置</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="even"><td style="text-align: center;">0x55</td><td style="text-align: center;">ID为23舵机位置</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="odd"><td style="text-align: center;">0x56</td><td style="text-align: center;">ID为31舵机位置</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="even"><td style="text-align: center;">0x57</td><td style="text-align: center;">ID为32舵机位置</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="odd"><td style="text-align: center;">0x58</td><td style="text-align: center;">ID为33舵机位置</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="even"><td style="text-align: center;">0x59</td><td style="text-align: center;">ID为41舵机位置</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="odd"><td style="text-align: center;">0x5A</td><td style="text-align: center;">ID为42舵机位置</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="even"><td style="text-align: center;">0x5B</td><td style="text-align: center;">ID为43舵机位置</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="odd"><td style="text-align: center;">0x5C</td><td style="text-align: center;">设置舵机速度</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x80</td><td style="text-align: center;">范围为0x00-0xff，线性对应最小值-最大值（仅在该模式下有效）</td><td style="text-align: center;"></td></tr><tr class="even"><td style="text-align: center;">0x5D</td><td style="text-align: center;">舵机位置设置为站立姿态</td><td style="text-align: center;">写</td><td style="text-align: center;">0x00</td><td style="text-align: center;">0x00不起作用0x01舵机位置恢复站立时位置 该寄存器设定为0x01后，会自动跳变为0x00</td><td style="text-align: center;"></td></tr><tr class="odd"><td style="text-align: center;">0x61</td><td style="text-align: center;">IMU状态</td><td style="text-align: center;">读写</td><td style="text-align: center;">0x00</td><td style="text-align: center;">0x00关闭 0x01自稳定模式</td><td style="text-align: center;"></td></tr><tr class="even"><td style="text-align: center;">0x62</td><td style="text-align: center;">ROLL角度</td><td style="text-align: center;">读</td><td style="text-align: center;">0x01</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="odd"><td style="text-align: center;">0x63</td><td style="text-align: center;">PITCH角度</td><td style="text-align: center;">读</td><td style="text-align: center;">0x02</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr><tr class="even"><td style="text-align: center;">0x64</td><td style="text-align: center;">YAW角度</td><td style="text-align: center;">读</td><td style="text-align: center;">0x03</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr></tbody></table>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;文档目的和对象&quot;&gt;文档目的和对象&lt;/h1&gt;
+&lt;p&gt;本文档适用于任意上位机与XGO系列机器狗驱动板之间命令/数据交互的通信协议。示用于高阶开发者对XGO进行二次开发。&lt;/p&gt;
+&lt;h1 id=&quot;修订记录&quot;&gt;修订记录&lt;/h1&gt;
+&lt;p&gt;2022.3.10 创建文档&lt;</summary>
+      
+    
+    
+    
+    <category term="1 XGO-Mini Edu" scheme="https://xgorobot.github.io/XgoWiki/categories/1-XGO-Mini-Edu/"/>
+    
+    <category term="二次开发" scheme="https://xgorobot.github.io/XgoWiki/categories/1-XGO-Mini-Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>编辑指南</title>
+    <link href="https://xgorobot.github.io/XgoWiki/wiki/Edit/"/>
+    <id>https://xgorobot.github.io/XgoWiki/wiki/Edit/</id>
+    <published>2022-02-26T11:45:57.000Z</published>
+    <updated>2022-08-02T05:41:14.785Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="markdown">Markdown</h1><p>本Wiki站的文章可通过点击右上角的 <strong>Edit</strong> 按钮跳转到Github页面，对文章源文件进行编辑。源文件编辑使用的格式为Markdown。 编辑完成后请联系Github管理员，由Github管理员push到Git page上。</p><p><a href="https://markdown.com.cn/" title="中文Markdown官方教程">中文Markdown官方教程</a> 建议在本地的Markdown编辑器上编辑好后复制/上传，写起来会方便些。</p><h1 id="目录">目录</h1><p>本Wiki站的所有文章目录结构按照Github仓库中文章源文件目录结构编辑（如下图），在创建新文章时可直接跳转到Github创建源文件。 <img src="demo_category.jpg" alt="Wiki目录" /> <img src="demo_md_category.jpg" alt="源文件目录" /></p><h1 id="创建文件">创建文件</h1><p>创建文件或文件夹时，请注意命名：Windows文件名不能包含下列任何字符 /：*？“</p><p>创建.md文件后，请在文件中写入以下代码，并将<code>&lt;文章标题&gt;</code>修改为文章标题（否则无法在目录中显示），后续改动文章内容时不要删除改代码</p><p><code>---</code></p><p><code>title: &lt;文章标题&gt;</code></p><p><code>toc: true</code></p><p><code>date:</code></p><p><code>tags:</code></p><p><code>categories:</code></p><p><code>---</code></p><h1 id="图片">图片</h1><p>文章插入图片时，格式为</p><p><code>![文字描述](图片路径)</code></p><p>或者需要缩放图片时</p><p><code>&lt;img src="图片路径" alt="文字描述" style="zoom:100%;" /&gt;</code></p><p><strong>示例</strong></p><p><code>![Wiki目录](./demo_category.jpg)</code></p><p>缩放80%</p><p><code>&lt;img src="./demo_category.jpg" alt="Wiki目录" style="zoom:80%;" /&gt;</code></p><p><strong>图片位置</strong></p><p>一篇文章的图片建议统一放在文章源文件同级文件夹中，文件夹命名需要与文章名一致</p><figure><img src="./picture_demo.jpg" alt="插入图片" /><figcaption aria-hidden="true">插入图片</figcaption></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;markdown&quot;&gt;Markdown&lt;/h1&gt;
+&lt;p&gt;本Wiki站的文章可通过点击右上角的 &lt;strong&gt;Edit&lt;/strong&gt; 按钮跳转到Github页面，对文章源文件进行编辑。源文件编辑使用的格式为Markdown。 编辑完成后请联系Github管理员</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>产品简介</title>
+    <link href="https://xgorobot.github.io/XgoWiki/wiki/3%20XGO-Ultra/%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/"/>
+    <id>https://xgorobot.github.io/XgoWiki/wiki/3%20XGO-Ultra/%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/</id>
+    <published>2022-02-23T15:45:57.000Z</published>
+    <updated>2022-08-02T05:41:14.785Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="即将推出基于树莓派cm4">即将推出基于树莓派CM4</h1><p>coming soon</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;即将推出基于树莓派cm4&quot;&gt;即将推出基于树莓派CM4&lt;/h1&gt;
+&lt;p&gt;coming soon&lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    <category term="3 XGO-Ultra" scheme="https://xgorobot.github.io/XgoWiki/categories/3-XGO-Ultra/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Python库文件</title>
+    <link href="https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/Python%E5%BA%93%E6%96%87%E4%BB%B6/"/>
+    <id>https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/Python%E5%BA%93%E6%96%87%E4%BB%B6/</id>
+    <published>2022-02-23T15:45:57.000Z</published>
+    <updated>2022-08-02T05:41:14.347Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="xgolib-库文档">XGOLIB 库文档</h2><h3 id="文档目的">文档目的</h3><p>本文档旨在对XGO的API接口进行详细说明，用于上位机python开发。</p><h3 id="修订记录">修订记录</h3><p>2022.3.10 创建文档</p><h3 id="xgo类">XGO类</h3><p>所有的功能都是通过<strong>XGO</strong>所拥有的方法来实现的,在实例化一个XGO类对象时需要传入三个参数，第一个是上位机与机器狗进行串口通讯的物理接口，需要根据实际情况进行修改,第二个参数为波特率为115200，第三个参数为'xgomini'或'xgolite'根据机型进行选择。假设串口通讯接口为COM4，则实例化代码如下。 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dog = XGO(&#x27;COM4&#x27;,115200,&#x27;xgomini&#x27;)</span><br><span class="line">dog = XGO(&#x27;COM4&#x27;,115200,&#x27;xgolite&#x27;)</span><br></pre></td></tr></table></figure> 下文将借用<strong>dog</strong>这个对象进行类方法的功能描述。涉及到位姿调整和单腿控制相关的方法，可查看串口通讯协议文档，了解机器人坐标系定义。 <br/></p><h3 id="移动相关方法">移动相关方法</h3><h4 id="前后左右平移">1.前后左右平移</h4><p><strong>move(direction, step)</strong></p><table><colgroup><col style="width: 27%" /><col style="width: 27%" /><col style="width: 27%" /><col style="width: 18%" /></colgroup><thead><tr class="header"><th style="text-align: center;">参数名</th><th style="text-align: center;">格式</th><th style="text-align: center;">输入范围</th><th>说明</th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">direction</td><td style="text-align: center;">字符</td><td style="text-align: center;">'x'、'X'、'y'、'Y'</td><td>'x'或'X'使机器狗前进或后退，'y'或'Y'使机器狗左移或者右移</td></tr><tr class="even"><td style="text-align: center;">step</td><td style="text-align: center;">数字</td><td style="text-align: center;">x:[-25,25],y:[-18,18]</td><td>该参数代表平移步长，根据方向，正值代表前进或左移，负值代表后退或右移。输入值超过范围时，按照极限值移动。</td></tr></tbody></table><h4 id="旋转">2.旋转</h4><p><strong>turn(step)</strong></p><table><thead><tr class="header"><th style="text-align: center;">参数名</th><th style="text-align: center;">格式</th><th style="text-align: center;">输入范围</th><th>说明</th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">step</td><td style="text-align: center;">数字</td><td style="text-align: center;">[-150,150]</td><td>该参数代表旋转速度，单位为°/s，正值为左转，负值为右转。</td></tr></tbody></table><h4 id="原地踏步">3.原地踏步</h4><p><strong>mark_time(data)</strong></p><table><thead><tr class="header"><th style="text-align: center;">参数名</th><th style="text-align: center;">格式</th><th style="text-align: center;">输入范围</th><th>说明</th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">data</td><td style="text-align: center;">数字</td><td style="text-align: center;">[10,35]</td><td>该参数代表原地踏步抬腿高度，单位为mm，输入为0时停止原地踏步</td></tr></tbody></table><h4 id="改变迈步频率">4.改变迈步频率</h4><p><strong>pace(mode)</strong> 速度 = 步频 x 步幅</p><table><thead><tr class="header"><th style="text-align: center;">参数名</th><th style="text-align: center;">格式</th><th style="text-align: center;">输入范围</th><th>说明</th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">mode</td><td style="text-align: center;">字符串</td><td style="text-align: center;">['normal','slow','high']</td><td>该参数代表迈步频率，normal为默认步频，low为慢速步频，high为高速步频</td></tr></tbody></table><h4 id="停止移动">5.停止移动</h4><p><strong>stop()</strong> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">示例</span><br><span class="line">#机器狗以18mm步长前进</span><br><span class="line">dog.move(&#x27;x&#x27;,18)</span><br><span class="line"></span><br><span class="line">#机器狗以5mm步长右移</span><br><span class="line">dog.move(&#x27;y&#x27;,-5)</span><br><span class="line"></span><br><span class="line">#下句代码可以正常执行，会以18mm左移</span><br><span class="line">dog.move(&#x27;Y&#x27;,30)</span><br><span class="line"></span><br><span class="line">#机器狗以60°/s的速度左转</span><br><span class="line">dog.turn(60)</span><br><span class="line"></span><br><span class="line">#机器狗以高速步频进行运动</span><br><span class="line">dog.pace(&#x27;high&#x27;)</span><br><span class="line"></span><br><span class="line">#机器狗以25mm的抬腿高度进行原地踏步</span><br><span class="line">dog.mark_time(25)</span><br><span class="line"></span><br><span class="line">#机器狗停止原地踏步</span><br><span class="line">dog.mark_time(0)</span><br><span class="line"></span><br><span class="line">#机器狗停止移动</span><br><span class="line">dog.stop()</span><br></pre></td></tr></table></figure> 库中基于这些方法封装了一系列方法以便于使用。</p><table><thead><tr class="header"><th style="text-align: center;">方法名</th><th style="text-align: center;">说明</th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">move_x(step)</td><td style="text-align: center;">前后移动，相当于move('x', step)</td></tr><tr class="even"><td style="text-align: center;">move_y(step)</td><td style="text-align: center;">左右移动，相当于move('y', step)</td></tr><tr class="odd"><td style="text-align: center;">forward(step)</td><td style="text-align: center;">前进，相当于move('x', abs(step))</td></tr><tr class="even"><td style="text-align: center;">back(step)</td><td style="text-align: center;">后退，相当于move('x', -abs(step))</td></tr><tr class="odd"><td style="text-align: center;">left(step)</td><td style="text-align: center;">左移，相当于move('y', abs(step))</td></tr><tr class="even"><td style="text-align: center;">right(step)</td><td style="text-align: center;">右移，相当于move('y', -abs(step))</td></tr><tr class="odd"><td style="text-align: center;">turnleft(step)</td><td style="text-align: center;">左转，相当于turn(abs(step))</td></tr><tr class="even"><td style="text-align: center;">turnright(step)</td><td style="text-align: center;">右转，相当于turn(-abs(step))</td></tr></tbody></table><p><br/></p><h3 id="位姿相关方法">位姿相关方法</h3><p>调节位姿时，机器狗四条腿足端位置不发生改变，机身的位置或角度发生变化。</p><h4 id="机身位置平移">1.机身位置平移</h4><p><strong>translation(direction, data)</strong></p><table><thead><tr class="header"><th style="text-align: center;">参数名</th><th style="text-align: center;">格式</th><th style="text-align: center;">输入范围</th><th>说明</th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">direction</td><td style="text-align: center;">单字符或字符列表</td><td style="text-align: center;">'x'、'y'、'z'或包含以上值的列表</td><td>'x'代表前后平移，'y'代表左右平移，'z'代表身高</td></tr><tr class="even"><td style="text-align: center;">data</td><td style="text-align: center;">数字</td><td style="text-align: center;">x:[-35,35],y:[-18,18],z:[75,115]</td><td>该参数代表机身位置平移距离，单位为mm</td></tr></tbody></table><h4 id="机身姿态调整">2.机身姿态调整</h4><p><strong>attitude(direction, data)</strong></p><table><thead><tr class="header"><th style="text-align: center;">参数名</th><th style="text-align: center;">格式</th><th style="text-align: center;">输入范围</th><th>说明</th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">direction</td><td style="text-align: center;">单字符或字符列表</td><td style="text-align: center;">'r'、'p'、'y'或包含以上值的列表</td><td>'r'代表滚转角，'p'代表俯仰角，'y'代表偏航角</td></tr><tr class="even"><td style="text-align: center;">data</td><td style="text-align: center;">数字</td><td style="text-align: center;">r:[-20,20],p:[-15,15],y:[11,11]</td><td>该参数代表机身姿态调节幅度，单位为°</td></tr></tbody></table><h4 id="机身周期平移">3.机身周期平移</h4><p><strong>periodic_tran(direction, period)</strong><br />机器狗机身将以指定周期和方向进行往复平移，幅度为位置平移极限值的一半，可以同时进行多个方向的周期运动。机身周期运动和整机运动不可同时进行。</p><table><thead><tr class="header"><th style="text-align: center;">参数名</th><th style="text-align: center;">格式</th><th style="text-align: center;">输入范围</th><th>说明</th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">direction</td><td style="text-align: center;">单字符或字符列表</td><td style="text-align: center;">'x'、'y'、'z'或包含以上值的列表</td><td>'x'代表前后平移，'y'代表左右平移，'z'代表身高</td></tr><tr class="even"><td style="text-align: center;">period</td><td style="text-align: center;">数字</td><td style="text-align: center;">[1.5,8]</td><td>该参数代表运动周期，单位为s;输入0时代表停止运动</td></tr></tbody></table><h4 id="机身周期旋转">4.机身周期旋转</h4><p><strong>periodic_rot(direction, period)</strong></p><table><thead><tr class="header"><th style="text-align: center;">参数名</th><th style="text-align: center;">格式</th><th style="text-align: center;">输入范围</th><th>说明</th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">direction</td><td style="text-align: center;">单字符或字符列表</td><td style="text-align: center;">'r'、'p'、'y'或包含以上值的列表</td><td>'r'代表滚转角，'p'代表俯仰角，'y'代表偏航角</td></tr><tr class="even"><td style="text-align: center;">period</td><td style="text-align: center;">数字</td><td style="text-align: center;">[1.5,8]</td><td>该参数代表运动周期，单位为s;输入0时代表停止运动</td></tr></tbody></table><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">示例</span><br><span class="line">#机身向前平移18mm</span><br><span class="line">dog.translation(&#x27;x&#x27;,18)</span><br><span class="line"></span><br><span class="line">#机身向右平移10mm，身高设置为100mm</span><br><span class="line">#既可以输入单个值，也可以输入列表以控制多个方向的移动</span><br><span class="line">dog.translation([&#x27;y&#x27;,&#x27;z&#x27;],[-10,100])</span><br><span class="line"></span><br><span class="line">#机身俯仰角设置为10°，偏航角设置为-4°，滚转角设置为8°</span><br><span class="line">dog.attitude([&#x27;p&#x27;,&#x27;y&#x27;,&#x27;r&#x27;],[10,-4,8])</span><br><span class="line"></span><br><span class="line">#机身以3s的周期，进行前后往复平移</span><br><span class="line">dog.periodic_tran(&#x27;x&#x27;,3)</span><br><span class="line"></span><br><span class="line">#机身以3s的周期进行滚转角往复转动，以7.4s周期进行偏航角往复转动</span><br><span class="line">dog.periodic_rot([&#x27;r&#x27;,&#x27;y&#x27;],[3,7.4])</span><br><span class="line"></span><br><span class="line">#停止偏航角的往复转动</span><br><span class="line">dog.periodic_rot(&#x27;y&#x27;,0)</span><br></pre></td></tr></table></figure><h3 id="其余方法">其余方法</h3><h4 id="恢复初始状态">恢复初始状态</h4><p><strong>reset()</strong><br />停止所有运动，所有状态全部恢复到初始状态 <br/></p><h4 id="设置自稳状态">设置自稳状态</h4><p><strong>imu(mode)</strong><br />自稳状态下，机器狗将自动调节姿态角以保持背部处于水平位置，不可在开启时手动设定姿态角。</p><table><thead><tr class="header"><th style="text-align: center;">参数名</th><th style="text-align: center;">格式</th><th style="text-align: center;">输入范围</th><th>说明</th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">mode</td><td style="text-align: center;">整数</td><td style="text-align: center;">0、1</td><td>0代表关闭、1代表开启</td></tr></tbody></table><p><strong>perform(mode)</strong><br />表演模式，机器狗将循环执行预设的动作。</p><table><thead><tr class="header"><th style="text-align: center;">参数名</th><th style="text-align: center;">格式</th><th style="text-align: center;">输入范围</th><th>说明</th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">mode</td><td style="text-align: center;">整数</td><td style="text-align: center;">0、1</td><td>0代表关闭、1代表开启</td></tr></tbody></table><p><br/></p><h4 id="单腿控制">单腿控制</h4><p><strong>leg(leg_id, data)</strong><br />控制指定腿的足端位置</p><table><thead><tr class="header"><th style="text-align: center;">参数名</th><th style="text-align: center;">格式</th><th style="text-align: center;">输入范围</th><th>说明</th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">leg_id</td><td style="text-align: center;">整数</td><td style="text-align: center;">1、2、3、4</td><td>分别代表左前腿、右前腿、右后腿、左后腿</td></tr><tr class="even"><td style="text-align: center;">data</td><td style="text-align: center;">长度为3的数字列表</td><td style="text-align: center;">x:[-35,35],y:[-18,18],z:[75,115]</td><td>该参数代表足端位置，单位为mm</td></tr></tbody></table><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">示例</span><br><span class="line">#设置右前腿足端坐标为(10mm,-12mm,90mm)</span><br><span class="line">dog.leg(2,[10,-12,90])</span><br></pre></td></tr></table></figure><p><br/></p><h4 id="舵机控制">舵机控制</h4><p><strong>motor(motor_id, data)</strong><br />控制舵机旋转角度</p><table><colgroup><col style="width: 27%" /><col style="width: 27%" /><col style="width: 27%" /><col style="width: 18%" /></colgroup><thead><tr class="header"><th style="text-align: center;">参数名</th><th style="text-align: center;">格式</th><th style="text-align: center;">输入范围</th><th>说明</th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">motor_id</td><td style="text-align: center;">整数或整数列表</td><td style="text-align: center;">[11,12,13,21,22,23,31,32,33,41,42,43]</td><td>第一位数字代表舵机所在的腿，第二位数字代表在该腿上的位置，从下到上依次是1，2，3</td></tr><tr class="even"><td style="text-align: center;">data</td><td style="text-align: center;">数字或数字列表</td><td style="text-align: center;">下:[-65, 73],中:[-66, 93],上:[-31, 31]</td><td>该参数代表足端位置，单位为°</td></tr></tbody></table><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">示例</span><br><span class="line">#设置右前腿中舵机转动角度为30°</span><br><span class="line">dog.motor(22,30)</span><br><span class="line"></span><br><span class="line">#设置右前腿上舵机转动角度为10°，左后腿下舵机转动角度为-20°</span><br><span class="line">dog.motor([23,41],[10,-20])</span><br></pre></td></tr></table></figure><p><br/></p><h4 id="单腿舵机卸载">单腿舵机卸载</h4><p><strong>unload_motor(leg_id)</strong><br />使一条腿上的三个舵机卸载，不输出力矩，之后可以随意用手转动，一般用于编写动作</p><table><thead><tr class="header"><th style="text-align: center;">参数名</th><th style="text-align: center;">格式</th><th style="text-align: center;">输入范围</th><th>说明</th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">leg_id</td><td style="text-align: center;">整数</td><td style="text-align: center;">1,2,3,4</td><td>分别代表左前腿、右前腿、右后腿、左后腿</td></tr></tbody></table><h4 id="所有舵机卸载">所有舵机卸载</h4><p><strong>unload_allmotor()</strong><br />使所有舵机卸载，不输出力矩，可以随意用手转动</p><h4 id="单腿舵机加载">单腿舵机加载</h4><p><strong>load_motor(leg_id)</strong><br />使一条腿上的三个舵机<strong>保持当前位置</strong>加载，输出力矩，之后不可以用手转动，一般用于编写动作</p><table><thead><tr class="header"><th style="text-align: center;">参数名</th><th style="text-align: center;">格式</th><th style="text-align: center;">输入范围</th><th>说明</th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">leg_id</td><td style="text-align: center;">整数</td><td style="text-align: center;">1,2,3,4</td><td>分别代表左前腿、右前腿、右后腿、左后腿</td></tr></tbody></table><h4 id="所有舵机加载">所有舵机加载</h4><p><strong>load_allmotor()</strong><br />使所有舵机<strong>保持当前位置</strong>加载，输出力矩，之后不可以用手转动</p><h4 id="设置舵机转动速度">设置舵机转动速度</h4><p><strong>motor_speed(speed)</strong><br />调节舵机转动速度，适用于单独控制舵机的情况</p><table><thead><tr class="header"><th style="text-align: center;">参数名</th><th style="text-align: center;">格式</th><th style="text-align: center;">输入范围</th><th>说明</th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">speed</td><td style="text-align: center;">整数</td><td style="text-align: center;">[0,255]</td><td>0为最低速，255为最高速</td></tr></tbody></table><h4 id="修改蓝牙名称">修改蓝牙名称</h4><p><strong>bt_rename(name)</strong><br />重新修改蓝牙名称，调用该函数后蓝牙会断开链接</p><table><thead><tr class="header"><th style="text-align: center;">参数名</th><th style="text-align: center;">格式</th><th style="text-align: center;">输入范围</th><th>说明</th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">name</td><td style="text-align: center;">字符串</td><td style="text-align: center;">长度不大于10</td><td>机器狗的蓝牙名称格式为<strong>XGO_xxx</strong>，xxx为可修改部分，仅支持ascii码中的字符。</td></tr></tbody></table><h4 id="执行预设动作">执行预设动作</h4><p><strong>action(action_id)</strong></p><table><thead><tr class="header"><th style="text-align: center;">参数名</th><th style="text-align: center;">格式</th><th style="text-align: center;">输入范围</th><th>说明</th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">action_id</td><td style="text-align: center;">整数</td><td style="text-align: center;">[1,255]</td><td>ID与动作对应关系见下表</td></tr></tbody></table><table><thead><tr class="header"><th style="text-align: center;">ID</th><th style="text-align: center;">动作</th><th style="text-align: center;">ID</th><th style="text-align: center;">动作</th><th style="text-align: center;">ID</th><th style="text-align: center;">动作</th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">1</td><td style="text-align: center;">趴下</td><td style="text-align: center;">2</td><td style="text-align: center;">站起</td><td style="text-align: center;">3</td><td style="text-align: center;">匍匐前进</td></tr><tr class="even"><td style="text-align: center;">4</td><td style="text-align: center;">转圈</td><td style="text-align: center;">5</td><td style="text-align: center;">原地踏步</td><td style="text-align: center;">6</td><td style="text-align: center;">蹲起</td></tr><tr class="odd"><td style="text-align: center;">7</td><td style="text-align: center;">转动Roll</td><td style="text-align: center;">8</td><td style="text-align: center;">转动Pitch</td><td style="text-align: center;">9</td><td style="text-align: center;">转动Yaw</td></tr><tr class="even"><td style="text-align: center;">10</td><td style="text-align: center;">三轴转动</td><td style="text-align: center;">11</td><td style="text-align: center;">撒尿</td><td style="text-align: center;">12</td><td style="text-align: center;">坐下</td></tr><tr class="odd"><td style="text-align: center;">13</td><td style="text-align: center;">招手</td><td style="text-align: center;">14</td><td style="text-align: center;">伸懒腰</td><td style="text-align: center;">15</td><td style="text-align: center;">波浪</td></tr><tr class="even"><td style="text-align: center;">16</td><td style="text-align: center;">左右摇摆</td><td style="text-align: center;">17</td><td style="text-align: center;">求食</td><td style="text-align: center;">18</td><td style="text-align: center;">找食物</td></tr><tr class="odd"><td style="text-align: center;">19</td><td style="text-align: center;">握手</td><td style="text-align: center;">20</td><td style="text-align: center;">拜年</td><td style="text-align: center;"></td><td style="text-align: center;"></td></tr></tbody></table><h4 id="标定舵机位置">标定舵机位置</h4><p><strong>calibration(state)</strong><br />如果开机后，某些关节出现了明显的位置偏差，可以调用该功能进行标定。其他情况请<strong>谨慎使用</strong></p><table><colgroup><col style="width: 27%" /><col style="width: 27%" /><col style="width: 27%" /><col style="width: 18%" /></colgroup><thead><tr class="header"><th style="text-align: center;">参数名</th><th style="text-align: center;">格式</th><th style="text-align: center;">输入范围</th><th>说明</th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">state</td><td style="text-align: center;">整数</td><td style="text-align: center;">[0,1]</td><td>1 进入标定状态，此时舵机卸力，然后将机器狗摆至标定状态，小腿与地面平行，大腿与躯干呈90°，躯干与地面平行；0 完成标定</td></tr></tbody></table><h3 id="读取相关方法">读取相关方法</h3><h4 id="读取舵机角度">读取舵机角度</h4><p><strong>read_motor()</strong><br />读取12个舵机的角度， 读取成功则返回长度为12的列表，对应编号[11,12,13,21,22,23,31,32,33,41,42,43]的舵机角度， 读取失败则返回空列表</p><h4 id="读取电池电量">读取电池电量</h4><p><strong>read_battery()</strong><br />读取当前电池电量， 读取成功则返回1-100的整数，代表电池剩余电量百分比， 读取失败则返回0。</p><h4 id="读取姿态角度">读取姿态角度</h4><p><strong>read_roll()</strong><br /><strong>read_pitch()</strong><br /><strong>read_yaw()</strong><br />读取当前姿态角度，读取成功则浮点数，读取失败则返回0</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;xgolib-库文档&quot;&gt;XGOLIB 库文档&lt;/h2&gt;
+&lt;h3 id=&quot;文档目的&quot;&gt;文档目的&lt;/h3&gt;
+&lt;p&gt;本文档旨在对XGO的API接口进行详细说明，用于上位机python开发。&lt;/p&gt;
+&lt;h3 id=&quot;修订记录&quot;&gt;修订记录&lt;/h3&gt;
+&lt;p&gt;2022.</summary>
+      
+    
+    
+    
+    <category term="1 XGO-Mini Edu" scheme="https://xgorobot.github.io/XgoWiki/categories/1-XGO-Mini-Edu/"/>
+    
+    <category term="二次开发" scheme="https://xgorobot.github.io/XgoWiki/categories/1-XGO-Mini-Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>ROS开发</title>
+    <link href="https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/XGO-Mini%20ROS%E5%BC%80%E5%8F%91%E5%8C%85/"/>
+    <id>https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/XGO-Mini%20ROS%E5%BC%80%E5%8F%91%E5%8C%85/</id>
+    <published>2022-02-23T15:45:57.000Z</published>
+    <updated>2022-08-02T05:41:14.347Z</updated>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+      
+      
+    <summary type="html">
+</summary>
+      
+    
+    
+    
+    <category term="1 XGO-Mini Edu" scheme="https://xgorobot.github.io/XgoWiki/categories/1-XGO-Mini-Edu/"/>
+    
+    <category term="二次开发" scheme="https://xgorobot.github.io/XgoWiki/categories/1-XGO-Mini-Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>开发者模式</title>
+    <link href="https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/%E5%BC%80%E5%8F%91%E8%80%85%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/%E5%BC%80%E5%8F%91%E8%80%85%E6%A8%A1%E5%BC%8F/</id>
+    <published>2022-02-23T15:45:57.000Z</published>
+    <updated>2022-08-02T05:41:14.362Z</updated>
+    
+    <content type="html"><![CDATA[<p>开发者固件仅保留了舵机角度控制，PID修改，舵机标定，舵机角度反馈，机身姿态角反馈，电池电量反馈，关机保护，低电量保护的功能。</p><p>相比于默认版本固件，开发者固件仅能通过串口进行控制，不能通过蓝牙远程控制，但是整体的控制频率更高，波特率改为1000000，底层对于舵机的控制频率为250Hz；取消了读取功能，改为以50Hz的频率向上位机发送数据帧，包括电池电量，姿态角度，舵机角度数据，数据反馈更及时，其中舵机角度由于硬件上的原因反馈频率目前为26Hz左右，具体数据帧格式见下表。</p><p>建议配合开发者版本的Python库和示例程序进行使用。</p><p>PID的默认参数为20、0、0，为了保护舵机和电路板建议PID参数不大于60。</p><table><thead><tr class="header"><th style="text-align: center;">参数名称</th><th style="text-align: center;">内容</th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">帧头</td><td style="text-align: center;">0x55 0x00</td></tr><tr class="even"><td style="text-align: center;">帧长度</td><td style="text-align: center;">0x21</td></tr><tr class="odd"><td style="text-align: center;">保留位</td><td style="text-align: center;">0x00 0x00</td></tr><tr class="even"><td style="text-align: center;">roll</td><td style="text-align: center;">float32</td></tr><tr class="odd"><td style="text-align: center;">pitch</td><td style="text-align: center;">float32</td></tr><tr class="even"><td style="text-align: center;">yaw</td><td style="text-align: center;">float32</td></tr><tr class="odd"><td style="text-align: center;">motor11</td><td style="text-align: center;">uint8</td></tr><tr class="even"><td style="text-align: center;">motor12</td><td style="text-align: center;">uint8</td></tr><tr class="odd"><td style="text-align: center;">motor13</td><td style="text-align: center;">uint8</td></tr><tr class="even"><td style="text-align: center;">motor21</td><td style="text-align: center;">uint8</td></tr><tr class="odd"><td style="text-align: center;">motor22</td><td style="text-align: center;">uint8</td></tr><tr class="even"><td style="text-align: center;">motor23</td><td style="text-align: center;">uint8</td></tr><tr class="odd"><td style="text-align: center;">motor31</td><td style="text-align: center;">uint8</td></tr><tr class="even"><td style="text-align: center;">motor32</td><td style="text-align: center;">uint8</td></tr><tr class="odd"><td style="text-align: center;">motor33</td><td style="text-align: center;">uint8</td></tr><tr class="even"><td style="text-align: center;">motor41</td><td style="text-align: center;">uint8</td></tr><tr class="odd"><td style="text-align: center;">motor42</td><td style="text-align: center;">uint8</td></tr><tr class="even"><td style="text-align: center;">motor43</td><td style="text-align: center;">uint8</td></tr><tr class="odd"><td style="text-align: center;">battery</td><td style="text-align: center;">uint8</td></tr><tr class="even"><td style="text-align: center;">校验和</td><td style="text-align: center;">uint8</td></tr><tr class="odd"><td style="text-align: center;">帧尾</td><td style="text-align: center;">0x00 0xAA</td></tr></tbody></table>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;开发者固件仅保留了舵机角度控制，PID修改，舵机标定，舵机角度反馈，机身姿态角反馈，电池电量反馈，关机保护，低电量保护的功能。&lt;/p&gt;
+&lt;p&gt;相比于默认版本固件，开发者固件仅能通过串口进行控制，不能通过蓝牙远程控制，但是整体的控制频率更高，波特率改为1000000，底层对</summary>
+      
+    
+    
+    
+    <category term="1 XGO-Mini Edu" scheme="https://xgorobot.github.io/XgoWiki/categories/1-XGO-Mini-Edu/"/>
+    
+    <category term="二次开发" scheme="https://xgorobot.github.io/XgoWiki/categories/1-XGO-Mini-Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>如何烧录K210固件和更新SD卡文件</title>
+    <link href="https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E7%83%A7%E5%BD%95K210%E5%9B%BA%E4%BB%B6%E5%92%8C%E6%9B%B4%E6%96%B0SD%E5%8D%A1%E6%96%87%E4%BB%B6/"/>
+    <id>https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E7%83%A7%E5%BD%95K210%E5%9B%BA%E4%BB%B6%E5%92%8C%E6%9B%B4%E6%96%B0SD%E5%8D%A1%E6%96%87%E4%BB%B6/</id>
+    <published>2022-02-23T15:45:57.000Z</published>
+    <updated>2022-08-02T05:41:14.466Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="如何烧录k210固件">如何烧录K210固件</h2><h3 id="准备工作">准备工作</h3><ul><li>一台XGO-Mini K210机器狗</li><li>一台windows 计算机</li><li>一根连接计算机和机器狗的数据线</li></ul><h3 id="步骤">步骤</h3><h4 id="电脑下载安装软件kflash">电脑下载安装软件kflash</h4><p>​<a href="https://pan.baidu.com/s/1TtmZn_4eVDkXxP2xTF0UOQ">kflash下载</a>提取码:69hx</p><h4 id="连接狗狗模组更新固件">连接狗狗模组，更新固件</h4><p>​1.打开软件，会弹出如下窗口 <img src="./kflash.png" alt="kflash" /></p><p>​2.上方黄框选择.kfpkg文件（cocorobo-ai-module_firmware_2021-5-20_(中文)_STABLE.kfpkg）</p><p>文件下载地址 <a href="https://pan.baidu.com/s/16xFjt5zcwhJK_SWsXIYgWQ">中文kfpkg</a>，提取码:fns9</p><p>3.连接电脑和狗狗，下方框自动填入</p><p>​4.开始下载并等待下载成功（保持电脑和狗狗连接稳定）</p><p>​5.完成后，模组的版本日期变更为20210520，界面变成中文</p><h2 id="如何更新sd卡文件">如何更新SD卡文件</h2><p>  关闭模组拔出屏幕模块，从SD卡槽中拿出sd卡，通过sd卡读卡器在电脑上读取sd卡文件，大致目录如下，将原来内容全部清除后，将新的内容填入，目录结构不变,<a href="https://pan.baidu.com/s/1i8V_3prDCvq7wiBxDiM2jQ">SD卡中文文件下载</a>,提取码:nesb</p><figure><img src="./SdCodes.png" alt="SdCodes" /><figcaption aria-hidden="true">SdCodes</figcaption></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;如何烧录k210固件&quot;&gt;如何烧录K210固件&lt;/h2&gt;
+&lt;h3 id=&quot;准备工作&quot;&gt;准备工作&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;一台XGO-Mini K210机器狗&lt;/li&gt;
+&lt;li&gt;一台windows 计算机&lt;/li&gt;
+&lt;li&gt;一根连接计算机和机器狗的数据线</summary>
+      
+    
+    
+    
+    <category term="1 XGO-Mini Edu" scheme="https://xgorobot.github.io/XgoWiki/categories/1-XGO-Mini-Edu/"/>
+    
+    <category term="常见问题" scheme="https://xgorobot.github.io/XgoWiki/categories/1-XGO-Mini-Edu/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>如何烧录机器狗本体固件</title>
+    <link href="https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E7%83%A7%E5%BD%95%E6%9C%BA%E5%99%A8%E7%8B%97%E6%9C%AC%E4%BD%93%E5%9B%BA%E4%BB%B6/"/>
+    <id>https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E7%83%A7%E5%BD%95%E6%9C%BA%E5%99%A8%E7%8B%97%E6%9C%AC%E4%BD%93%E5%9B%BA%E4%BB%B6/</id>
+    <published>2022-02-23T15:45:57.000Z</published>
+    <updated>2022-08-02T05:41:14.467Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="方法一使用jlink进行烧录">方法一使用JLink进行烧录</h1><h2 id="硬件连接">硬件连接</h2><p>首先将jlink上的3V3、SWDIO、SWCLK、GND与主板上相对应的针脚链接。<strong>注意线序！插反了有可能会烧毁芯片！</strong>。<br /><img src="./jlink.png" alt="XGO-Mini电路板" style="zoom:80%;" /></p><h2 id="新建工程">新建工程</h2><p>打开JFLASH，新建工程，点击Target Device右侧按钮，在新窗口中选择STM32F405RG系列 <img src="./jflash1.png" alt="新建工程" style="zoom:80%;" /></p><h2 id="开始烧录">开始烧录</h2><p>首先将hex文件拖入软件页面中。<br /><img src="./jflash2.png" alt="加载hex文件" style="zoom:80%;" /></p><p>点击Target-&gt;Connect连接主板，若连接成功，下方会提示Connected Successful。若失败请检查下载工具与主板是否松动。<br /><img src="./jflash3.png" alt="检查连接" style="zoom:80%;" /></p><p>点击Target-&gt;Auto，完成烧录，如果没有Auto就manualprogramming-&gt;Program&amp;Verify也可以烧录。<br /><img src="./jflash4.png" alt="完成烧录" style="zoom:80%;" /></p><h1 id="方法二使用stlink进行烧录">方法二使用STLink进行烧录</h1><h2 id="硬件连接-1">硬件连接</h2><p>首先将jlink上的3V3、SWDIO、SWCLK、GND与主板上相对应的针脚链接。<strong>注意线序！插反了有可能会烧毁芯片！</strong>。<br /><img src="./jlink.png" alt="XGO-Mini电路板" style="zoom:80%;" /></p><h2 id="开始烧录-1">开始烧录</h2><p>打开ST-LINK Utillity<br /><img src="./stlink1.png" alt="ST-LINK Utillity" style="zoom:80%;" /></p><p>将hex文件拖入灰色区域<br /><img src="./stlink2.png" alt="加载hex文件" style="zoom:80%;" /></p><p>在上方点击Target -&gt; Connect，再点击Target -&gt; Program&amp;Verify<br /><img src="./stlink3.png" alt="烧录" style="zoom:80%;" /></p><h1 id="方法三使用usb进行烧录">方法三使用USB进行烧录</h1><h2 id="硬件连接-2">硬件连接</h2><p>把下载拨码拨到ON的位置，插上USB数据线与电脑连接<br /><img src="./usb1.png" alt="usb硬件连接" style="zoom:80%;" /></p><h2 id="isp烧录">ISP烧录</h2><p>打开FLYMCU，操作如下图所示<br /><img src="./usb2.png" alt="软件操作流程" style="zoom:80%;" /> <img src="./usb3.png" alt="operation process" style="zoom:80%;" /></p><p><strong>注意，使用USB ISP烧录时会擦除STM32内部的所有信息，也就是记录的舵机零位被擦出了，所以使用USB烧录后，需要进行标定。</strong></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;方法一使用jlink进行烧录&quot;&gt;方法一使用JLink进行烧录&lt;/h1&gt;
+&lt;h2 id=&quot;硬件连接&quot;&gt;硬件连接&lt;/h2&gt;
+&lt;p&gt;首先将jlink上的3V3、SWDIO、SWCLK、GND与主板上相对应的针脚链接。&lt;strong&gt;注意线序！插反了有可能会烧毁芯片！</summary>
+      
+    
+    
+    
+    <category term="1 XGO-Mini Edu" scheme="https://xgorobot.github.io/XgoWiki/categories/1-XGO-Mini-Edu/"/>
+    
+    <category term="常见问题" scheme="https://xgorobot.github.io/XgoWiki/categories/1-XGO-Mini-Edu/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>如何重新标定机器狗</title>
+    <link href="https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E9%87%8D%E6%96%B0%E6%A0%87%E5%AE%9A%E6%9C%BA%E5%99%A8%E7%8B%97/"/>
+    <id>https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E9%87%8D%E6%96%B0%E6%A0%87%E5%AE%9A%E6%9C%BA%E5%99%A8%E7%8B%97/</id>
+    <published>2022-02-23T15:45:57.000Z</published>
+    <updated>2022-08-02T05:41:14.510Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="方法一使用xgo-app软件">方法一，使用XGO APP软件</h2><p>打开软件，首先通过蓝牙与机器狗相连接，然后点击右上角的齿轮进入设置页面，选择以开发者方式运行。<br /><img src="./cal1.png" alt="APP主页面" style="zoom:80%;" /> <img src="./cal2.png" alt="选择以开发者方式运行" style="zoom:80%;" /></p><p>返回主界页面，软件上方出现了新的按钮，点击进入标定界面。<br /><img src="./cal3.png" alt="进入标定界面" style="zoom:80%;" /></p><p>点击“进入标定模式”，此时舵机会卸载。<br /><img src="./cal4.png" alt="进入标定模式" style="zoom:80%;" /></p><p>将机器狗摆至如下所示位置，<strong>建议在下方垫一张平整的纸</strong>，使机身与桌面平齐，大腿与机身呈90°夹角，小腿与大腿呈90°夹角，小腿贴地。 <img src="./cal5.png" alt="机器狗标定姿势" style="zoom:80%;" /></p><p>在APP中点击完成标定，机器狗会恢复到初始位置</p><h2 id="方法二使用驱动板标定拨码">方法二，使用驱动板标定拨码</h2><p>首先用六角扳手将背盖拆开，然后把标定拨码拨到ON的位置，如果已经在ON的位置，那就拨回去，再拨到ON的位置。此时，此时舵机会卸载。<br /><img src="./cal6.png" alt="标定拨码" style="zoom:80%;" /></p><p>将机器狗摆至如下所示位置，<strong>建议在下方垫一张平整的纸</strong>，使机身与桌面平齐，大腿与机身呈90°夹角，小腿与大腿呈90°夹角，小腿贴地。 <img src="./cal5.png" alt="机器狗标定姿势" style="zoom:80%;" /></p><p>然后将标定拨码拨回，此时完成了标定，机器狗会恢复到初始位置。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;方法一使用xgo-app软件&quot;&gt;方法一，使用XGO APP软件&lt;/h2&gt;
+&lt;p&gt;打开软件，首先通过蓝牙与机器狗相连接，然后点击右上角的齿轮进入设置页面，选择以开发者方式运行。&lt;br /&gt;
+&lt;img src=&quot;./cal1.png&quot; alt=&quot;APP主页面&quot; s</summary>
+      
+    
+    
+    
+    <category term="1 XGO-Mini Edu" scheme="https://xgorobot.github.io/XgoWiki/categories/1-XGO-Mini-Edu/"/>
+    
+    <category term="常见问题" scheme="https://xgorobot.github.io/XgoWiki/categories/1-XGO-Mini-Edu/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>XGO APP蓝牙连接不上机器狗</title>
+    <link href="https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4/XGO%20APP%E8%93%9D%E7%89%99%E8%BF%9E%E6%8E%A5%E4%B8%8D%E4%B8%8A%E6%9C%BA%E5%99%A8%E7%8B%97/"/>
+    <id>https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4/XGO%20APP%E8%93%9D%E7%89%99%E8%BF%9E%E6%8E%A5%E4%B8%8D%E4%B8%8A%E6%9C%BA%E5%99%A8%E7%8B%97/</id>
+    <published>2022-02-23T15:45:57.000Z</published>
+    <updated>2022-08-02T05:41:14.704Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="重启手机蓝牙">重启手机蓝牙。</h2><h2 id="打开手机定位权限">打开手机定位权限</h2>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;重启手机蓝牙&quot;&gt;重启手机蓝牙。&lt;/h2&gt;
+&lt;h2 id=&quot;打开手机定位权限&quot;&gt;打开手机定位权限&lt;/h2&gt;
+</summary>
+      
+    
+    
+    
+    <category term="1 XGO-Mini Edu" scheme="https://xgorobot.github.io/XgoWiki/categories/1-XGO-Mini-Edu/"/>
+    
+    <category term="故障排除" scheme="https://xgorobot.github.io/XgoWiki/categories/1-XGO-Mini-Edu/%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>机器狗不走直线</title>
+    <link href="https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4/%E6%9C%BA%E5%99%A8%E7%8B%97%E4%B8%8D%E8%B5%B0%E7%9B%B4%E7%BA%BF/"/>
+    <id>https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4/%E6%9C%BA%E5%99%A8%E7%8B%97%E4%B8%8D%E8%B5%B0%E7%9B%B4%E7%BA%BF/</id>
+    <published>2022-02-23T15:45:57.000Z</published>
+    <updated>2022-08-02T05:41:14.704Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="机器狗走直线的原理">机器狗走直线的原理：</h3><p>机器狗的主控板上装有陀螺仪，可以感知机器人当前的俯仰、滚转和偏航角，机器狗左转右转会改变偏航角。当机器狗接收到移动命令时，会记录下当前的偏航角，在移动过程中会保持偏航角不变，如果接收到转弯指令则会更新要追踪的偏航角。</p><h3 id="机器狗不走直线有两种表现">机器狗不走直线有两种表现：</h3><h4 id="前进时机器狗斜着走但朝向不变">前进时机器狗斜着走，但朝向不变</h4><p>遇到这种情况，可以在机器狗前进过程中，用手将它的前进朝向拨歪，看看它是否能转回原先的方向。如果没有旋转动作，那说明主板上的陀螺仪失效，请重启后再次尝试，如果多次重启后还是不行，代表陀螺仪故障。如果机器狗在拨歪之后可以转回原来的前进方向，就说明陀螺仪工作正常，斜着走可能是由于舵机零位不准导致的，请重新标定后再次尝试。</p><h4 id="前进时机器狗转弯朝向有较大变化">前进时机器狗转弯，朝向有较大变化</h4><p>说明主板上的陀螺仪失效，请重启后再次尝试，如果多次重启后还是不行，代表陀螺仪故障。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;机器狗走直线的原理&quot;&gt;机器狗走直线的原理：&lt;/h3&gt;
+&lt;p&gt;机器狗的主控板上装有陀螺仪，可以感知机器人当前的俯仰、滚转和偏航角，机器狗左转右转会改变偏航角。当机器狗接收到移动命令时，会记录下当前的偏航角，在移动过程中会保持偏航角不变，如果接收到转弯指令则会更新要</summary>
+      
+    
+    
+    
+    <category term="1 XGO-Mini Edu" scheme="https://xgorobot.github.io/XgoWiki/categories/1-XGO-Mini-Edu/"/>
+    
+    <category term="故障排除" scheme="https://xgorobot.github.io/XgoWiki/categories/1-XGO-Mini-Edu/%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Luwu Dynamics</title>
+    <link href="https://xgorobot.github.io/XgoWiki/wiki/Xgo/"/>
+    <id>https://xgorobot.github.io/XgoWiki/wiki/Xgo/</id>
+    <published>2022-02-22T17:07:57.000Z</published>
+    <updated>2022-08-02T05:41:14.786Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="公司简介">公司简介</h1><p>  陆吾智能成立于2020年，专注于面向青少年人工智能教育的仿生四足机器狗XGO的研发，XGO拥有12自由度，可以模拟波士顿动力的spot mini的动作，作为教学教具可以让孩子学习机械，电子和编程，结合机器人视觉和自然语音处理功能和配套的人工智能教材，让青少年学习AI，为适应未来人工智能生活打下基础。目前公司有核心人员5名，具有哈工大和清华大学硕士以上学历。公司拥有五项核心专利，产品在教育机器人领域取得了各级政府和国家级奖项6项：ICRA DJI 人工智能挑战赛国际冠军、首届高校教育精品成果奖一等奖、全国大学生机械创新设计大赛一等奖、全国大学生机器人大赛Robomasters全国一等奖。哈尔滨大学生创业赛一等奖，2019年的互联网+大学生创新创业大赛省金奖。</p><h1 id="产品系列">产品系列</h1><p>XGO系列产品功能对照表。</p><table><colgroup><col style="width: 27%" /><col style="width: 27%" /><col style="width: 22%" /><col style="width: 22%" /></colgroup><thead><tr class="header"><th style="text-align: center;"><strong>参数</strong></th><th style="text-align: center;"><strong>XGO-Mini Edu</strong></th><th style="text-align: center;"><strong>XGO-Lite</strong></th><th style="text-align: center;"><strong>XGO-Ultra</strong></th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">上位机</td><td style="text-align: center;">K210包含摄像头，屏幕，麦克风</td><td style="text-align: center;">R329包含摄像头，屏幕，麦克风</td><td style="text-align: center;">树莓派</td></tr><tr class="even"><td style="text-align: center;">编程环境</td><td style="text-align: center;">XGOEdu桌面端</td><td style="text-align: center;">Blockly</td><td style="text-align: center;">Python</td></tr><tr class="odd"><td style="text-align: center;">结构件</td><td style="text-align: center;">1.5mm铝合金</td><td style="text-align: center;">1mm铝合金</td><td style="text-align: center;">1mm铝合金</td></tr><tr class="even"><td style="text-align: center;">整机尺寸</td><td style="text-align: center;">默认站姿25-15-16cm</td><td style="text-align: center;">默认站姿23-14-16cm</td><td style="text-align: center;">默认站姿23-14-22cm</td></tr><tr class="odd"><td style="text-align: center;">整机重量</td><td style="text-align: center;">700g</td><td style="text-align: center;">500g</td><td style="text-align: center;">800g</td></tr><tr class="even"><td style="text-align: center;">机器狗关节</td><td style="text-align: center;">6V 4.5KG.CM金属壳钢齿360度磁编码双轴TTL串口舵机</td><td style="text-align: center;">6V 2.3KG.塑料壳金属齿300度双轴TTL串口舵机</td><td style="text-align: center;">6V 4.5KG.CM金属壳钢齿360度磁编码双轴TTL串口舵机</td></tr><tr class="odd"><td style="text-align: center;">腿和足端</td><td style="text-align: center;">硅胶+尼龙</td><td style="text-align: center;">ABS</td><td style="text-align: center;">硅胶+ABS</td></tr><tr class="even"><td style="text-align: center;">下位机</td><td style="text-align: center;">STM32F405RGT6</td><td style="text-align: center;">STM32F405RGT6</td><td style="text-align: center;">ESP32</td></tr><tr class="odd"><td style="text-align: center;">电池</td><td style="text-align: center;">18650 2S 2500毫安</td><td style="text-align: center;">18650 2S 2500毫安</td><td style="text-align: center;">18650 2S 2500毫安</td></tr><tr class="even"><td style="text-align: center;">充电器</td><td style="text-align: center;">8.4V1A</td><td style="text-align: center;">8.4V1A</td><td style="text-align: center;">8.4V1A</td></tr><tr class="odd"><td style="text-align: center;">续航时间</td><td style="text-align: center;">综合工况1小时</td><td style="text-align: center;">综合工况2小时</td><td style="text-align: center;">综合工况2小时</td></tr></tbody></table>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;公司简介&quot;&gt;公司简介&lt;/h1&gt;
+&lt;p&gt;  陆吾智能成立于2020年，专注于面向青少年人工智能教育的仿生四足机器狗XGO的研发，XGO拥有12自由度，可以模拟波士顿动力的spot mini的动作，作为教学教具可以让孩子学习机械，电子和编程，结合机器人视觉和自然语音</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>编程平台和课程</title>
+    <link href="https://xgorobot.github.io/XgoWiki/wiki/2%20XGO-Lite/%E7%BC%96%E7%A8%8B%E5%B9%B3%E5%8F%B0%E5%92%8C%E8%AF%BE%E7%A8%8B/"/>
+    <id>https://xgorobot.github.io/XgoWiki/wiki/2%20XGO-Lite/%E7%BC%96%E7%A8%8B%E5%B9%B3%E5%8F%B0%E5%92%8C%E8%AF%BE%E7%A8%8B/</id>
+    <published>2022-02-16T15:45:57.000Z</published>
+    <updated>2022-08-02T05:41:14.784Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="即将更新">即将更新</h2>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;即将更新&quot;&gt;即将更新&lt;/h2&gt;
+</summary>
+      
+    
+    
+    
+    <category term="2 XGO-Lite" scheme="https://xgorobot.github.io/XgoWiki/categories/2-XGO-Lite/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>配套课程</title>
+    <link href="https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E9%85%8D%E5%A5%97%E8%AF%BE%E7%A8%8B/"/>
+    <id>https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E9%85%8D%E5%A5%97%E8%AF%BE%E7%A8%8B/</id>
+    <published>2022-02-15T15:45:59.000Z</published>
+    <updated>2022-08-02T05:41:14.743Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="课程简介">课程简介</h2><p>XGO-Mini K210机器狗系列课程主要面对小学高年级和初中，设置六大模块，共计40课时，其中包括《知识科普》系列课程，在这个模块中，学生将了解到什么是人工智能，人工智能的历史、图灵测试是什么、机器人的发展史，以及人工智能带给我们的思考。在《狗狗基础》和《机械狗运动》系列课程中，学生将探索机器狗的神奇奥秘；在《编程基础》系列课程中，可快速提升编程技能；为了使学生了解到最前沿、最有趣的人工智能知识，在《智能语音》和《智能图像》系列课程中，通过和狗狗亲密互动，用代码赋能狗狗，让狗狗变得更加聪明有智慧，成为一只人工智能狗！；在《狗狗高级》的课程中，首创了用图形化编程的方式让中小学生理解四足机器人步态算法，通过参数调节实现路径规划，最后综合运用所学知识完成项目。 该课程采用项目式教学方式，通过贴近生活和有趣的情景，带领学生深入探究和了解机器狗的原理，通过动手编程实现人工智能技术的应用，在寓教于乐中提升学生创新思维和实践能力，培养信息化思维和信息素养，为学生未来学习和生活打下坚实基础。</p><h2 id="课程下载">课程下载</h2><p>请联系hello@xgorobot.com 索取课程资料。</p><h2 id="课程目录">课程目录</h2><table><thead><tr class="header"><th style="text-align: center;"><a href="https://docs.qq.com/pdf/DT2hoR0xseVRTc29P"><img src="./11.png" alt="1-1什么是人工智能"  style="zoom:30%;" /></a></th><th style="text-align: center;"><a href="https://docs.qq.com/pdf/DT1FjbFVEWGlPcVZp"><img src="./12.png" alt="1-2人工智能发展史" style="zoom:30%;" /></a></th><th style="text-align: center;"><img src="./13.png" alt="1-3图灵测试" style="zoom:30%;" /></th><th style="text-align: center;"><img src="./14.png" alt="1-4机器人发展史及三定律" style="zoom:30%;" /></th><th style="text-align: center;"><img src="./11.png" alt="1-5对AI的一些思考" style="zoom:30%;" /></th></tr></thead><tbody><tr class="odd"><td style="text-align: center;"><img src="./21.png" alt="2-1 Hi 机械狗" style="zoom:30%;" /></td><td style="text-align: center;"><img src="./22.png" alt="2-2 狗狗知多少" style="zoom:30%;" /></td><td style="text-align: center;"><img src="./23.png" alt="2-3 机器狗关节" style="zoom:30%;" /></td><td style="text-align: center;"><img src="./24.png" alt="2-4 机器狗的核心" style="zoom:30%;" /></td><td style="text-align: center;"><img src="./25.png" alt="2-5 让小狗运动起来1" style="zoom:30%;" /></td></tr><tr class="even"><td style="text-align: center;"><img src="./26.png" alt="2-6 让小狗运动起来2" style="zoom:30%;" /></td><td style="text-align: center;"><img src="./27.png" alt="2-7 小狗街拍秀1" style="zoom:30%;" /></td><td style="text-align: center;"><img src="./28.png" alt="2-8 小狗街拍秀2" style="zoom:30%;" /></td><td style="text-align: center;"><img src="./31.png" alt="3-1 Hello World" style="zoom:30%;" /></td><td style="text-align: center;"><img src="./32.png" alt="3-2 化妆舞会" style="zoom:30%;" /></td></tr><tr class="odd"><td style="text-align: center;"><img src="./33.png" alt="3-3 换脸谱" style="zoom:30%;" /></td><td style="text-align: center;"><img src="./34.png" alt="3-4 动态小球" style="zoom:30%;" /></td><td style="text-align: center;"><img src="./35.png" alt="3-5 数据列表" style="zoom:30%;" /></td><td style="text-align: center;"><img src="./36.png" alt="3-6 定义函数" style="zoom:30%;" /></td><td style="text-align: center;"><img src="./41.png" alt="4-1 音频分析" style="zoom:30%;" /></td></tr><tr class="even"><td style="text-align: center;"><img src="./42.png" alt="4-2 阅兵式" style="zoom:30%;" /></td><td style="text-align: center;"><img src="./43.png" alt="4-3 语音识别" style="zoom:30%;" /></td><td style="text-align: center;"><img src="./44.png" alt="4-4 听懂命令" style="zoom:30%;" /></td><td style="text-align: center;"><img src="./51.png" alt="5-1 察言观色1" style="zoom:30%;" /></td><td style="text-align: center;"><img src="./52.png" alt="5-2 察言观色2" style="zoom:30%;" /></td></tr><tr class="odd"><td style="text-align: center;"><img src="./53.png" alt="5-3 物体识别" style="zoom:30%;" /></td><td style="text-align: center;"><img src="./54.png" alt="5-4 识物小帮手" style="zoom:30%;" /></td><td style="text-align: center;"><img src="./55.png" alt="5-5 人脸识别" style="zoom:30%;" /></td><td style="text-align: center;"><img src="./56.png" alt="5-6 人脸检测" style="zoom:30%;" /></td><td style="text-align: center;"><img src="./57.png" alt="5-7 校园门卫" style="zoom:30%;" /></td></tr><tr class="even"><td style="text-align: center;"><img src="./58.png" alt="5-8 文字识别" style="zoom:30%;" /></td><td style="text-align: center;"><img src="./61.png" alt="6-1 狗狗方向舞" style="zoom:30%;" /></td><td style="text-align: center;"><img src="./62.png" alt="6-2 mini跳跃" style="zoom:30%;" /></td><td style="text-align: center;"><img src="./63.png" alt="6-3 步态-walk" style="zoom:30%;" /></td><td style="text-align: center;"><img src="./64.png" alt="6-4 步态-trot1" style="zoom:30%;" /></td></tr><tr class="odd"><td style="text-align: center;"><img src="./65.png" alt="6-5 步态-trot2" style="zoom:30%;" /></td><td style="text-align: center;"><img src="./66.png" alt="6-6 步态-bound" style="zoom:30%;" /></td><td style="text-align: center;"><img src="./67.png" alt="6-7 陀螺仪" style="zoom:30%;" /></td><td style="text-align: center;"><img src="./68.png" alt="6-8 人脸追踪" style="zoom:30%;" /></td><td style="text-align: center;"><img src="./69.png" alt="6-9 二维码检测" style="zoom:30%;" /></td></tr></tbody></table>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;课程简介&quot;&gt;课程简介&lt;/h2&gt;
+&lt;p&gt;XGO-Mini K210机器狗系列课程主要面对小学高年级和初中，设置六大模块，共计40课时，其中包括《知识科普》系列课程，在这个模块中，学生将了解到什么是人工智能，人工智能的历史、图灵测试是什么、机器人的发展史，以及人工智</summary>
+      
+    
+    
+    
+    <category term="1 XGO-Mini Edu" scheme="https://xgorobot.github.io/XgoWiki/categories/1-XGO-Mini-Edu/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>快速使用</title>
+    <link href="https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8/"/>
+    <id>https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8/</id>
+    <published>2022-02-14T15:45:57.000Z</published>
+    <updated>2022-08-02T05:41:14.516Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="准备工作">准备工作</h1><h3 id="开机">开机</h3><p>把机器狗按照卧姿摆放，避免关节卡死，然后按下机器狗背部的电源开关，开关上的电源环形灯亮起，机器狗缓缓站立，表示开机成功。<br /><img src="./kaiji.gif" alt="机器狗开机" /></p><h3 id="关机">关机</h3><p>按下背部电源开关，环形灯开始闪烁，机器狗缓缓趴下，然后环形灯熄灭，表示系统完全关机。<br /><img src="./guanji.gif" alt="机器狗关机" /></p><h3 id="充电">充电</h3><p>当机器狗电量过低时，机器狗开关按键的环形灯闪烁并趴下，此时代表机器狗需要充电。 将锂电池专用充电器插入机器狗腹部的充电口，约2小时可以充满电，充电时充电器电源指示灯为红色，如充满电指示灯变成绿色。 <img src="./chongdian.gif" alt="机器狗充电" /></p><h1 id="离线模式">离线模式</h1><p>离线模式指的是，机器狗脱离手机或者电脑，通过AI模组上的按键操作即可操作体验机器狗。</p><h3 id="界面说明">界面说明</h3><p>将机器狗平铺后按下电源键，机器狗进入默认站立初始状态，此时屏幕亮起如下图所示。初始界面中有4个信息需要我们掌握，A、B和C键在模组上的位置如下图所示。 <img src="./main1.png" alt="AI模组主页面" /></p><ul><li>固件版本：表示当前AI模块的固件版本号，可以在官方网站下载最新版本固件及工具。</li><li>操作说明：A、B键操控界面菜单选项的切换，C键表示确认操作，长按C健退出当前程序。</li><li>运行上次程序：通过编程将程序上传到AI模块时，可以选择这个选项，让AI模块运行最新一次上传的程序；</li><li>尝试示例程序：选择这个选项，可以进入下一个界面，体验存储在AI模块的SD卡中的示例程序。</li></ul><h4 id="操作简介">操作简介</h4><p>根据初始界面说明，操作模块进入尝试示例程序界面，按键顺序应该是：B→C。我们使用A、B、C键来操作示例程序列表界面,A键：向上一条示例程序，B键：向下一条示例程序/翻页 ,C键：选中示例程序并加载，长按C健:退出示例程序至主菜单。 示例程序列表界面的操作按键与初始界面相同，有3个信息需要我们掌握， 1.示例程序种类：示例程序分为视觉类和语音类。 2.示例程序列表：被选中的示例程序会有白框，且名字会亮起； 3.示例程序序号：本固件版本的示例程序共有17个，斜线左侧的数字为选中的示例程序的序号，斜线右侧的数字为示例程序的总数。</p><h4 id="示例程序">示例程序</h4><ul><li>表演模式 进入程序后，屏幕模组循环显示表情动画，机器狗进入表演模式（执行多种动作）。</li><li>人脸检测 进入程序后，AI模组检测画面中的人脸。如果检测到人脸，屏幕模组显示时会使用矩形框出画面中的人脸，同时机器狗执行握手动作。</li><li>人脸识别 进入程序后，AI模组能够识别到人脸，并框出，标出关键点；按下B键拍下人脸，并标记为master，共可以拍摄3张人脸照片，分别标记为master、friend1、friend2。摄像头再次拍到已标记的人脸时，框会变为绿色，并显示标记及置信度（这张脸在多大程度上是这个标记的脸）。如果识别到master人脸，机器狗会执行三轴转动动作。</li><li>人脸跟随 进入程序后，AI模组进行人脸识别，根据画面中人脸的位置，机器狗自动调整将屏幕正中心对准人脸，形成跟随人脸的效果。</li><li>口罩检测 进入程序后，AI模组进行口罩检测，识别画面中的人像是否配戴了口罩；如果检测到未佩戴口罩，则会以红框标出人像，并显示检测可信度，同时机器狗执行摇头动作；如果检测到佩戴口罩，则会以绿框标出人像，并显示检测可信度，同时机器狗执行点头动作；如果检测可信度小于一定值时，会以蓝框标出人像。</li><li>猜拳游戏 进入程序后，模组会识别画面中的人手，根据手的不同手势，机器狗会显示使机器狗猜拳胜利的图片。(为提高识别准确率，使用时请尽量保证背景简洁，光线充足)</li><li>手势识别 进入程序后，模组会识别画面中的人手，根据手的不同手势，机器狗会做出不同的动作。e.g.手势-动作；拳头-转圈；拒绝-趴下；剪刀手-三轴联动；数字6-波浪；ok-坐下。(为提高识别准确率，使用时请尽量保证背景简洁，光线充足)</li><li>手部跟随 进入程序后，AI模组进行手部检测，能够识别到手部，并框出，根据画面中手部的位置，机器狗自动调整将屏幕正中心对准手部，形成跟随手部的效果。</li><li>交通标志识别 进入程序后，模组开始识别交通标识，可识别的标识包括：“直行”、“停止”、“禁止通行”和“停车”（标识可见下文1.交通标识）；在识别到标识后，机器狗会执行对应动作：前进、站立、后退、坐下。</li><li>红绿灯识别 进入程序后，当模组识别到绿灯时，会在屏幕上以绿色标志标识出来，同时机器狗开始直行；当模组识别到红灯时，会在屏幕以红色标志标识出来，同时机器狗停止运动。</li><li>物体分类 进入程序后，AI模组进行常见物体识别，如果识别到常见物体，则会在画面中框出，并标识出识别到的物体名称；如果未识别到常见物体，则会提示“Nothing Detected”。此外，当识别到的常见物体为人物(“person”)，机器狗会执行摇摆动作；当识别到的常见物体为狗(“dog”)，机器狗会执行撒尿动作；当识别到的常见物体为猫(“cat”)，机器狗会执行三轴转动动作。</li><li>骨头识别 进入程序后，屏幕提示拍摄骨头的照片，按下B键拍摄骨头的照片（共5张），而后屏幕提示拍摄青菜的照片，按下B键拍摄青菜的照片（共5张）。采样完成后，AI模组会识别骨头和青菜，当识别到骨头时，屏幕出现标识，同时机器狗执行觅食动作；当时别到青菜时，屏幕出现标识，同时机器狗执行站立动作。</li><li>区域颜色分析 进入程序后，屏幕中心会出现采色区域方块，并在屏幕上方显示此时区域内的颜色数值和对应色块。</li><li>自动学习并追踪颜色 进入后，程序首先自动捕捉并学习当前画面中心区域的颜色（持续约2秒）；之后进入追踪阶段，检测出画面中与学习内容颜色相近的区域，将其标识出来。</li><li>色块追踪 进入程序后，模组会识别画面中的色块（纯色方块），并会根据色块和自己的相对位置调整自己的位置。（色块颜色越鲜艳效果越好）</li><li>寻找二维码并解码 进入程序后，当屏幕画面中二维码（QR码）时，模组会将其标识出来，并在上方显示解码之后的文字内容。若文字内容为特定的一些命令语句（具体可见下文2.二维码），则机器狗会执行对应动作。</li><li>普通话识别（cs） 进入程序后，AI模组进行普通话识别。屏幕显示有多种动作指令语句，当模组识别到动作指令语句时，机器狗会执行对应的动作。</li><li>音频分析 进入程序后，屏幕模块会显示麦克风采集到的音频，同时机器狗会根据音频做出不同的动作，具体为：采集到低音（红色圈），机器狗执行趴下动作；采集到中低音（绿色圈），机器狗执行伸懒腰动作；采集到中高音（蓝色圈），机器狗执行坐下动作；采集到高音（紫色圈），机器狗执行站立动作。</li></ul><h4 id="示例程序图片素材下载">示例程序图片素材下载</h4><p><a href="https://pan.baidu.com/s/1kcC3BWSee97lP09nt-m7pg">交通标识及二维码下载</a> 提取码：3q31</p><h1 id="移动端遥控模式">移动端遥控模式</h1><p>安卓用户在百度或者小米应用商店搜索XGO，苹果用户在苹果应用市场搜索XGO，下载安装后通过蓝牙遥控机器狗。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;准备工作&quot;&gt;准备工作&lt;/h1&gt;
+&lt;h3 id=&quot;开机&quot;&gt;开机&lt;/h3&gt;
+&lt;p&gt;把机器狗按照卧姿摆放，避免关节卡死，然后按下机器狗背部的电源开关，开关上的电源环形灯亮起，机器狗缓缓站立，表示开机成功。&lt;br /&gt;
+&lt;img src=&quot;./kaiji.gif&quot; </summary>
+      
+    
+    
+    
+    <category term="1 XGO-Mini Edu" scheme="https://xgorobot.github.io/XgoWiki/categories/1-XGO-Mini-Edu/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>编程平台</title>
+    <link href="https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E7%BC%96%E7%A8%8B%E5%B9%B3%E5%8F%B0/"/>
+    <id>https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E7%BC%96%E7%A8%8B%E5%B9%B3%E5%8F%B0/</id>
+    <published>2022-02-14T15:45:57.000Z</published>
+    <updated>2022-08-02T05:41:14.710Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="xgoedu简介">XGOEdu简介</h2><p>XGOEdu是一款为XGO K210模块研发的可视化积木编程平台。用户借助图形化的方式进行程序的编写，也可以直接阅读或编写Python程序。程序编写好以后可以在线执行或者上传到硬件模块中。借助该款平台，用户无需让硬件联网，即可为自己的项目进行AI赋能。该平台在提供入门Python语法的基础之上（逻辑、循环、数学运算、变量、文字处理、列表、字典、元组、集 合、函数、文件操作、时间）,另外提供了与模块编程&amp;相关的不同类别的功能，如:串口输入输出、10的输入 及输出、按钮/LED灯的控制、麦克风的数据获取、摄像头的控制、音视频处理、模型的使用（包括人脸识别、人脸辨识、物体识别、物体分类器、手写数字识别）。用户亦可以自行训练基于TinyYOLO或者 MobileNET的模型，通过我们的平台进行格式转换以后，将可以通过编程平台进行编程，直接运行在XGO的AI模块上。</p><h3 id="xgoedu下载">XGOEdu下载</h3><ul><li>XGO-Mini k210的可视化编程平台<a href="https://pan.baidu.com/s/15ewM4GxwADCfeQ5wceX2jA" title="XGOEdu下载">下载</a>。提取码:jiku</li></ul><h3 id="将机器狗连接计算机">将机器狗连接计算机</h3><ul><li>把机器狗平铺在桌面上，保持电量充足，按键开机按钮，将随机的安卓数据线一段插入AI模组底部，另外插入电脑USB端口，如下图所示。<br /><img src="./zhunbei1.png" alt="数据线连接电脑和机器狗" /></li></ul><h3 id="使用xgoedu对机器狗进行编程">使用XGOEdu对机器狗进行编程</h3><ul><li>安装XGOEdu后，双击XGOEdu按钮，启动编程界面对机器狗进行编程 ,XGOEdu编程界面划分为6个区域：</li></ul><ol type="1"><li>文档存取区：程序项目命名、保存（保存为.xml档）、删除所有积木及所有积木一键截图</li><li>辅助区：样例加载、项目档导入及导出、语言设置</li><li>积木指令区：除基础积木以外（由“逻辑”至“串口通讯”），不同模式下拥有不同的扩展积木。</li><li>积木编程区：将积木拖入此区域中以进行程序编写。</li><li>Python编程区：当用户将积木拖入积木编程区以后，此处将会生成对应Python源代码，支持用户对代码进行编辑、复制、下载及上传，下载后缀为.py格式的python文档。</li><li>上传区：用户可选择使用在线调试或者下载模式。</li></ol><p>XGOEdu主页面如下图所示，具体使用详情请参考课程PPT。<br /><img src="./edu1.png" alt="XGOEdu主页面" /></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;xgoedu简介&quot;&gt;XGOEdu简介&lt;/h2&gt;
+&lt;p&gt;XGOEdu是一款为XGO K210模块研发的可视化积木编程平台。用户借助图形化的方式进行程序的编写，也可以直接阅读或编写Python程序。程序编写好以后可以在线执行或者上传到硬件模块中。借助该款平台，用户无</summary>
+      
+    
+    
+    
+    <category term="1 XGO-Mini Edu" scheme="https://xgorobot.github.io/XgoWiki/categories/1-XGO-Mini-Edu/"/>
+    
+    
+  </entry>
+  
+</feed>

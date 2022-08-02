@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Python库文件 | Xgo Wiki</title>
+    
+    
+        <meta name="keywords" content="Python库文件" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="XGOLIB 库文档 文档目的 本文档旨在对XGO的API接口进行详细说明，用于上位机python开发。 修订记录 2022.3.10 创建文档 XGO类 所有的功能都是通过XGO所拥有的方法来实现的,在实例化一个XGO类对象时需要传入三个参数，第一个是上位机与机器狗进行串口通讯的物理接口，需要根据实际情况进行修改,第二个参数为波特率为115200，第三个参数为&#39;xgomini&#39;或&#39;x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python库文件">
+<meta property="og:url" content="https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/Python%E5%BA%93%E6%96%87%E4%BB%B6/index.html">
+<meta property="og:site_name" content="Xgo Wiki">
+<meta property="og:description" content="XGOLIB 库文档 文档目的 本文档旨在对XGO的API接口进行详细说明，用于上位机python开发。 修订记录 2022.3.10 创建文档 XGO类 所有的功能都是通过XGO所拥有的方法来实现的,在实例化一个XGO类对象时需要传入三个参数，第一个是上位机与机器狗进行串口通讯的物理接口，需要根据实际情况进行修改,第二个参数为波特率为115200，第三个参数为&#39;xgomini&#39;或&#39;x">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-02-23T15:45:57.000Z">
+<meta property="article:modified_time" content="2022-08-02T05:41:14.347Z">
+<meta name="twitter:card" content="summary">
+    
+
+    
+
+    
+        <link rel="icon" href="/XgoWiki/images/xgo_icon45.png" />
+    
+
+    
+<link rel="stylesheet" href="/XgoWiki/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/XgoWiki/libs/open-sans/styles.css">
+
+    
+<link rel="stylesheet" href="/XgoWiki/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/XgoWiki/css/style.css">
+
+    
+<script src="/XgoWiki/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    
+<script src="/XgoWiki/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/XgoWiki/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/XgoWiki/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+<meta name="generator" content="Hexo 5.4.1"><link rel="alternate" href="/XgoWiki/atom.xml" title="Xgo Wiki" type="application/atom+xml">
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/XgoWiki/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Xgo Wiki</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/XgoWiki/">首页</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/XgoWiki/',
+        CONTENT_URL: '/XgoWiki/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/XgoWiki/js/insight.js"></script>
+
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/XgoWiki/">首页</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>分类</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" > 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            1 XGO-Mini Edu
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            二次开发
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file active"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/Python%E5%BA%93%E6%96%87%E4%BB%B6/">Python库文件</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/XGO-Mini%20ROS%E5%BC%80%E5%8F%91%E5%8C%85/">ROS开发</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/%E5%BC%80%E5%8F%91%E8%80%85%E6%A8%A1%E5%BC%8F/">开发者模式</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE/">串口通信协议</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            四足机器人背景知识
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E6%AD%A3%E8%BF%90%E5%8A%A8%E5%AD%A6%E5%88%86%E6%9E%90/">正运动学分析</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D/">背景介绍</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E8%B6%B3%E7%AB%AF%E8%BD%A8%E8%BF%B9%E8%A7%84%E5%88%92/">足端轨迹规划</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E9%80%86%E8%BF%90%E5%8A%A8%E5%AD%A6%E5%88%86%E6%9E%90/">逆运动学分析</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            常见问题
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E7%83%A7%E5%BD%95K210%E5%9B%BA%E4%BB%B6%E5%92%8C%E6%9B%B4%E6%96%B0SD%E5%8D%A1%E6%96%87%E4%BB%B6/">如何烧录K210固件和更新SD卡文件</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E7%83%A7%E5%BD%95%E6%9C%BA%E5%99%A8%E7%8B%97%E6%9C%AC%E4%BD%93%E5%9B%BA%E4%BB%B6/">如何烧录机器狗本体固件</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E9%87%8D%E6%96%B0%E6%A0%87%E5%AE%9A%E6%9C%BA%E5%99%A8%E7%8B%97/">如何重新标定机器狗</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            故障排除
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4/XGO%20APP%E8%93%9D%E7%89%99%E8%BF%9E%E6%8E%A5%E4%B8%8D%E4%B8%8A%E6%9C%BA%E5%99%A8%E7%8B%97/">XGO APP蓝牙连接不上机器狗</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4/%E6%9C%BA%E5%99%A8%E7%8B%97%E4%B8%8D%E8%B5%B0%E7%9B%B4%E7%BA%BF/">机器狗不走直线</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/">产品简介</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%8C%85%E8%A3%85%E6%B8%85%E5%8D%95/">包装清单</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E6%80%A7%E8%83%BD%E5%8F%82%E6%95%B0/">性能参数</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E7%A1%AC%E4%BB%B6%E4%BB%8B%E7%BB%8D/">硬件介绍</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8/">快速使用</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E7%BC%96%E7%A8%8B%E5%B9%B3%E5%8F%B0/">编程平台</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E8%93%9D%E7%89%99%E9%81%A5%E6%8E%A7/">蓝牙遥控</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E9%85%8D%E5%A5%97%E8%AF%BE%E7%A8%8B/">配套课程</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            2 XGO-Lite
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/XgoWiki/wiki/2%20XGO-Lite/%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/">产品简介</a></li>  <li class="file"><a href="/XgoWiki/wiki/2%20XGO-Lite/%E5%8C%85%E8%A3%85%E6%B8%85%E5%8D%95/">包装清单</a></li>  <li class="file"><a href="/XgoWiki/wiki/2%20XGO-Lite/%E6%80%A7%E8%83%BD%E5%8F%82%E6%95%B0/">性能参数</a></li>  <li class="file"><a href="/XgoWiki/wiki/2%20XGO-Lite/%E7%A1%AC%E4%BB%B6%E4%BB%8B%E7%BB%8D/">硬件介绍</a></li>  <li class="file"><a href="/XgoWiki/wiki/2%20XGO-Lite/%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8/">快速使用</a></li>  <li class="file"><a href="/XgoWiki/wiki/2%20XGO-Lite/%E7%BC%96%E7%A8%8B%E5%B9%B3%E5%8F%B0%E5%92%8C%E8%AF%BE%E7%A8%8B/">编程平台和课程</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            3 XGO-Ultra
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/XgoWiki/wiki/3%20XGO-Ultra/%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/">产品简介</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/XgoWiki/wiki/Xgo/">Luwu Dynamics</a></li>  <li class="file"><a href="/XgoWiki/wiki/Edit/">编辑指南</a></li>  </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-1 XGO-Mini Edu/二次开发/Python库文件" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/XgoWiki/categories/1-XGO-Mini-Edu/">1 XGO-Mini Edu</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/XgoWiki/categories/1-XGO-Mini-Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/">二次开发</a>
+    </div>
+
+                        
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/Python%E5%BA%93%E6%96%87%E4%BB%B6/">
+            <time datetime="2022-02-23T15:45:57.000Z" itemprop="datePublished">2022-02-23</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/Xgorobot/Wiki-site/raw/zh/source/_posts/1 XGO-Mini Edu/二次开发/Python库文件.md'> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/Xgorobot/Wiki-site/edit/zh/source/_posts/1 XGO-Mini Edu/二次开发/Python库文件.md'> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/Xgorobot/Wiki-site/commits/zh/source/_posts/1 XGO-Mini Edu/二次开发/Python库文件.md'> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Python库文件
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#xgolib-%E5%BA%93%E6%96%87%E6%A1%A3"><span class="toc-number">1.</span> <span class="toc-text">XGOLIB 库文档</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E6%A1%A3%E7%9B%AE%E7%9A%84"><span class="toc-number">1.1.</span> <span class="toc-text">文档目的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E8%AE%A2%E8%AE%B0%E5%BD%95"><span class="toc-number">1.2.</span> <span class="toc-text">修订记录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#xgo%E7%B1%BB"><span class="toc-number">1.3.</span> <span class="toc-text">XGO类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%BB%E5%8A%A8%E7%9B%B8%E5%85%B3%E6%96%B9%E6%B3%95"><span class="toc-number">1.4.</span> <span class="toc-text">移动相关方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E5%90%8E%E5%B7%A6%E5%8F%B3%E5%B9%B3%E7%A7%BB"><span class="toc-number">1.4.1.</span> <span class="toc-text">1.前后左右平移</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%8B%E8%BD%AC"><span class="toc-number">1.4.2.</span> <span class="toc-text">2.旋转</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E5%9C%B0%E8%B8%8F%E6%AD%A5"><span class="toc-number">1.4.3.</span> <span class="toc-text">3.原地踏步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%94%B9%E5%8F%98%E8%BF%88%E6%AD%A5%E9%A2%91%E7%8E%87"><span class="toc-number">1.4.4.</span> <span class="toc-text">4.改变迈步频率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%81%9C%E6%AD%A2%E7%A7%BB%E5%8A%A8"><span class="toc-number">1.4.5.</span> <span class="toc-text">5.停止移动</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%8D%E5%A7%BF%E7%9B%B8%E5%85%B3%E6%96%B9%E6%B3%95"><span class="toc-number">1.5.</span> <span class="toc-text">位姿相关方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%BA%E8%BA%AB%E4%BD%8D%E7%BD%AE%E5%B9%B3%E7%A7%BB"><span class="toc-number">1.5.1.</span> <span class="toc-text">1.机身位置平移</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%BA%E8%BA%AB%E5%A7%BF%E6%80%81%E8%B0%83%E6%95%B4"><span class="toc-number">1.5.2.</span> <span class="toc-text">2.机身姿态调整</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%BA%E8%BA%AB%E5%91%A8%E6%9C%9F%E5%B9%B3%E7%A7%BB"><span class="toc-number">1.5.3.</span> <span class="toc-text">3.机身周期平移</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%BA%E8%BA%AB%E5%91%A8%E6%9C%9F%E6%97%8B%E8%BD%AC"><span class="toc-number">1.5.4.</span> <span class="toc-text">4.机身周期旋转</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BD%99%E6%96%B9%E6%B3%95"><span class="toc-number">1.6.</span> <span class="toc-text">其余方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%81%A2%E5%A4%8D%E5%88%9D%E5%A7%8B%E7%8A%B6%E6%80%81"><span class="toc-number">1.6.1.</span> <span class="toc-text">恢复初始状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E8%87%AA%E7%A8%B3%E7%8A%B6%E6%80%81"><span class="toc-number">1.6.2.</span> <span class="toc-text">设置自稳状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%95%E8%85%BF%E6%8E%A7%E5%88%B6"><span class="toc-number">1.6.3.</span> <span class="toc-text">单腿控制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%88%B5%E6%9C%BA%E6%8E%A7%E5%88%B6"><span class="toc-number">1.6.4.</span> <span class="toc-text">舵机控制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%95%E8%85%BF%E8%88%B5%E6%9C%BA%E5%8D%B8%E8%BD%BD"><span class="toc-number">1.6.5.</span> <span class="toc-text">单腿舵机卸载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%80%E6%9C%89%E8%88%B5%E6%9C%BA%E5%8D%B8%E8%BD%BD"><span class="toc-number">1.6.6.</span> <span class="toc-text">所有舵机卸载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%95%E8%85%BF%E8%88%B5%E6%9C%BA%E5%8A%A0%E8%BD%BD"><span class="toc-number">1.6.7.</span> <span class="toc-text">单腿舵机加载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%80%E6%9C%89%E8%88%B5%E6%9C%BA%E5%8A%A0%E8%BD%BD"><span class="toc-number">1.6.8.</span> <span class="toc-text">所有舵机加载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E8%88%B5%E6%9C%BA%E8%BD%AC%E5%8A%A8%E9%80%9F%E5%BA%A6"><span class="toc-number">1.6.9.</span> <span class="toc-text">设置舵机转动速度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E8%93%9D%E7%89%99%E5%90%8D%E7%A7%B0"><span class="toc-number">1.6.10.</span> <span class="toc-text">修改蓝牙名称</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E9%A2%84%E8%AE%BE%E5%8A%A8%E4%BD%9C"><span class="toc-number">1.6.11.</span> <span class="toc-text">执行预设动作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%87%E5%AE%9A%E8%88%B5%E6%9C%BA%E4%BD%8D%E7%BD%AE"><span class="toc-number">1.6.12.</span> <span class="toc-text">标定舵机位置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96%E7%9B%B8%E5%85%B3%E6%96%B9%E6%B3%95"><span class="toc-number">1.7.</span> <span class="toc-text">读取相关方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96%E8%88%B5%E6%9C%BA%E8%A7%92%E5%BA%A6"><span class="toc-number">1.7.1.</span> <span class="toc-text">读取舵机角度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96%E7%94%B5%E6%B1%A0%E7%94%B5%E9%87%8F"><span class="toc-number">1.7.2.</span> <span class="toc-text">读取电池电量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96%E5%A7%BF%E6%80%81%E8%A7%92%E5%BA%A6"><span class="toc-number">1.7.3.</span> <span class="toc-text">读取姿态角度</span></a></li></ol></li></ol></li></ol>
+                </div>
+            
+        
+        
+            <h2 id="xgolib-库文档">XGOLIB 库文档</h2>
+<h3 id="文档目的">文档目的</h3>
+<p>本文档旨在对XGO的API接口进行详细说明，用于上位机python开发。</p>
+<h3 id="修订记录">修订记录</h3>
+<p>2022.3.10 创建文档</p>
+<h3 id="xgo类">XGO类</h3>
+<p>所有的功能都是通过<strong>XGO</strong>所拥有的方法来实现的,在实例化一个XGO类对象时需要传入三个参数，第一个是上位机与机器狗进行串口通讯的物理接口，需要根据实际情况进行修改,第二个参数为波特率为115200，第三个参数为'xgomini'或'xgolite'根据机型进行选择。假设串口通讯接口为COM4，则实例化代码如下。 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dog = XGO(&#x27;COM4&#x27;,115200,&#x27;xgomini&#x27;)</span><br><span class="line">dog = XGO(&#x27;COM4&#x27;,115200,&#x27;xgolite&#x27;)</span><br></pre></td></tr></table></figure> 下文将借用<strong>dog</strong>这个对象进行类方法的功能描述。涉及到位姿调整和单腿控制相关的方法，可查看串口通讯协议文档，了解机器人坐标系定义。 <br/></p>
+<h3 id="移动相关方法">移动相关方法</h3>
+<h4 id="前后左右平移">1.前后左右平移</h4>
+<p><strong>move(direction, step)</strong></p>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 27%" />
+<col style="width: 27%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">参数名</th>
+<th style="text-align: center;">格式</th>
+<th style="text-align: center;">输入范围</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">direction</td>
+<td style="text-align: center;">字符</td>
+<td style="text-align: center;">'x'、'X'、'y'、'Y'</td>
+<td>'x'或'X'使机器狗前进或后退，'y'或'Y'使机器狗左移或者右移</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">step</td>
+<td style="text-align: center;">数字</td>
+<td style="text-align: center;">x:[-25,25],y:[-18,18]</td>
+<td>该参数代表平移步长，根据方向，正值代表前进或左移，负值代表后退或右移。输入值超过范围时，按照极限值移动。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="旋转">2.旋转</h4>
+<p><strong>turn(step)</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">参数名</th>
+<th style="text-align: center;">格式</th>
+<th style="text-align: center;">输入范围</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">step</td>
+<td style="text-align: center;">数字</td>
+<td style="text-align: center;">[-150,150]</td>
+<td>该参数代表旋转速度，单位为°/s，正值为左转，负值为右转。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="原地踏步">3.原地踏步</h4>
+<p><strong>mark_time(data)</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">参数名</th>
+<th style="text-align: center;">格式</th>
+<th style="text-align: center;">输入范围</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">data</td>
+<td style="text-align: center;">数字</td>
+<td style="text-align: center;">[10,35]</td>
+<td>该参数代表原地踏步抬腿高度，单位为mm，输入为0时停止原地踏步</td>
+</tr>
+</tbody>
+</table>
+<h4 id="改变迈步频率">4.改变迈步频率</h4>
+<p><strong>pace(mode)</strong> 速度 = 步频 x 步幅</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">参数名</th>
+<th style="text-align: center;">格式</th>
+<th style="text-align: center;">输入范围</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">mode</td>
+<td style="text-align: center;">字符串</td>
+<td style="text-align: center;">['normal','slow','high']</td>
+<td>该参数代表迈步频率，normal为默认步频，low为慢速步频，high为高速步频</td>
+</tr>
+</tbody>
+</table>
+<h4 id="停止移动">5.停止移动</h4>
+<p><strong>stop()</strong> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">示例</span><br><span class="line">#机器狗以18mm步长前进</span><br><span class="line">dog.move(&#x27;x&#x27;,18)</span><br><span class="line"></span><br><span class="line">#机器狗以5mm步长右移</span><br><span class="line">dog.move(&#x27;y&#x27;,-5)</span><br><span class="line"></span><br><span class="line">#下句代码可以正常执行，会以18mm左移</span><br><span class="line">dog.move(&#x27;Y&#x27;,30)</span><br><span class="line"></span><br><span class="line">#机器狗以60°/s的速度左转</span><br><span class="line">dog.turn(60)</span><br><span class="line"></span><br><span class="line">#机器狗以高速步频进行运动</span><br><span class="line">dog.pace(&#x27;high&#x27;)</span><br><span class="line"></span><br><span class="line">#机器狗以25mm的抬腿高度进行原地踏步</span><br><span class="line">dog.mark_time(25)</span><br><span class="line"></span><br><span class="line">#机器狗停止原地踏步</span><br><span class="line">dog.mark_time(0)</span><br><span class="line"></span><br><span class="line">#机器狗停止移动</span><br><span class="line">dog.stop()</span><br></pre></td></tr></table></figure> 库中基于这些方法封装了一系列方法以便于使用。</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">方法名</th>
+<th style="text-align: center;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">move_x(step)</td>
+<td style="text-align: center;">前后移动，相当于move('x', step)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">move_y(step)</td>
+<td style="text-align: center;">左右移动，相当于move('y', step)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">forward(step)</td>
+<td style="text-align: center;">前进，相当于move('x', abs(step))</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">back(step)</td>
+<td style="text-align: center;">后退，相当于move('x', -abs(step))</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">left(step)</td>
+<td style="text-align: center;">左移，相当于move('y', abs(step))</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">right(step)</td>
+<td style="text-align: center;">右移，相当于move('y', -abs(step))</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">turnleft(step)</td>
+<td style="text-align: center;">左转，相当于turn(abs(step))</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">turnright(step)</td>
+<td style="text-align: center;">右转，相当于turn(-abs(step))</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<h3 id="位姿相关方法">位姿相关方法</h3>
+<p>调节位姿时，机器狗四条腿足端位置不发生改变，机身的位置或角度发生变化。</p>
+<h4 id="机身位置平移">1.机身位置平移</h4>
+<p><strong>translation(direction, data)</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">参数名</th>
+<th style="text-align: center;">格式</th>
+<th style="text-align: center;">输入范围</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">direction</td>
+<td style="text-align: center;">单字符或字符列表</td>
+<td style="text-align: center;">'x'、'y'、'z'或包含以上值的列表</td>
+<td>'x'代表前后平移，'y'代表左右平移，'z'代表身高</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">data</td>
+<td style="text-align: center;">数字</td>
+<td style="text-align: center;">x:[-35,35],y:[-18,18],z:[75,115]</td>
+<td>该参数代表机身位置平移距离，单位为mm</td>
+</tr>
+</tbody>
+</table>
+<h4 id="机身姿态调整">2.机身姿态调整</h4>
+<p><strong>attitude(direction, data)</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">参数名</th>
+<th style="text-align: center;">格式</th>
+<th style="text-align: center;">输入范围</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">direction</td>
+<td style="text-align: center;">单字符或字符列表</td>
+<td style="text-align: center;">'r'、'p'、'y'或包含以上值的列表</td>
+<td>'r'代表滚转角，'p'代表俯仰角，'y'代表偏航角</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">data</td>
+<td style="text-align: center;">数字</td>
+<td style="text-align: center;">r:[-20,20],p:[-15,15],y:[11,11]</td>
+<td>该参数代表机身姿态调节幅度，单位为°</td>
+</tr>
+</tbody>
+</table>
+<h4 id="机身周期平移">3.机身周期平移</h4>
+<p><strong>periodic_tran(direction, period)</strong><br />
+机器狗机身将以指定周期和方向进行往复平移，幅度为位置平移极限值的一半，可以同时进行多个方向的周期运动。机身周期运动和整机运动不可同时进行。</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">参数名</th>
+<th style="text-align: center;">格式</th>
+<th style="text-align: center;">输入范围</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">direction</td>
+<td style="text-align: center;">单字符或字符列表</td>
+<td style="text-align: center;">'x'、'y'、'z'或包含以上值的列表</td>
+<td>'x'代表前后平移，'y'代表左右平移，'z'代表身高</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">period</td>
+<td style="text-align: center;">数字</td>
+<td style="text-align: center;">[1.5,8]</td>
+<td>该参数代表运动周期，单位为s;输入0时代表停止运动</td>
+</tr>
+</tbody>
+</table>
+<h4 id="机身周期旋转">4.机身周期旋转</h4>
+<p><strong>periodic_rot(direction, period)</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">参数名</th>
+<th style="text-align: center;">格式</th>
+<th style="text-align: center;">输入范围</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">direction</td>
+<td style="text-align: center;">单字符或字符列表</td>
+<td style="text-align: center;">'r'、'p'、'y'或包含以上值的列表</td>
+<td>'r'代表滚转角，'p'代表俯仰角，'y'代表偏航角</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">period</td>
+<td style="text-align: center;">数字</td>
+<td style="text-align: center;">[1.5,8]</td>
+<td>该参数代表运动周期，单位为s;输入0时代表停止运动</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">示例</span><br><span class="line">#机身向前平移18mm</span><br><span class="line">dog.translation(&#x27;x&#x27;,18)</span><br><span class="line"></span><br><span class="line">#机身向右平移10mm，身高设置为100mm</span><br><span class="line">#既可以输入单个值，也可以输入列表以控制多个方向的移动</span><br><span class="line">dog.translation([&#x27;y&#x27;,&#x27;z&#x27;],[-10,100])</span><br><span class="line"></span><br><span class="line">#机身俯仰角设置为10°，偏航角设置为-4°，滚转角设置为8°</span><br><span class="line">dog.attitude([&#x27;p&#x27;,&#x27;y&#x27;,&#x27;r&#x27;],[10,-4,8])</span><br><span class="line"></span><br><span class="line">#机身以3s的周期，进行前后往复平移</span><br><span class="line">dog.periodic_tran(&#x27;x&#x27;,3)</span><br><span class="line"></span><br><span class="line">#机身以3s的周期进行滚转角往复转动，以7.4s周期进行偏航角往复转动</span><br><span class="line">dog.periodic_rot([&#x27;r&#x27;,&#x27;y&#x27;],[3,7.4])</span><br><span class="line"></span><br><span class="line">#停止偏航角的往复转动</span><br><span class="line">dog.periodic_rot(&#x27;y&#x27;,0)</span><br></pre></td></tr></table></figure>
+<h3 id="其余方法">其余方法</h3>
+<h4 id="恢复初始状态">恢复初始状态</h4>
+<p><strong>reset()</strong><br />
+停止所有运动，所有状态全部恢复到初始状态 <br/></p>
+<h4 id="设置自稳状态">设置自稳状态</h4>
+<p><strong>imu(mode)</strong><br />
+自稳状态下，机器狗将自动调节姿态角以保持背部处于水平位置，不可在开启时手动设定姿态角。</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">参数名</th>
+<th style="text-align: center;">格式</th>
+<th style="text-align: center;">输入范围</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">mode</td>
+<td style="text-align: center;">整数</td>
+<td style="text-align: center;">0、1</td>
+<td>0代表关闭、1代表开启</td>
+</tr>
+</tbody>
+</table>
+<p><strong>perform(mode)</strong><br />
+表演模式，机器狗将循环执行预设的动作。</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">参数名</th>
+<th style="text-align: center;">格式</th>
+<th style="text-align: center;">输入范围</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">mode</td>
+<td style="text-align: center;">整数</td>
+<td style="text-align: center;">0、1</td>
+<td>0代表关闭、1代表开启</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<h4 id="单腿控制">单腿控制</h4>
+<p><strong>leg(leg_id, data)</strong><br />
+控制指定腿的足端位置</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">参数名</th>
+<th style="text-align: center;">格式</th>
+<th style="text-align: center;">输入范围</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">leg_id</td>
+<td style="text-align: center;">整数</td>
+<td style="text-align: center;">1、2、3、4</td>
+<td>分别代表左前腿、右前腿、右后腿、左后腿</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">data</td>
+<td style="text-align: center;">长度为3的数字列表</td>
+<td style="text-align: center;">x:[-35,35],y:[-18,18],z:[75,115]</td>
+<td>该参数代表足端位置，单位为mm</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">示例</span><br><span class="line">#设置右前腿足端坐标为(10mm,-12mm,90mm)</span><br><span class="line">dog.leg(2,[10,-12,90])</span><br></pre></td></tr></table></figure>
+<p><br/></p>
+<h4 id="舵机控制">舵机控制</h4>
+<p><strong>motor(motor_id, data)</strong><br />
+控制舵机旋转角度</p>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 27%" />
+<col style="width: 27%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">参数名</th>
+<th style="text-align: center;">格式</th>
+<th style="text-align: center;">输入范围</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">motor_id</td>
+<td style="text-align: center;">整数或整数列表</td>
+<td style="text-align: center;">[11,12,13,21,22,23,31,32,33,41,42,43]</td>
+<td>第一位数字代表舵机所在的腿，第二位数字代表在该腿上的位置，从下到上依次是1，2，3</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">data</td>
+<td style="text-align: center;">数字或数字列表</td>
+<td style="text-align: center;">下:[-65, 73],中:[-66, 93],上:[-31, 31]</td>
+<td>该参数代表足端位置，单位为°</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">示例</span><br><span class="line">#设置右前腿中舵机转动角度为30°</span><br><span class="line">dog.motor(22,30)</span><br><span class="line"></span><br><span class="line">#设置右前腿上舵机转动角度为10°，左后腿下舵机转动角度为-20°</span><br><span class="line">dog.motor([23,41],[10,-20])</span><br></pre></td></tr></table></figure>
+<p><br/></p>
+<h4 id="单腿舵机卸载">单腿舵机卸载</h4>
+<p><strong>unload_motor(leg_id)</strong><br />
+使一条腿上的三个舵机卸载，不输出力矩，之后可以随意用手转动，一般用于编写动作</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">参数名</th>
+<th style="text-align: center;">格式</th>
+<th style="text-align: center;">输入范围</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">leg_id</td>
+<td style="text-align: center;">整数</td>
+<td style="text-align: center;">1,2,3,4</td>
+<td>分别代表左前腿、右前腿、右后腿、左后腿</td>
+</tr>
+</tbody>
+</table>
+<h4 id="所有舵机卸载">所有舵机卸载</h4>
+<p><strong>unload_allmotor()</strong><br />
+使所有舵机卸载，不输出力矩，可以随意用手转动</p>
+<h4 id="单腿舵机加载">单腿舵机加载</h4>
+<p><strong>load_motor(leg_id)</strong><br />
+使一条腿上的三个舵机<strong>保持当前位置</strong>加载，输出力矩，之后不可以用手转动，一般用于编写动作</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">参数名</th>
+<th style="text-align: center;">格式</th>
+<th style="text-align: center;">输入范围</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">leg_id</td>
+<td style="text-align: center;">整数</td>
+<td style="text-align: center;">1,2,3,4</td>
+<td>分别代表左前腿、右前腿、右后腿、左后腿</td>
+</tr>
+</tbody>
+</table>
+<h4 id="所有舵机加载">所有舵机加载</h4>
+<p><strong>load_allmotor()</strong><br />
+使所有舵机<strong>保持当前位置</strong>加载，输出力矩，之后不可以用手转动</p>
+<h4 id="设置舵机转动速度">设置舵机转动速度</h4>
+<p><strong>motor_speed(speed)</strong><br />
+调节舵机转动速度，适用于单独控制舵机的情况</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">参数名</th>
+<th style="text-align: center;">格式</th>
+<th style="text-align: center;">输入范围</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">speed</td>
+<td style="text-align: center;">整数</td>
+<td style="text-align: center;">[0,255]</td>
+<td>0为最低速，255为最高速</td>
+</tr>
+</tbody>
+</table>
+<h4 id="修改蓝牙名称">修改蓝牙名称</h4>
+<p><strong>bt_rename(name)</strong><br />
+重新修改蓝牙名称，调用该函数后蓝牙会断开链接</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">参数名</th>
+<th style="text-align: center;">格式</th>
+<th style="text-align: center;">输入范围</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">name</td>
+<td style="text-align: center;">字符串</td>
+<td style="text-align: center;">长度不大于10</td>
+<td>机器狗的蓝牙名称格式为<strong>XGO_xxx</strong>，xxx为可修改部分，仅支持ascii码中的字符。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="执行预设动作">执行预设动作</h4>
+<p><strong>action(action_id)</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">参数名</th>
+<th style="text-align: center;">格式</th>
+<th style="text-align: center;">输入范围</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">action_id</td>
+<td style="text-align: center;">整数</td>
+<td style="text-align: center;">[1,255]</td>
+<td>ID与动作对应关系见下表</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">ID</th>
+<th style="text-align: center;">动作</th>
+<th style="text-align: center;">ID</th>
+<th style="text-align: center;">动作</th>
+<th style="text-align: center;">ID</th>
+<th style="text-align: center;">动作</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">趴下</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">站起</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">匍匐前进</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">转圈</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">原地踏步</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">蹲起</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">转动Roll</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">转动Pitch</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">转动Yaw</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">三轴转动</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">撒尿</td>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">坐下</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">招手</td>
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">伸懒腰</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">波浪</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">左右摇摆</td>
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">求食</td>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">找食物</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">握手</td>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">拜年</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<h4 id="标定舵机位置">标定舵机位置</h4>
+<p><strong>calibration(state)</strong><br />
+如果开机后，某些关节出现了明显的位置偏差，可以调用该功能进行标定。其他情况请<strong>谨慎使用</strong></p>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 27%" />
+<col style="width: 27%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">参数名</th>
+<th style="text-align: center;">格式</th>
+<th style="text-align: center;">输入范围</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">state</td>
+<td style="text-align: center;">整数</td>
+<td style="text-align: center;">[0,1]</td>
+<td>1 进入标定状态，此时舵机卸力，然后将机器狗摆至标定状态，小腿与地面平行，大腿与躯干呈90°，躯干与地面平行；0 完成标定</td>
+</tr>
+</tbody>
+</table>
+<h3 id="读取相关方法">读取相关方法</h3>
+<h4 id="读取舵机角度">读取舵机角度</h4>
+<p><strong>read_motor()</strong><br />
+读取12个舵机的角度， 读取成功则返回长度为12的列表，对应编号[11,12,13,21,22,23,31,32,33,41,42,43]的舵机角度， 读取失败则返回空列表</p>
+<h4 id="读取电池电量">读取电池电量</h4>
+<p><strong>read_battery()</strong><br />
+读取当前电池电量， 读取成功则返回1-100的整数，代表电池剩余电量百分比， 读取失败则返回0。</p>
+<h4 id="读取姿态角度">读取姿态角度</h4>
+<p><strong>read_roll()</strong><br />
+<strong>read_pitch()</strong><br />
+<strong>read_yaw()</strong><br />
+读取当前姿态角度，读取成功则浮点数，读取失败则返回0</p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/XgoWiki/wiki/3%20XGO-Ultra/%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    产品简介
+                
+            </div>
+        </a>
+    
+    
+        <a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/XGO-Mini%20ROS%E5%BC%80%E5%8F%91%E5%8C%85/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">ROS开发</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            Xgo Wiki &copy; 2022 
+            <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a target="_blank" rel="noopener" href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+            
+                <br>
+                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                &nbsp;|&nbsp;
+                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+            
+        </div>
+    </div>
+</footer>
+
+        
+
+    
+        
+<script src="/XgoWiki/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/XgoWiki/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/XgoWiki/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/XgoWiki/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/XgoWiki/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/XgoWiki/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/XgoWiki/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/XgoWiki/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/XgoWiki/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/XgoWiki/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/XgoWiki/js/main.js"></script>
+
+
+    </div>
+</body>
+</html>

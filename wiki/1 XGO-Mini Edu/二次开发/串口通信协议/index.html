@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>串口通信协议 | Xgo Wiki</title>
+    
+    
+        <meta name="keywords" content="串口通信协议" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="文档目的和对象 本文档适用于任意上位机与XGO系列机器狗驱动板之间命令&#x2F;数据交互的通信协议。示用于高阶开发者对XGO进行二次开发。 修订记录 2022.3.10 创建文档 硬件连接   用六角扳手到拧下背部两颗螺丝，左右两侧螺丝，尾部两颗螺丝后，拆除机器狗后背板，拔掉开关线。   如下图所示，主板一侧有两个串口通信接口，按主板丝印线序和上位机线序对接(TX接RX、RX接TX)，然后就可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="串口通信协议">
+<meta property="og:url" content="https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE/index.html">
+<meta property="og:site_name" content="Xgo Wiki">
+<meta property="og:description" content="文档目的和对象 本文档适用于任意上位机与XGO系列机器狗驱动板之间命令&#x2F;数据交互的通信协议。示用于高阶开发者对XGO进行二次开发。 修订记录 2022.3.10 创建文档 硬件连接   用六角扳手到拧下背部两颗螺丝，左右两侧螺丝，尾部两颗螺丝后，拆除机器狗后背板，拔掉开关线。   如下图所示，主板一侧有两个串口通信接口，按主板丝印线序和上位机线序对接(TX接RX、RX接TX)，然后就可">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE/board.png">
+<meta property="og:image" content="https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE/XYZ.png">
+<meta property="og:image" content="https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE/coordinate_system_of_leg.png">
+<meta property="article:published_time" content="2022-03-11T09:45:57.000Z">
+<meta property="article:modified_time" content="2022-08-02T05:41:14.347Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE/board.png">
+    
+
+    
+
+    
+        <link rel="icon" href="/XgoWiki/images/xgo_icon45.png" />
+    
+
+    
+<link rel="stylesheet" href="/XgoWiki/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/XgoWiki/libs/open-sans/styles.css">
+
+    
+<link rel="stylesheet" href="/XgoWiki/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/XgoWiki/css/style.css">
+
+    
+<script src="/XgoWiki/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    
+<script src="/XgoWiki/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/XgoWiki/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/XgoWiki/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+<meta name="generator" content="Hexo 5.4.1"><link rel="alternate" href="/XgoWiki/atom.xml" title="Xgo Wiki" type="application/atom+xml">
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/XgoWiki/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Xgo Wiki</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/XgoWiki/">首页</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/XgoWiki/',
+        CONTENT_URL: '/XgoWiki/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/XgoWiki/js/insight.js"></script>
+
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/XgoWiki/">首页</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>分类</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" > 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            1 XGO-Mini Edu
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            二次开发
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/Python%E5%BA%93%E6%96%87%E4%BB%B6/">Python库文件</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/XGO-Mini%20ROS%E5%BC%80%E5%8F%91%E5%8C%85/">ROS开发</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/%E5%BC%80%E5%8F%91%E8%80%85%E6%A8%A1%E5%BC%8F/">开发者模式</a></li>  <li class="file active"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE/">串口通信协议</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            四足机器人背景知识
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E6%AD%A3%E8%BF%90%E5%8A%A8%E5%AD%A6%E5%88%86%E6%9E%90/">正运动学分析</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D/">背景介绍</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E8%B6%B3%E7%AB%AF%E8%BD%A8%E8%BF%B9%E8%A7%84%E5%88%92/">足端轨迹规划</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E9%80%86%E8%BF%90%E5%8A%A8%E5%AD%A6%E5%88%86%E6%9E%90/">逆运动学分析</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            常见问题
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E7%83%A7%E5%BD%95K210%E5%9B%BA%E4%BB%B6%E5%92%8C%E6%9B%B4%E6%96%B0SD%E5%8D%A1%E6%96%87%E4%BB%B6/">如何烧录K210固件和更新SD卡文件</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E7%83%A7%E5%BD%95%E6%9C%BA%E5%99%A8%E7%8B%97%E6%9C%AC%E4%BD%93%E5%9B%BA%E4%BB%B6/">如何烧录机器狗本体固件</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E9%87%8D%E6%96%B0%E6%A0%87%E5%AE%9A%E6%9C%BA%E5%99%A8%E7%8B%97/">如何重新标定机器狗</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            故障排除
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4/XGO%20APP%E8%93%9D%E7%89%99%E8%BF%9E%E6%8E%A5%E4%B8%8D%E4%B8%8A%E6%9C%BA%E5%99%A8%E7%8B%97/">XGO APP蓝牙连接不上机器狗</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4/%E6%9C%BA%E5%99%A8%E7%8B%97%E4%B8%8D%E8%B5%B0%E7%9B%B4%E7%BA%BF/">机器狗不走直线</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/">产品简介</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%8C%85%E8%A3%85%E6%B8%85%E5%8D%95/">包装清单</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E6%80%A7%E8%83%BD%E5%8F%82%E6%95%B0/">性能参数</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E7%A1%AC%E4%BB%B6%E4%BB%8B%E7%BB%8D/">硬件介绍</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8/">快速使用</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E7%BC%96%E7%A8%8B%E5%B9%B3%E5%8F%B0/">编程平台</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E8%93%9D%E7%89%99%E9%81%A5%E6%8E%A7/">蓝牙遥控</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E9%85%8D%E5%A5%97%E8%AF%BE%E7%A8%8B/">配套课程</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            2 XGO-Lite
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/XgoWiki/wiki/2%20XGO-Lite/%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/">产品简介</a></li>  <li class="file"><a href="/XgoWiki/wiki/2%20XGO-Lite/%E5%8C%85%E8%A3%85%E6%B8%85%E5%8D%95/">包装清单</a></li>  <li class="file"><a href="/XgoWiki/wiki/2%20XGO-Lite/%E6%80%A7%E8%83%BD%E5%8F%82%E6%95%B0/">性能参数</a></li>  <li class="file"><a href="/XgoWiki/wiki/2%20XGO-Lite/%E7%A1%AC%E4%BB%B6%E4%BB%8B%E7%BB%8D/">硬件介绍</a></li>  <li class="file"><a href="/XgoWiki/wiki/2%20XGO-Lite/%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8/">快速使用</a></li>  <li class="file"><a href="/XgoWiki/wiki/2%20XGO-Lite/%E7%BC%96%E7%A8%8B%E5%B9%B3%E5%8F%B0%E5%92%8C%E8%AF%BE%E7%A8%8B/">编程平台和课程</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            3 XGO-Ultra
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/XgoWiki/wiki/3%20XGO-Ultra/%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/">产品简介</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/XgoWiki/wiki/Xgo/">Luwu Dynamics</a></li>  <li class="file"><a href="/XgoWiki/wiki/Edit/">编辑指南</a></li>  </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-1 XGO-Mini Edu/二次开发/串口通信协议" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/XgoWiki/categories/1-XGO-Mini-Edu/">1 XGO-Mini Edu</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/XgoWiki/categories/1-XGO-Mini-Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/">二次开发</a>
+    </div>
+
+                        
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE/">
+            <time datetime="2022-03-11T09:45:57.000Z" itemprop="datePublished">2022-03-11</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/Xgorobot/Wiki-site/raw/zh/source/_posts/1 XGO-Mini Edu/二次开发/串口通信协议.md'> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/Xgorobot/Wiki-site/edit/zh/source/_posts/1 XGO-Mini Edu/二次开发/串口通信协议.md'> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/Xgorobot/Wiki-site/commits/zh/source/_posts/1 XGO-Mini Edu/二次开发/串口通信协议.md'> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            串口通信协议
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%87%E6%A1%A3%E7%9B%AE%E7%9A%84%E5%92%8C%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.</span> <span class="toc-text">文档目的和对象</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BF%AE%E8%AE%A2%E8%AE%B0%E5%BD%95"><span class="toc-number">2.</span> <span class="toc-text">修订记录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E8%BF%9E%E6%8E%A5"><span class="toc-number">3.</span> <span class="toc-text">硬件连接</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E6%8E%A5%E5%8F%A3"><span class="toc-number">4.</span> <span class="toc-text">软件接口</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%B8%A7%E6%A0%BC%E5%BC%8F"><span class="toc-number">4.1.</span> <span class="toc-text">数据帧格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4"><span class="toc-number">4.2.</span> <span class="toc-text">指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%99%E6%8C%87%E4%BB%A4%E6%97%A0%E5%BA%94%E7%AD%940x00"><span class="toc-number">4.2.1.</span> <span class="toc-text">写指令，无应答（0x00）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%BB%E6%8C%87%E4%BB%A4%E6%9C%89%E5%BA%94%E7%AD%940x02"><span class="toc-number">4.2.2.</span> <span class="toc-text">读指令，有应答（0x02）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E8%85%BF%E5%9D%90%E6%A0%87%E7%B3%BB"><span class="toc-number">4.2.3.</span> <span class="toc-text">单腿坐标系</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%BA%E5%99%A8%E7%8B%97%E5%86%85%E5%AD%98%E8%A1%A8"><span class="toc-number">4.3.</span> <span class="toc-text">机器狗内存表</span></a></li></ol></li></ol>
+                </div>
+            
+        
+        
+            <h1 id="文档目的和对象">文档目的和对象</h1>
+<p>本文档适用于任意上位机与XGO系列机器狗驱动板之间命令/数据交互的通信协议。示用于高阶开发者对XGO进行二次开发。</p>
+<h1 id="修订记录">修订记录</h1>
+<p>2022.3.10 创建文档</p>
+<h1 id="硬件连接">硬件连接</h1>
+<p>  用六角扳手到拧下背部两颗螺丝，左右两侧螺丝，尾部两颗螺丝后，拆除机器狗后背板，拔掉开关线。<br />
+  如下图所示，主板一侧有两个串口通信接口，按主板丝印线序和上位机线序对接(TX接RX、RX接TX)，然后就可以调试了。两个端子对外供电电压分别是5V和3.3V，不可同时使用。<br />
+  默认情况下3.3V端子被AI模块占用，如果想用其他设备进行串口控制，请将AI模组与主板的连接线拔下。 </br> <img src="./board.png" alt="XGO-Mini电路板" style="zoom:60%;" /></p>
+<h1 id="软件接口">软件接口</h1>
+<p>  采用标准TTL串行通讯。</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">波特率</th>
+<th style="text-align: center;">115200</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">数据位</td>
+<td style="text-align: center;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">停止位</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">奇偶校验位</td>
+<td style="text-align: center;">无</td>
+</tr>
+</tbody>
+</table>
+<h2 id="数据帧格式">数据帧格式</h2>
+<p>  数据帧采用固定格式：帧头+帧长度+数据+校验和+帧尾。</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">帧头</th>
+<th style="text-align: center;">固定为0x55 0x00</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">帧长度</td>
+<td style="text-align: center;">整个数据帧的字节数</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">数据</td>
+<td style="text-align: center;">依据指令类型有不同含义，见第二部分</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">校验和</td>
+<td style="text-align: center;">长度和数据的所有字节相加，取最低字节，然后取反</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">帧尾</td>
+<td style="text-align: center;">固定为0x00 0xAA</td>
+</tr>
+</tbody>
+</table>
+<h2 id="指令">指令</h2>
+<h3 id="写指令无应答0x00">写指令，无应答（0x00）</h3>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><strong>帧头</strong></th>
+<th style="text-align: center;"><strong>帧长度</strong></th>
+<th style="text-align: center;"><strong>指令类型</strong></th>
+<th style="text-align: center;"><strong>首地址</strong></th>
+<th style="text-align: center;"><strong>数据</strong></th>
+<th style="text-align: center;"><strong>校验和</strong></th>
+<th style="text-align: center;"><strong>帧尾</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0x55 0x00</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">0x00</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">data</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">0x00 0xAA</td>
+</tr>
+</tbody>
+</table>
+<p>写指令会连续修改从首地址开始的数据，不会产生应答。<br />
+</br> &gt;例如修改机器狗的前进速度，前进速度地址为0x30，使其以最大速度前进，即速度内容为0xFF，具体指令如下：<br />
+&gt;0x55 0x00 0x09 0x00 0x30 0xFF 0xC7 0x00 0xAA<br />
+&gt;其中校验和计算过程如下:<br />
+&gt;0x09+0x00+0x30+0xFF=0x138，取最低字节0x38，取反得0xC7</p>
+<h3 id="读指令有应答0x02">读指令，有应答（0x02）</h3>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><strong>帧头</strong></th>
+<th style="text-align: center;"><strong>帧长度</strong></th>
+<th style="text-align: center;"><strong>指令类型</strong></th>
+<th style="text-align: center;"><strong>首地址</strong></th>
+<th style="text-align: center;"><strong>读取长度</strong></th>
+<th style="text-align: center;"><strong>校验和</strong></th>
+<th style="text-align: center;"><strong>帧尾</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0x55 0x00</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">0x02</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">uint_8</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">0x00 0xAA</td>
+</tr>
+</tbody>
+</table>
+<p>写指令会连续读取从首地址开始的数据，不会产生应答。<br />
+返回数据包的格式为:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><strong>帧头</strong></th>
+<th style="text-align: center;"><strong>帧长度</strong></th>
+<th style="text-align: center;"><strong>指令类型</strong></th>
+<th style="text-align: center;"><strong>首地址</strong></th>
+<th style="text-align: center;"><strong>数据</strong></th>
+<th style="text-align: center;"><strong>校验和</strong></th>
+<th style="text-align: center;"><strong>帧尾</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0x55 0x00</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">0x12</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">data</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">0x00 0xAA</td>
+</tr>
+</tbody>
+</table>
+<p></br> &gt;例如读取12个舵机的角度,0x50为第一个舵机位置的地址,0x0C意思为连续读取12个,具体指令如下：<br />
+&gt;0x55 0x00 0x09 0x02 0x50 0x0C 0x98 0x00 0xAA<br />
+&gt;其中校验和计算过程如下:<br />
+&gt;0x09+0x02+0x50+0x0C=0x67，取反得0x98 </br> &gt;读取返回数据包:<br />
+&gt;0x55 0x00 0x14 0x12 0x50 0x80 0x80 0x80 0x80 0x80 0x80 0x80 0x80 0x80 0x80 0x80 0x80 0x89 0x00 0xAA ## 机器狗坐标系定义 ### 整机坐标系 在初始站姿情况下，原点位于机身正下方，机器狗前进方向为X轴正向，左为Y轴正向，上为Z轴正向。<br />
+</br> <img src="./XYZ.png" alt="机器狗整机坐标系示意图" style="zoom:60%;" /></p>
+<h3 id="单腿坐标系">单腿坐标系</h3>
+<p>单腿坐标系用于描述足端的位置，四条腿对应四个独立的单腿坐标系，大腿关节为原点，机器狗前进方向为x轴正向，左为Y轴正向，下为Z轴正向。<br />
+</br> </br> </br> <img src="./coordinate_system_of_leg.png" alt="机器狗单腿坐标系示意图" style="zoom:80%;" /></p>
+<h2 id="机器狗内存表">机器狗内存表</h2>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 14%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 57%" />
+<col style="width: 7%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><strong>地址</strong></th>
+<th style="text-align: center;"><strong>功能</strong></th>
+<th style="text-align: center;"><strong>读写</strong></th>
+<th style="text-align: center;"><strong>初始值</strong></th>
+<th style="text-align: center;"><strong>备注</strong></th>
+<th style="text-align: center;"><strong>模式</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0x00</td>
+<td style="text-align: center;">工作状态</td>
+<td style="text-align: center;">读</td>
+<td style="text-align: center;">0x00</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">状态信息</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x01</td>
+<td style="text-align: center;">电池电量</td>
+<td style="text-align: center;">读</td>
+<td style="text-align: center;">0xff</td>
+<td style="text-align: center;">范围为0-100，线性对应电量最低值-最高值</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x02</td>
+<td style="text-align: center;">XGO版本</td>
+<td style="text-align: center;">读</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">0x00 MINI</td>
+<td style="text-align: center;">0x01 Lite</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x03</td>
+<td style="text-align: center;">表演模式</td>
+<td style="text-align: center;">写</td>
+<td style="text-align: center;">0x00</td>
+<td style="text-align: center;">0x00正常控制模式</td>
+<td style="text-align: center;">0x01循环做动作</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x04</td>
+<td style="text-align: center;">标定模式</td>
+<td style="text-align: center;">写</td>
+<td style="text-align: center;">0x00</td>
+<td style="text-align: center;">0x01进入标定模式 0x00退出标定模式完成标定</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x13</td>
+<td style="text-align: center;">蓝牙名称</td>
+<td style="text-align: center;">写</td>
+<td style="text-align: center;">XGOMINI</td>
+<td style="text-align: center;">可命名长度为10个字节，不能为中文，命名后蓝牙名称为XGO_xxxxxx</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x20</td>
+<td style="text-align: center;">卸载舵机</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x00</td>
+<td style="text-align: center;">0x00舵机处于正常工作状态，0x01卸载所有舵机，0x11-0x14依次卸载1-4号腿，0x21-0x24依次恢复1-4号腿</td>
+<td style="text-align: center;">调试模式</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x21</td>
+<td style="text-align: center;">重置舵机零位</td>
+<td style="text-align: center;">写</td>
+<td style="text-align: center;">0x00</td>
+<td style="text-align: center;">0x00舵机处于正常工作状态0x01所有舵机记录当前位置为零位 该寄存器设定为0x01后，会自动跳变为0x00</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x30</td>
+<td style="text-align: center;">前后移动速度</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;">范围为0x00-0xff，线性对应反向最大值-正向最大值，正方向按机器人坐标系，下同（注③）</td>
+<td style="text-align: center;">整机模式</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x31</td>
+<td style="text-align: center;">左右移动速度</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x32</td>
+<td style="text-align: center;">顺逆时针旋转速度</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;">方向遵循右手原则</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x33</td>
+<td style="text-align: center;">身体沿x方向平移距离</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;">足端与地面接触点不变而身体扭动，下同</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x34</td>
+<td style="text-align: center;">身体沿y方向平移距离</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x35</td>
+<td style="text-align: center;">身体高度</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x36</td>
+<td style="text-align: center;">身体绕x轴旋转角度</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;">方向遵循右手原则</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x37</td>
+<td style="text-align: center;">身体绕y轴旋转角度</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x38</td>
+<td style="text-align: center;">身体绕z轴旋转角度</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x39</td>
+<td style="text-align: center;">以一定周期绕x轴旋转身体</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x00</td>
+<td style="text-align: center;">0x00停止，0x01-0xff线性对应最小-最大旋转速度 ，该功能与直接设置位置寄存器不能同时起作用，下同</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x3A</td>
+<td style="text-align: center;">以一定周期绕y轴旋转身体</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x00</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x3B</td>
+<td style="text-align: center;">以一定周期绕z轴旋转身体</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x00</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x3C</td>
+<td style="text-align: center;">原地踏步</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x00</td>
+<td style="text-align: center;">0x00停止，0x01-0xff线性对应最小-最大踏步高度</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x3D</td>
+<td style="text-align: center;">运动模式</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x00</td>
+<td style="text-align: center;">0x00常速运动0x01慢速运动0x02高速运动</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x3E</td>
+<td style="text-align: center;">动作指令</td>
+<td style="text-align: center;">写</td>
+<td style="text-align: center;">0x00</td>
+<td style="text-align: center;">详情见动作指令表 0为默认站姿 1-N为各个动作(见右侧)</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;">以一定周期沿X轴方向平移运动</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x00</td>
+<td style="text-align: center;">0x00停止，0x01-0xff对应最小-最大旋转速度，移动幅度为位置限幅的一半</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x81</td>
+<td style="text-align: center;">以一定周期沿Y轴方向平移运动</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x00</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x82</td>
+<td style="text-align: center;">以一定周期沿Z轴方向平移运动</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x00</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x40</td>
+<td style="text-align: center;">左前腿x方向足端位置</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;">范围为0x00-0xff，线性对应反向最大值-正向最大值，正方向按机器人坐标系，下同</td>
+<td style="text-align: center;">单腿模式</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x41</td>
+<td style="text-align: center;">左前腿y方向足端位置</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x42</td>
+<td style="text-align: center;">左前腿z方向足端位置</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x43</td>
+<td style="text-align: center;">右前腿x方向足端位置</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x44</td>
+<td style="text-align: center;">右前腿y方向足端位置</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x45</td>
+<td style="text-align: center;">右前腿z方向足端位置</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x46</td>
+<td style="text-align: center;">右后腿x方向足端位置</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x47</td>
+<td style="text-align: center;">右后腿y方向足端位置</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x48</td>
+<td style="text-align: center;">右后腿z方向足端位置</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x49</td>
+<td style="text-align: center;">左后腿x方向足端位置</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x4A</td>
+<td style="text-align: center;">左后腿y方向足端位置</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x4B</td>
+<td style="text-align: center;">左后腿z方向足端位置</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x50</td>
+<td style="text-align: center;">ID为11舵机位置</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;">范围为0x00-0xff，线性对应反向最大值-正向最大值，下同</td>
+<td style="text-align: center;">舵机模式</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x51</td>
+<td style="text-align: center;">ID为12舵机位置</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x52</td>
+<td style="text-align: center;">ID为13舵机位置</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x53</td>
+<td style="text-align: center;">ID为21舵机位置</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x54</td>
+<td style="text-align: center;">ID为22舵机位置</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x55</td>
+<td style="text-align: center;">ID为23舵机位置</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x56</td>
+<td style="text-align: center;">ID为31舵机位置</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x57</td>
+<td style="text-align: center;">ID为32舵机位置</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x58</td>
+<td style="text-align: center;">ID为33舵机位置</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x59</td>
+<td style="text-align: center;">ID为41舵机位置</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x5A</td>
+<td style="text-align: center;">ID为42舵机位置</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x5B</td>
+<td style="text-align: center;">ID为43舵机位置</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x5C</td>
+<td style="text-align: center;">设置舵机速度</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x80</td>
+<td style="text-align: center;">范围为0x00-0xff，线性对应最小值-最大值（仅在该模式下有效）</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x5D</td>
+<td style="text-align: center;">舵机位置设置为站立姿态</td>
+<td style="text-align: center;">写</td>
+<td style="text-align: center;">0x00</td>
+<td style="text-align: center;">0x00不起作用0x01舵机位置恢复站立时位置 该寄存器设定为0x01后，会自动跳变为0x00</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x61</td>
+<td style="text-align: center;">IMU状态</td>
+<td style="text-align: center;">读写</td>
+<td style="text-align: center;">0x00</td>
+<td style="text-align: center;">0x00关闭 0x01自稳定模式</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x62</td>
+<td style="text-align: center;">ROLL角度</td>
+<td style="text-align: center;">读</td>
+<td style="text-align: center;">0x01</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0x63</td>
+<td style="text-align: center;">PITCH角度</td>
+<td style="text-align: center;">读</td>
+<td style="text-align: center;">0x02</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0x64</td>
+<td style="text-align: center;">YAW角度</td>
+<td style="text-align: center;">读</td>
+<td style="text-align: center;">0x03</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E9%80%86%E8%BF%90%E5%8A%A8%E5%AD%A6%E5%88%86%E6%9E%90/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    逆运动学分析
+                
+            </div>
+        </a>
+    
+    
+        <a href="/XgoWiki/wiki/Edit/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">编辑指南</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            Xgo Wiki &copy; 2022 
+            <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a target="_blank" rel="noopener" href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+            
+                <br>
+                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                &nbsp;|&nbsp;
+                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+            
+        </div>
+    </div>
+</footer>
+
+        
+
+    
+        
+<script src="/XgoWiki/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/XgoWiki/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/XgoWiki/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/XgoWiki/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/XgoWiki/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/XgoWiki/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/XgoWiki/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/XgoWiki/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/XgoWiki/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/XgoWiki/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/XgoWiki/js/main.js"></script>
+
+
+    </div>
+</body>
+</html>

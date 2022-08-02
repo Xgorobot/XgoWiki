@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>背景介绍 | Xgo Wiki</title>
+    
+    
+        <meta name="keywords" content="背景介绍" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="背景介绍 1.1 课题背景及研究的目的和意义   近几年，足式机器人的发展受到了世界各国的广泛关注。这是因为，相比于传统的轮式和履带式机器人，足式机器人不需要连续的运动路径。足式机器人的运动轨迹为离散的落足点，能够利用非结构化或崎岖地形中的可支撑地形区域行走，因此对复杂地形的适应能力更强。如图1-1所示，行星崎岖的地表上布满碎石，足式机器人在行星探索上相比于传统轮式机器人具有更大的应用价值和应">
+<meta property="og:type" content="article">
+<meta property="og:title" content="背景介绍">
+<meta property="og:url" content="https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D/index.html">
+<meta property="og:site_name" content="Xgo Wiki">
+<meta property="og:description" content="背景介绍 1.1 课题背景及研究的目的和意义   近几年，足式机器人的发展受到了世界各国的广泛关注。这是因为，相比于传统的轮式和履带式机器人，足式机器人不需要连续的运动路径。足式机器人的运动轨迹为离散的落足点，能够利用非结构化或崎岖地形中的可支撑地形区域行走，因此对复杂地形的适应能力更强。如图1-1所示，行星崎岖的地表上布满碎石，足式机器人在行星探索上相比于传统轮式机器人具有更大的应用价值和应">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D/图1-1.png">
+<meta property="og:image" content="https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D/图1-2.png">
+<meta property="og:image" content="https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D/图1-3.png">
+<meta property="og:image" content="https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D/图1-4.png">
+<meta property="og:image" content="https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D/图1-5.png">
+<meta property="og:image" content="https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D/图1-6.png">
+<meta property="og:image" content="https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D/图1-7.png">
+<meta property="og:image" content="https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D/图1-8.png">
+<meta property="article:published_time" content="2022-03-23T15:04:57.000Z">
+<meta property="article:modified_time" content="2022-08-02T05:41:14.436Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xgorobot.github.io/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D/图1-1.png">
+    
+
+    
+
+    
+        <link rel="icon" href="/XgoWiki/images/xgo_icon45.png" />
+    
+
+    
+<link rel="stylesheet" href="/XgoWiki/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/XgoWiki/libs/open-sans/styles.css">
+
+    
+<link rel="stylesheet" href="/XgoWiki/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/XgoWiki/css/style.css">
+
+    
+<script src="/XgoWiki/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    
+<script src="/XgoWiki/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/XgoWiki/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/XgoWiki/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+<meta name="generator" content="Hexo 5.4.1"><link rel="alternate" href="/XgoWiki/atom.xml" title="Xgo Wiki" type="application/atom+xml">
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/XgoWiki/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Xgo Wiki</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/XgoWiki/">首页</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/XgoWiki/',
+        CONTENT_URL: '/XgoWiki/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/XgoWiki/js/insight.js"></script>
+
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/XgoWiki/">首页</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>分类</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" > 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            1 XGO-Mini Edu
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            二次开发
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/Python%E5%BA%93%E6%96%87%E4%BB%B6/">Python库文件</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/XGO-Mini%20ROS%E5%BC%80%E5%8F%91%E5%8C%85/">ROS开发</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/%E5%BC%80%E5%8F%91%E8%80%85%E6%A8%A1%E5%BC%8F/">开发者模式</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE/">串口通信协议</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            四足机器人背景知识
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E6%AD%A3%E8%BF%90%E5%8A%A8%E5%AD%A6%E5%88%86%E6%9E%90/">正运动学分析</a></li>  <li class="file active"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D/">背景介绍</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E8%B6%B3%E7%AB%AF%E8%BD%A8%E8%BF%B9%E8%A7%84%E5%88%92/">足端轨迹规划</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E9%80%86%E8%BF%90%E5%8A%A8%E5%AD%A6%E5%88%86%E6%9E%90/">逆运动学分析</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            常见问题
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E7%83%A7%E5%BD%95K210%E5%9B%BA%E4%BB%B6%E5%92%8C%E6%9B%B4%E6%96%B0SD%E5%8D%A1%E6%96%87%E4%BB%B6/">如何烧录K210固件和更新SD卡文件</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E7%83%A7%E5%BD%95%E6%9C%BA%E5%99%A8%E7%8B%97%E6%9C%AC%E4%BD%93%E5%9B%BA%E4%BB%B6/">如何烧录机器狗本体固件</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E9%87%8D%E6%96%B0%E6%A0%87%E5%AE%9A%E6%9C%BA%E5%99%A8%E7%8B%97/">如何重新标定机器狗</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            故障排除
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4/XGO%20APP%E8%93%9D%E7%89%99%E8%BF%9E%E6%8E%A5%E4%B8%8D%E4%B8%8A%E6%9C%BA%E5%99%A8%E7%8B%97/">XGO APP蓝牙连接不上机器狗</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4/%E6%9C%BA%E5%99%A8%E7%8B%97%E4%B8%8D%E8%B5%B0%E7%9B%B4%E7%BA%BF/">机器狗不走直线</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/">产品简介</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%8C%85%E8%A3%85%E6%B8%85%E5%8D%95/">包装清单</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E6%80%A7%E8%83%BD%E5%8F%82%E6%95%B0/">性能参数</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E7%A1%AC%E4%BB%B6%E4%BB%8B%E7%BB%8D/">硬件介绍</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8/">快速使用</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E7%BC%96%E7%A8%8B%E5%B9%B3%E5%8F%B0/">编程平台</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E8%93%9D%E7%89%99%E9%81%A5%E6%8E%A7/">蓝牙遥控</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E9%85%8D%E5%A5%97%E8%AF%BE%E7%A8%8B/">配套课程</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            2 XGO-Lite
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/XgoWiki/wiki/2%20XGO-Lite/%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/">产品简介</a></li>  <li class="file"><a href="/XgoWiki/wiki/2%20XGO-Lite/%E5%8C%85%E8%A3%85%E6%B8%85%E5%8D%95/">包装清单</a></li>  <li class="file"><a href="/XgoWiki/wiki/2%20XGO-Lite/%E6%80%A7%E8%83%BD%E5%8F%82%E6%95%B0/">性能参数</a></li>  <li class="file"><a href="/XgoWiki/wiki/2%20XGO-Lite/%E7%A1%AC%E4%BB%B6%E4%BB%8B%E7%BB%8D/">硬件介绍</a></li>  <li class="file"><a href="/XgoWiki/wiki/2%20XGO-Lite/%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8/">快速使用</a></li>  <li class="file"><a href="/XgoWiki/wiki/2%20XGO-Lite/%E7%BC%96%E7%A8%8B%E5%B9%B3%E5%8F%B0%E5%92%8C%E8%AF%BE%E7%A8%8B/">编程平台和课程</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            3 XGO-Ultra
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/XgoWiki/wiki/3%20XGO-Ultra/%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/">产品简介</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/XgoWiki/wiki/Xgo/">Luwu Dynamics</a></li>  <li class="file"><a href="/XgoWiki/wiki/Edit/">编辑指南</a></li>  </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-1 XGO-Mini Edu/四足机器人背景知识/背景介绍" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/XgoWiki/categories/1-XGO-Mini-Edu/">1 XGO-Mini Edu</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/XgoWiki/categories/1-XGO-Mini-Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/">四足机器人背景知识</a>
+    </div>
+
+                        
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D/">
+            <time datetime="2022-03-23T15:04:57.000Z" itemprop="datePublished">2022-03-23</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/Xgorobot/Wiki-site/raw/zh/source/_posts/1 XGO-Mini Edu/四足机器人背景知识/背景介绍.md'> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/Xgorobot/Wiki-site/edit/zh/source/_posts/1 XGO-Mini Edu/四足机器人背景知识/背景介绍.md'> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/Xgorobot/Wiki-site/commits/zh/source/_posts/1 XGO-Mini Edu/四足机器人背景知识/背景介绍.md'> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            背景介绍
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">背景介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%BE%E9%A2%98%E8%83%8C%E6%99%AF%E5%8F%8A%E7%A0%94%E7%A9%B6%E7%9A%84%E7%9B%AE%E7%9A%84%E5%92%8C%E6%84%8F%E4%B9%89"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 课题背景及研究的目的和意义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BD%E5%86%85%E5%A4%96%E5%9C%A8%E8%AF%A5%E6%96%B9%E5%90%91%E7%9A%84%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6%E5%8F%8A%E5%88%86%E6%9E%90"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 国内外在该方向的研究现状及分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.2.1 四足机器人研究现状</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E7%94%B1%E6%AD%A5%E6%80%81%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6"><span class="toc-number">1.2.2.</span> <span class="toc-text">1.2.2自由步态研究现状</span></a></li></ol></li></ol></li></ol>
+                </div>
+            
+        
+        
+            <h1 id="背景介绍">背景介绍</h1>
+<h2 id="课题背景及研究的目的和意义">1.1 课题背景及研究的目的和意义</h2>
+<p>  近几年，足式机器人的发展受到了世界各国的广泛关注。这是因为，相比于传统的轮式和履带式机器人，足式机器人不需要连续的运动路径。足式机器人的运动轨迹为离散的落足点，能够利用非结构化或崎岖地形中的可支撑地形区域行走，因此对复杂地形的适应能力更强。如图1-1所示，行星崎岖的地表上布满碎石，足式机器人在行星探索上相比于传统轮式机器人具有更大的应用价值和应用前景。 <img src="./图1-1.png" alt="图1-1 好奇号周围的火星崎岖地表" style="zoom:50%;" /></p>
+<p>  足式机器人在空间活动中也至关重要，例如在轨维修，大型空间站的在轨装配。空间站舱内外的空间机器人的工作环境是非结构化的非平坦的表面，所以足式机器人可以利用其离散的运动轨迹很好地在空间站舱内外移动。相比于单个机械臂的尺蠖式的移动，多足机器人的移动更加稳定，并且可以在操作的同时调整自身的位置和姿态。</p>
+<p>  常见的足式机器人有双足机器人、四足机器人和六足机器人。四足机器人拥有比双足机器人更好的稳定性，同时具有比六足机器人更灵活的运动性能。因此四足机器人具有好的发展潜力，成为了足式机器人研究中的热点。</p>
+<p>  四足机器人步态规划与控制技术一直是研究的重点，现有的研究中更多地关注了四足机器人的周期性步态，如trot步态和crawl步态等，这些步态的运动周期和摆动腿的顺序固定，这些步态较少地考虑环境因素，一般应用于平坦或地势起伏比较小的地面，不适用于非结构化的崎岖地形。非结构化的崎岖地形，通过一些条件约束，可以等效为一系列离散的落足点的集合。周期性步态无法保证实际的落足点落入该集合内，即无法满足行走于复杂地形。所以人们提出了一种考虑外界环境因素，非周期性的步态——自由步态。</p>
+<p>  自由步态是迈步顺序不固定，步长和迈步方向也不固定的一种非周期步态，自由步态规划中的机器人能够自主根据地形因素、运动学约束和稳定性判据计算出摆动腿及其落足点的位置，可以行走于复杂的非结构环境。因此，为了提高四足机器人的地形适应性。有必要对自由步态规划进行深入研究分析。</p>
+<h2 id="国内外在该方向的研究现状及分析">1.2 国内外在该方向的研究现状及分析</h2>
+<h3 id="四足机器人研究现状">1.2.1 四足机器人研究现状</h3>
+<p>  最早期的四足机器人主要由机械和液压控制，并且需要人工操作。最为典型的是 1968 年美国通用电气公司设计的四足步行机Crawling Truck，见图1-2。 东京工业大学于1976 年研发了四足机器人KUMO-I，见图1-3。KUMO-I是第一台具有自主行走的四足机器人，虽然KUMO-I的四条腿分别有一个电机驱动，但是它拥有一定越障能力，能够在起伏较小的地面上全向移动。 <img src="./图1-2.png" alt="图1-2 四足步行机Crawling Truck" style="zoom:50%;" /></p>
+<p><img src="./图1-3.png" alt="图1-3 四足机器人KUMO-I" style="zoom:50%;" /></p>
+<p>  随着计算机技术和电机技术的快速发展，四足机器人拥有了更加灵巧的驱动关节和算力更强的控制器，可以通过复杂控制算法自主实现多种运动步态。</p>
+<p>  日本电气通讯大学参考了动物运动中神经中枢的反射行为，制了Tekken系列四足机器人，见图1-4。该系列四足机器人采用了基于神经震荡器的中枢模式发生器（Central Pattern Generator）来控制腿的运动。CPG不需要传感器反馈，只根据输入的传感器信号产生节律性运动信号，从而生成对地形自适应的行走步态。 <img src="./图1-4.png" alt="图1-4 Tekken系列四足机器人" style="zoom:50%;" /></p>
+<p>  近年来随着传感器技术和计算机技术的进一步发展，四足机器人搭载了深度摄像头、激光雷达等传感器，拥有了感知周围环境的能力，可以充分利用环境信息进行自主规划，提升地形适应能力。</p>
+<p>自 2005 年以来，美国波士顿动力公司推出了 Big Dog、Cheetah、WildCat 、Spot多款四足机器人，见图1-5。</p>
+<p>  其中Big Dog是世界上第一款真正实现了野外行走的机器人，其通过激光雷达和视觉感知周围环境，将环境转化为可被规划的地图，在此基础上进行路径规划，实现了在复杂坡地上的自主运动。Cheetah猎豹仿生四足机器人在跑步机上可以达到45km/h的速度。仿猫四足机器人WildCat可以高速奔跑情况下灵活转弯。Spotmini四足仿生机器人体型小巧，质量仅约30kg，还可以搭载机械臂，完成自主作业。 <img src="./图1-5.png" alt="图1-5 波士顿动力公司研发的多款四足机器人" style="zoom:50%;" /></p>
+<p>  国内的四足机器人研究起步较晚，但是仍有一些比较突出的成果。杭州宇树科技研发的四足机器人A1，具有较高的功率质量密度比，能够在草地、坡面、松软小石块路面进行自适应行走，还可以实现后空翻，见图1-6。浙江大学研制的四足机器人“绝影”载重可达到 20kg，走速度为每小时 6km。见图1-7。“绝影”在外力的干扰下可以用小碎步调整姿态。 <img src="./图1-6.png" alt="图1-6 四足机器人A1正在后空翻" style="zoom:50%;" /></p>
+<p><img src="./图1-7.png" alt="图1-7四足机器人“绝影”" style="zoom:50%;" /></p>
+<p>  目前国内四足机器人团队和公司更多关注于四足机器人的关节驱动、负载能力和运动性能上，对于四足机器人的环境感知，自主步态规划研究较少。</p>
+<h3 id="自由步态研究现状">1.2.2自由步态研究现状</h3>
+<p>  自由步态是一种根据地形信息和自身状态进行实时调整的智能化步态。自由步态分为两大类，分别为基于规则的和基于搜索的。</p>
+<p>  早期的自由步态规划大多是基于规则的，这种规划根据四足机器人当前重心、四条腿的足端位置、地形条件等信息，通过一组规则，规划下一步机器人的移动。</p>
+<p>  例如Hirose将地形分为可行区域和禁行区域，设计了基于周期性静步态的自由步态。Kumar和Waldron提出了一种改进的波形步态，提升了四足机器人的自主适应能力。该步态下，四足机器人可以根据当前的落足点自主调整之后的步态。但是这些基于规则的方法并未能考虑到全局地形信息，所以机器人在多步运动之后无法找到满足规则的下一步运动，，即陷入了“卡死”状态。</p>
+<p>  此后，Pal和Jayarajan K. 为了规避机器人出现“卡死”状态，提出了基于图搜索过程的局部最优自由步态规划，但约束过于简化，难以运用于实际场景。Pack D J和Kang H提出了一种基于搜索算法的全局步态规划，但是由于全局的规划空间过大，图搜索算法计算量太大，不适合于实时规划。</p>
+<p>  随着传感器技术的发展和计算机算力的提升，自由步态规划发生了巨大的变化。Kolter 等 LittleDog 的相关研究人员在他们发表的论文中较详细地介绍了一个完整的四足机器人的控制系统的框架结构，这个结构包括了高层规划器、低层规划器和低层执行控制器总共三层控制结构。高层规划器负责从三维地形栅格地图信息中，提取出能够供机器人落足的点集，采用专家示教方法为每个落足点打分。低层规划器在移动路径附近搜索代价最小或评价值最高的最佳落足点集。低层执行器完成最基础的运动控制。如图1-8，这种自由步态规划让LittleDog拥有强大的地形适应能力，可以通过复杂崎岖的地形。 <img src="./图1-8.png" alt="图1-8 LittleDog利用自由步态通过梅花桩" style="zoom:50%;" /></p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E6%AD%A3%E8%BF%90%E5%8A%A8%E5%AD%A6%E5%88%86%E6%9E%90/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    正运动学分析
+                
+            </div>
+        </a>
+    
+    
+        <a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E8%B6%B3%E7%AB%AF%E8%BD%A8%E8%BF%B9%E8%A7%84%E5%88%92/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">足端轨迹规划</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            Xgo Wiki &copy; 2022 
+            <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a target="_blank" rel="noopener" href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+            
+                <br>
+                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                &nbsp;|&nbsp;
+                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+            
+        </div>
+    </div>
+</footer>
+
+        
+
+    
+        
+<script src="/XgoWiki/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/XgoWiki/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/XgoWiki/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/XgoWiki/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/XgoWiki/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/XgoWiki/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/XgoWiki/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/XgoWiki/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/XgoWiki/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/XgoWiki/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/XgoWiki/js/main.js"></script>
+
+
+    </div>
+</body>
+</html>

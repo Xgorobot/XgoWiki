@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>性能参数 | Xgo Wiki</title>
+    
+    
+        <meta name="keywords" content="性能参数" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="功能描述  可实现AI边缘计算图形化编程，例如人脸检测，物体分类，语音识别等常用程序。 可实现全向移动，六维姿态控制，多种运动步态及运动叠加，内置九轴陀螺仪，可保持身体自平衡。 产品配套专属的电脑端图形化编程平台，内嵌常用例程。 伺服舵机具有关节角度回读功能，可用于示教编程。  平台特性  IMU姿势自稳--通过IMU获得的姿态数据，采用闭环控制的方式，无论平面如何晃动，机器狗都">
+<meta property="og:type" content="article">
+<meta property="og:title" content="性能参数">
+<meta property="og:url" content="https://xgorobot.github.io/XgoWiki/wiki/2%20XGO-Lite/%E6%80%A7%E8%83%BD%E5%8F%82%E6%95%B0/index.html">
+<meta property="og:site_name" content="Xgo Wiki">
+<meta property="og:description" content="功能描述  可实现AI边缘计算图形化编程，例如人脸检测，物体分类，语音识别等常用程序。 可实现全向移动，六维姿态控制，多种运动步态及运动叠加，内置九轴陀螺仪，可保持身体自平衡。 产品配套专属的电脑端图形化编程平台，内嵌常用例程。 伺服舵机具有关节角度回读功能，可用于示教编程。  平台特性  IMU姿势自稳--通过IMU获得的姿态数据，采用闭环控制的方式，无论平面如何晃动，机器狗都">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xgorobot.github.io/XgoWiki/wiki/2%20XGO-Lite/%E6%80%A7%E8%83%BD%E5%8F%82%E6%95%B0/CE.jpg">
+<meta property="og:image" content="https://xgorobot.github.io/XgoWiki/wiki/2%20XGO-Lite/%E6%80%A7%E8%83%BD%E5%8F%82%E6%95%B0/rohs.jpg">
+<meta property="article:published_time" content="2022-02-12T15:45:57.000Z">
+<meta property="article:modified_time" content="2022-08-02T05:41:14.781Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xgorobot.github.io/XgoWiki/wiki/2%20XGO-Lite/%E6%80%A7%E8%83%BD%E5%8F%82%E6%95%B0/CE.jpg">
+    
+
+    
+
+    
+        <link rel="icon" href="/XgoWiki/images/xgo_icon45.png" />
+    
+
+    
+<link rel="stylesheet" href="/XgoWiki/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/XgoWiki/libs/open-sans/styles.css">
+
+    
+<link rel="stylesheet" href="/XgoWiki/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/XgoWiki/css/style.css">
+
+    
+<script src="/XgoWiki/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    
+<script src="/XgoWiki/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/XgoWiki/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/XgoWiki/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+<meta name="generator" content="Hexo 5.4.1"><link rel="alternate" href="/XgoWiki/atom.xml" title="Xgo Wiki" type="application/atom+xml">
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/XgoWiki/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Xgo Wiki</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/XgoWiki/">首页</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/XgoWiki/',
+        CONTENT_URL: '/XgoWiki/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/XgoWiki/js/insight.js"></script>
+
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/XgoWiki/">首页</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>分类</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            1 XGO-Mini Edu
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            二次开发
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/Python%E5%BA%93%E6%96%87%E4%BB%B6/">Python库文件</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/XGO-Mini%20ROS%E5%BC%80%E5%8F%91%E5%8C%85/">ROS开发</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/%E5%BC%80%E5%8F%91%E8%80%85%E6%A8%A1%E5%BC%8F/">开发者模式</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE/">串口通信协议</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            四足机器人背景知识
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E6%AD%A3%E8%BF%90%E5%8A%A8%E5%AD%A6%E5%88%86%E6%9E%90/">正运动学分析</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D/">背景介绍</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E8%B6%B3%E7%AB%AF%E8%BD%A8%E8%BF%B9%E8%A7%84%E5%88%92/">足端轨迹规划</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86/%E9%80%86%E8%BF%90%E5%8A%A8%E5%AD%A6%E5%88%86%E6%9E%90/">逆运动学分析</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            常见问题
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E7%83%A7%E5%BD%95K210%E5%9B%BA%E4%BB%B6%E5%92%8C%E6%9B%B4%E6%96%B0SD%E5%8D%A1%E6%96%87%E4%BB%B6/">如何烧录K210固件和更新SD卡文件</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E7%83%A7%E5%BD%95%E6%9C%BA%E5%99%A8%E7%8B%97%E6%9C%AC%E4%BD%93%E5%9B%BA%E4%BB%B6/">如何烧录机器狗本体固件</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/%E5%A6%82%E4%BD%95%E9%87%8D%E6%96%B0%E6%A0%87%E5%AE%9A%E6%9C%BA%E5%99%A8%E7%8B%97/">如何重新标定机器狗</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            故障排除
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4/XGO%20APP%E8%93%9D%E7%89%99%E8%BF%9E%E6%8E%A5%E4%B8%8D%E4%B8%8A%E6%9C%BA%E5%99%A8%E7%8B%97/">XGO APP蓝牙连接不上机器狗</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4/%E6%9C%BA%E5%99%A8%E7%8B%97%E4%B8%8D%E8%B5%B0%E7%9B%B4%E7%BA%BF/">机器狗不走直线</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/">产品简介</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%8C%85%E8%A3%85%E6%B8%85%E5%8D%95/">包装清单</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E6%80%A7%E8%83%BD%E5%8F%82%E6%95%B0/">性能参数</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E7%A1%AC%E4%BB%B6%E4%BB%8B%E7%BB%8D/">硬件介绍</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8/">快速使用</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E7%BC%96%E7%A8%8B%E5%B9%B3%E5%8F%B0/">编程平台</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E8%93%9D%E7%89%99%E9%81%A5%E6%8E%A7/">蓝牙遥控</a></li>  <li class="file"><a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E9%85%8D%E5%A5%97%E8%AF%BE%E7%A8%8B/">配套课程</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            2 XGO-Lite
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/XgoWiki/wiki/2%20XGO-Lite/%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/">产品简介</a></li>  <li class="file"><a href="/XgoWiki/wiki/2%20XGO-Lite/%E5%8C%85%E8%A3%85%E6%B8%85%E5%8D%95/">包装清单</a></li>  <li class="file active"><a href="/XgoWiki/wiki/2%20XGO-Lite/%E6%80%A7%E8%83%BD%E5%8F%82%E6%95%B0/">性能参数</a></li>  <li class="file"><a href="/XgoWiki/wiki/2%20XGO-Lite/%E7%A1%AC%E4%BB%B6%E4%BB%8B%E7%BB%8D/">硬件介绍</a></li>  <li class="file"><a href="/XgoWiki/wiki/2%20XGO-Lite/%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8/">快速使用</a></li>  <li class="file"><a href="/XgoWiki/wiki/2%20XGO-Lite/%E7%BC%96%E7%A8%8B%E5%B9%B3%E5%8F%B0%E5%92%8C%E8%AF%BE%E7%A8%8B/">编程平台和课程</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            3 XGO-Ultra
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/XgoWiki/wiki/3%20XGO-Ultra/%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/">产品简介</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/XgoWiki/wiki/Xgo/">Luwu Dynamics</a></li>  <li class="file"><a href="/XgoWiki/wiki/Edit/">编辑指南</a></li>  </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-2 XGO-Lite/性能参数" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/XgoWiki/categories/2-XGO-Lite/">2 XGO-Lite</a>
+    </div>
+
+                        
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/XgoWiki/wiki/2%20XGO-Lite/%E6%80%A7%E8%83%BD%E5%8F%82%E6%95%B0/">
+            <time datetime="2022-02-12T15:45:57.000Z" itemprop="datePublished">2022-02-12</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/Xgorobot/Wiki-site/raw/zh/source/_posts/2 XGO-Lite/性能参数.md'> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/Xgorobot/Wiki-site/edit/zh/source/_posts/2 XGO-Lite/性能参数.md'> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/Xgorobot/Wiki-site/commits/zh/source/_posts/2 XGO-Lite/性能参数.md'> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            性能参数
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">功能描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B3%E5%8F%B0%E7%89%B9%E6%80%A7"><span class="toc-number">2.</span> <span class="toc-text">平台特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0"><span class="toc-number">3.</span> <span class="toc-text">配置参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%80%E6%9C%AF%E5%8F%82%E6%95%B0"><span class="toc-number">4.</span> <span class="toc-text">技术参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E6%9C%BA%E5%8F%82%E6%95%B0"><span class="toc-number">4.1.</span> <span class="toc-text">整机参数:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%88%B5%E6%9C%BA%E5%8F%82%E6%95%B0"><span class="toc-number">4.2.</span> <span class="toc-text">舵机参数:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ai%E6%A8%A1%E7%BB%84"><span class="toc-number">4.3.</span> <span class="toc-text">AI模组：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B5%E6%BA%90%E7%B3%BB%E7%BB%9F"><span class="toc-number">4.4.</span> <span class="toc-text">电源系统：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B5%84%E8%B4%A8%E8%AF%81%E4%B9%A6"><span class="toc-number">5.</span> <span class="toc-text">资质证书</span></a></li></ol>
+                </div>
+            
+        
+        
+            <h2 id="功能描述">功能描述</h2>
+<ul>
+<li>可实现AI边缘计算图形化编程，例如人脸检测，物体分类，语音识别等常用程序。</li>
+<li>可实现全向移动，六维姿态控制，多种运动步态及运动叠加，内置九轴陀螺仪，可保持身体自平衡。</li>
+<li>产品配套专属的电脑端图形化编程平台，内嵌常用例程。</li>
+<li>伺服舵机具有关节角度回读功能，可用于示教编程。</li>
+</ul>
+<h2 id="平台特性">平台特性</h2>
+<ul>
+<li>IMU姿势自稳--通过IMU获得的姿态数据，采用闭环控制的方式，无论平面如何晃动，机器狗都保持稳定。</li>
+<li>整机六自由度姿态控制--足尖不动的情况下，实现身体六个自由度的运动控制。</li>
+<li>IMU姿势柔顺--通过IMU获得的姿态数据，闭环控制实现机器狗可以实适应外力，调整到手掰动的目标姿态，实现示教功能。</li>
+<li>用户通讯与二次编程接口--开放底层串口协议，用于二次开发和验证。</li>
+<li>运动步态规划--机器狗低中高三种姿势匹配三种速度，采用不同的步态策略和规划算法</li>
+<li>运动学与动力学仿真接口--在ros环境下，在rviz和gazebo平台上进行运动学与动力学仿真。</li>
+<li>全向运动控制--由于具有12个主动关节，通过运动学解耦实现机器狗前进平移转动全向运动，并支持多个方向的运动叠加。</li>
+<li>人工智能--机器视觉，人脸识别，语音识别，模行训练等AI功能。</li>
+</ul>
+<h2 id="配置参数">配置参数</h2>
+<ul>
+<li>机器狗套件包含12个总线舵机；AI模组；机器狗驱动和钣金件；电源适配器 1个。</li>
+<li>机器狗零件材质为铝合金材质，阳极氧化上色，安全无毒。</li>
+<li>定制串口总线伺服舵机，可实现精准动作的控制及表达。</li>
+<li>配套完整的课程体系，包含教学PPT，教师教案，例程以及PC端编程平台。</li>
+</ul>
+<h2 id="技术参数">技术参数</h2>
+<h3 id="整机参数">整机参数:</h3>
+<ul>
+<li>型号：XGO-lite 2</li>
+<li>尺寸：默认站姿长23cm宽14cm高17cm</li>
+<li>重量：600g</li>
+<li>材质：身体为航空铝材，腿为ABS工程塑料</li>
+</ul>
+<h3 id="舵机参数">舵机参数:</h3>
+<ul>
+<li>型号：总线串口舵机</li>
+<li>输出扭矩：2.3KG•CM；</li>
+<li>转速（S/60°）：0.11 S/60°；</li>
+<li>工作电压范围：4.8V～7.4V</li>
+<li>工作温度：-20℃～ +60℃；</li>
+<li>角度范围：0-270°；</li>
+<li>重量：13±1g。</li>
+<li>马达类型：铁芯</li>
+</ul>
+<h3 id="ai模组">AI模组：</h3>
+<ul>
+<li>树莓派CM4模组</li>
+</ul>
+<h3 id="电源系统">电源系统：</h3>
+<ul>
+<li>充电器输入电压：100-240V AC 50/60Hz；</li>
+<li>充电器输出电压：8.4V；</li>
+<li>充电器输出电流：1A，具有过流保护特性，防止过充爆炸。</li>
+<li>电池：18650标准2500毫安3C放电</li>
+</ul>
+<h2 id="资质证书">资质证书</h2>
+<ul>
+<li>产品通过CE和ROHS认证、并获得相关软件著作权证书及专利证书。 <img src="./CE.jpg" alt="CE证书" /> <img src="./rohs.jpg" alt="RoHS证书" /></li>
+</ul>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E6%80%A7%E8%83%BD%E5%8F%82%E6%95%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    性能参数
+                
+            </div>
+        </a>
+    
+    
+        <a href="/XgoWiki/wiki/1%20XGO-Mini%20Edu/%E5%8C%85%E8%A3%85%E6%B8%85%E5%8D%95/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">包装清单</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            Xgo Wiki &copy; 2022 
+            <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a target="_blank" rel="noopener" href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+            
+                <br>
+                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                &nbsp;|&nbsp;
+                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+            
+        </div>
+    </div>
+</footer>
+
+        
+
+    
+        
+<script src="/XgoWiki/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/XgoWiki/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/XgoWiki/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/XgoWiki/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/XgoWiki/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/XgoWiki/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/XgoWiki/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/XgoWiki/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/XgoWiki/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/XgoWiki/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/XgoWiki/js/main.js"></script>
+
+
+    </div>
+</body>
+</html>
